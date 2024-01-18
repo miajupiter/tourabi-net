@@ -12,5 +12,4 @@ services:
       HTTP_PORT: 3001
       API_URI: https://api.tourabi.net/api/v1
 
-volumes:
-
+# volumes:
