@@ -2,9 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    appDir: true,
-  },
+  appDir: true,
   publicRuntimeConfig: {
     // Will be available on both server and client
     staticFolder: "/static",
