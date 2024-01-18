@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  # WEB APP 
+  webapp:
+    container_name: tourabi-net
+    build: .
+    ports:
+      - 8512:8502
+    environment:
+      HTTP_PORT: 8502
+      MONGODB_URI: mongodb://mongo_db:27017/tourabidb
+
+volumes:
+  mongo_data:
