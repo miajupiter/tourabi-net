@@ -18,8 +18,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
     name: "Georgia Tours",
     taxonomy: "category",
     count: 188288,
-    // thumbnail: "https://images.pexels.com/photos/5764100/pexels-photo-5764100.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-    thumbnail: "/img/tours/georgia-tours-georgia-tour-3-tbilisi3.jpg",
+    thumbnail: "https://miajupiter.com/media/tour-img01/georgia-tours-georgia-tour-3-tbilisi3.jpg",
   },
   {
     id: "222",
@@ -27,8 +26,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
     name: "Kazakhstan Weekend Tours Kolsay Lakes",
     taxonomy: "category",
     count: 188288,
-    thumbnail:'/img/tours/kazakhstan-tours-weekend-tour-1-kolsay-lakes.jpg',
-    // thumbnail: "https://images.pexels.com/photos/2869499/pexels-photo-2869499.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    thumbnail:'https://miajupiter.com/media/tour-img01/kazakhstan-tours-weekend-tour-1-kolsay-lakes.jpg',
   },
   {
     id: "3",
@@ -36,8 +34,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
     name: "Sevanavank - Caucasus Group Tour",
     taxonomy: "category",
     count: 188288,
-    thumbnail:'/img/tours/tours-caucasus-group-tour-sevanavank4.jpg',
-    // thumbnail: "https://images.pexels.com/photos/7031413/pexels-photo-7031413.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    thumbnail:'https://miajupiter.com/media/tour-img01/tours-caucasus-group-tour-sevanavank4.jpg',
   },
   {
     id: "4",
@@ -45,8 +42,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
     name: "Uzbekistan-Tajikistan Tour",
     taxonomy: "category",
     count: 188288,
-    thumbnail:'/img/tours/uzbekistan-tours-uzbekistan-tajikistan-tour-1-bukhara2.jpg',
-    // thumbnail: "https://images.pexels.com/photos/247532/pexels-photo-247532.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    thumbnail:'https://miajupiter.com/media/tour-img01/uzbekistan-tours-uzbekistan-tajikistan-tour-1-bukhara2.jpg',
   },
   {
     id: "5",
@@ -54,9 +50,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
     name: "Silk Road Group Tour",
     taxonomy: "category",
     count: 188288,
-    thumbnail:'/img/tours/tours-silk-road-group-tour-ararat1.jpg'
-    // thumbnail:
-    //   "https://images.pexels.com/photos/7031413/pexels-photo-7031413.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    thumbnail:'https://miajupiter.com/media/tour-img01/tours-silk-road-group-tour-ararat1.jpg'
   },
 ]
 
