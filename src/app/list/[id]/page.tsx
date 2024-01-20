@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, Fragment, useState } from 'react'
+import React, { FC, Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ArrowRightIcon, Squares2X2Icon } from '@heroicons/react/24/outline'
 import CommentListing from '@/components/CommentListing'
@@ -14,23 +14,88 @@ import ButtonSecondary from '@/shared/ButtonSecondary'
 import ButtonClose from '@/shared/ButtonClose'
 import Input from '@/shared/Input'
 import LikeSaveBtns from '@/components/LikeSaveBtns'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { Amenities_demos, PHOTOS } from './constant'
 import StayDatesRangeInput from '../DatesRangeInput'
 import GuestsInput from '../GuestsInput'
 import SectionDateRange from './SectionDateRange'
 import { Route } from 'next'
+import PlaceHolder from '@/images/placeholder-large.png'
+import PlaceHolderSmall from '@/images/placeholder-small.png'
+import { useMDXComponents, MDXProvider } from '@mdx-js/react'
 
-export interface ListingStayDetailPageProps { }
+export interface PageDetailProps {
+  params: { id: string }
+}
 
-const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({ }) => {
-  //
+export interface TourItemType {
+  id: string
+  title: string
+  description: string
+  duration: number
+  places: string
+  images: StaticImageData[] | []
+  priceTable: []
+  travelPlan: []
+  currency: string
+  price?: number
+  singleSupplement: number
+  inclusions: string
+  exclusions: string
+
+}
+
+
+const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } }) => {
+
 
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false)
 
   const thisPathname = usePathname()
   const router = useRouter()
+  const [item, setItem] = useState<TourItemType>()
+  const [pullData, setPullData] = useState(false)
+
+  const getItem = async (itemId: string) => {
+
+    const ret = await fetch(`/api/tours/${itemId}`)
+    const result = await ret.json()
+
+    if (result.success && result.data) {
+      var res = result.data as TourItemType
+      var tour = {
+        id: res.id,
+        title: res.title,
+        description: res.description,
+        duration: res.duration,
+        places: res.places,
+        currency: res.currency,
+        price: res.price,
+        singleSupplement: res.singleSupplement,
+        priceTable: res.priceTable,
+        travelPlan: res.travelPlan,
+        inclusions: res.inclusions,
+        exclusions: res.exclusions,
+        images: res.images,
+      } as TourItemType
+      setItem(tour)
+      console.log('result.data', result.data as TourItemType)
+      console.log('tour', tour)
+    }
+    setPullData(true)
+  }
+
+  // if (!pullData) {
+  //   getItem(params.id)
+  // }
+
+  useEffect(function () {
+    if (!pullData) {
+      getItem(params.id)
+      console.log('item', item)
+    }
+  }, [])
 
   function closeModalAmenities() {
     setIsOpenModalAmenities(false)
@@ -45,31 +110,33 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({ }) => {
   }
 
   const renderSection1 = () => {
+
     return (
       <div className='listingSection__wrap !space-y-6'>
         {/* 1 */}
         <div className='flex justify-between items-center'>
-          <Badge name='Wooden house' />
+          <Badge name={'qwerty'} />
           <LikeSaveBtns />
         </div>
 
         {/* 2 */}
-        <h2 className='text-2xl sm:text-3xl lg:text-4xl font-semibold'>
-          Beach House in Collingwood
+        <h2 className='text-2xl sm:text-3xl lg:text-3xl font-semibold'>
+          {item && item.title} {` `}
+          {!item && <div className='stripe medium-stripe lazy-loading ' style={{ height: '40px' }}>{` `}</div>}
         </h2>
 
         {/* 3 */}
         <div className='flex items-center space-x-4'>
-          <StartRating />
+          <StartRating point={4.9} reviewCount={216} />
           <span>·</span>
           <span>
-            <i className='las la-map-marker-alt'></i>
-            <span className='ml-1'> Tokyo, Jappan</span>
+            <i className='las la-map'></i>
+            <span className='ml-1'>{` `} {item && item.places}</span>
           </span>
         </div>
 
         {/* 4 */}
-        <div className='flex items-center'>
+        {/* <div className='flex items-center'>
           <Avatar hasChecked sizeClass='h-10 w-10' radius='rounded-full' />
           <span className='ml-2.5 text-neutral-500 dark:text-neutral-400'>
             Hosted by{' '}
@@ -77,7 +144,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({ }) => {
               Kevin Francis
             </span>
           </span>
-        </div>
+        </div> */}
 
         {/* 5 */}
         <div className='w-full border-b border-neutral-100 dark:border-neutral-700' />
@@ -85,15 +152,16 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({ }) => {
         {/* 6 */}
         <div className='flex items-center justify-between xl:justify-start space-x-8 xl:space-x-12 text-sm text-neutral-700 dark:text-neutral-300'>
           <div className='flex items-center space-x-3 '>
-            <i className=' las la-user text-2xl '></i>
+            <i className=' las la-sun text-2xl '></i>
             <span className=''>
-              6 <span className='hidden sm:inline-block'>guests</span>
+              {item && item.duration} <span className='hidden sm:inline-block'>days</span>
             </span>
           </div>
           <div className='flex items-center space-x-3'>
-            <i className=' las la-bed text-2xl'></i>
+            {/* <i className=' las la-map-marker-alt text-2xl'></i> */}
+            <i className=' las la-map text-2xl'></i>
             <span className=' '>
-              6 <span className='hidden sm:inline-block'>beds</span>
+              {item && item.places.split(',').length} <span className='hidden sm:inline-block'>places</span>
             </span>
           </div>
           <div className='flex items-center space-x-3'>
@@ -102,148 +170,145 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({ }) => {
               3 <span className='hidden sm:inline-block'>baths</span>
             </span>
           </div>
-          <div className='flex items-center space-x-3'>
+          {/* <div className='flex items-center space-x-3'>
             <i className=' las la-door-open text-2xl'></i>
             <span className=' '>
               2 <span className='hidden sm:inline-block'>bedrooms</span>
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
     )
   }
 
-  const renderSection2 = () => {
+  const renderDescription = () => {
+
     return (
       <div className='listingSection__wrap'>
-        <h2 className='text-2xl font-semibold'>Stay information</h2>
+        <h2 className='text-2xl font-semibold'>{item && item.title || '...'}</h2>
         <div className='w-14 border-b border-neutral-200 dark:border-neutral-700'></div>
         <div className='text-neutral-6000 dark:text-neutral-300'>
-          <span>
-            Providing lake views, The Symphony 9 Tam Coc in Ninh Binh provides
-            accommodation, an outdoor swimming pool, a bar, a shared lounge, a
-            garden and barbecue facilities. Complimentary WiFi is provided.
-          </span>
-          <br />
-          <br />
-          <span>
-            There is a private bathroom with bidet in all units, along with a
-            hairdryer and free toiletries.
-          </span>
-          <br /> <br />
-          <span>
-            The Symphony 9 Tam Coc offers a terrace. Both a bicycle rental
-            service and a car rental service are available at the accommodation,
-            while cycling can be enjoyed nearby.
-          </span>
+
+          {item && item.description || <p>loading...</p>}
+
         </div>
       </div>
     )
   }
 
-  const renderSection3 = () => {
+  const travelPlanStep = (plan: any, index: number) => (
+      <div className={`flex-grow p-3 rounded-lg ${index%2==1?' bg-slate-400 dark:bg-[#1f273a]':''}`}>
+        <div className="flex justify-between space-x-3">
+          <div className="flex flex-col">
+            <div className="text-sm font-bold">
+              {plan.title.split(',')[1] && plan.title.split(',')[1]}
+            </div>
+            {/* <span className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
+              subtitle
+            </span> */}
+          </div>
+          <div className="flex text-yellow-500">
+            {plan.title.split(',')[0]}
+          </div>
+        </div>
+        <span className="block mt-3 mb-5 text-neutral-6000 dark:text-neutral-300">
+          {plan.description}
+        </span>
+      </div>
+  )
+
+  const renderTravelPlan = () => {
     return (
       <div className='listingSection__wrap'>
         <div>
-          <h2 className='text-2xl font-semibold'>Amenities </h2>
-          <span className='block mt-2 text-neutral-500 dark:text-neutral-400'>
+          <h2 className='text-2xl font-semibold'>Travel Plan </h2>
+          {/* <span className='block mt-2 text-neutral-500 dark:text-neutral-400'>
             {` About the property's amenities and services`}
-          </span>
+          </span> */}
         </div>
         <div className='w-14 border-b border-neutral-200 dark:border-neutral-700'></div>
-        {/* 6 */}
-        <div className='grid grid-cols-1 xl:grid-cols-3 gap-6 text-sm text-neutral-700 dark:text-neutral-300 '>
-          {Amenities_demos.filter((_, i) => i < 12).map((item) => (
-            <div key={item.name} className='flex items-center space-x-3'>
-              <i className={`text-3xl las ${item.icon}`}></i>
-              <span className=' '>{item.name}</span>
-            </div>
-          ))}
+
+        {/* <div className='grid grid-cols-1 xl:grid-cols-3 gap-6 text-sm text-neutral-700 dark:text-neutral-300 '> */}
+        <div className='text-sm text-neutral-700 dark:text-neutral-300 '>
+          {item && item.travelPlan.map((e: any, index) => travelPlanStep(e, index))}
+
         </div>
 
-        {/* ----- */}
-        <div className='w-14 border-b border-neutral-200'></div>
-        <div>
-          <ButtonSecondary onClick={openModalAmenities}>
-            View more 20 amenities
-          </ButtonSecondary>
-        </div>
-        {renderMotalAmenities()}
       </div>
     )
   }
 
-  const renderMotalAmenities = () => {
-    return (
-      <Transition appear show={isOpenModalAmenities} as={Fragment}>
-        <Dialog
-          as='div'
-          className='fixed inset-0 z-50 overflow-y-auto'
-          onClose={closeModalAmenities}
-        >
-          <div className='min-h-screen px-4 text-center'>
-            <Transition.Child
-              as={Fragment}
-              enter='ease-out duration-300'
-              enterFrom='opacity-0'
-              enterTo='opacity-100'
-              leave='ease-in duration-200'
-              leaveFrom='opacity-100'
-              leaveTo='opacity-0'
-            >
-              <Dialog.Overlay className='fixed inset-0 bg-black bg-opacity-40' />
-            </Transition.Child>
+  // const renderMotalAmenities = () => {
+  //   return (
+  //     <Transition appear show={isOpenModalAmenities} as={Fragment}>
+  //       <Dialog
+  //         as='div'
+  //         className='fixed inset-0 z-50 overflow-y-auto'
+  //         onClose={closeModalAmenities}
+  //       >
+  //         <div className='min-h-screen px-4 text-center'>
+  //           <Transition.Child
+  //             as={Fragment}
+  //             enter='ease-out duration-300'
+  //             enterFrom='opacity-0'
+  //             enterTo='opacity-100'
+  //             leave='ease-in duration-200'
+  //             leaveFrom='opacity-100'
+  //             leaveTo='opacity-0'
+  //           >
+  //             <Dialog.Overlay className='fixed inset-0 bg-black bg-opacity-40' />
+  //           </Transition.Child>
 
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className='inline-block h-screen align-middle'
-              aria-hidden='true'
-            >
-              &#8203;
-            </span>
-            <Transition.Child
-              as={Fragment}
-              enter='ease-out duration-300'
-              enterFrom='opacity-0 scale-95'
-              enterTo='opacity-100 scale-100'
-              leave='ease-in duration-200'
-              leaveFrom='opacity-100 scale-100'
-              leaveTo='opacity-0 scale-95'
-            >
-              <div className='inline-block py-8 h-screen w-full max-w-4xl'>
-                <div className='inline-flex pb-2 flex-col w-full text-left align-middle transition-all transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 shadow-xl h-full'>
-                  <div className='relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center'>
-                    <h3
-                      className='text-lg font-medium leading-6 text-gray-900'
-                      id='headlessui-dialog-title-70'
-                    >
-                      Amenities
-                    </h3>
-                    <span className='absolute left-3 top-3'>
-                      <ButtonClose onClick={closeModalAmenities} />
-                    </span>
-                  </div>
-                  <div className='px-8 overflow-auto text-neutral-700 dark:text-neutral-300 divide-y divide-neutral-200'>
-                    {Amenities_demos.filter((_, i) => i < 1212).map((item) => (
-                      <div
-                        key={item.name}
-                        className='flex items-center py-2.5 sm:py-4 lg:py-5 space-x-5 lg:space-x-8'
-                      >
-                        <i
-                          className={`text-4xl text-neutral-6000 las ${item.icon}`}
-                        ></i>
-                        <span>{item.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
-    )
-  }
+  //           {/* This element is to trick the browser into centering the modal contents. */}
+  //           <span
+  //             className='inline-block h-screen align-middle'
+  //             aria-hidden='true'
+  //           >
+  //             &#8203;
+  //           </span>
+  //           <Transition.Child
+  //             as={Fragment}
+  //             enter='ease-out duration-300'
+  //             enterFrom='opacity-0 scale-95'
+  //             enterTo='opacity-100 scale-100'
+  //             leave='ease-in duration-200'
+  //             leaveFrom='opacity-100 scale-100'
+  //             leaveTo='opacity-0 scale-95'
+  //           >
+  //             <div className='inline-block py-8 h-screen w-full max-w-4xl'>
+  //               <div className='inline-flex pb-2 flex-col w-full text-left align-middle transition-all transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 shadow-xl h-full'>
+  //                 <div className='relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center'>
+  //                   <h3
+  //                     className='text-lg font-medium leading-6 text-gray-900'
+  //                     id='headlessui-dialog-title-70'
+  //                   >
+  //                     Amenities
+  //                   </h3>
+  //                   <span className='absolute left-3 top-3'>
+  //                     <ButtonClose onClick={closeModalAmenities} />
+  //                   </span>
+  //                 </div>
+  //                 <div className='px-8 overflow-auto text-neutral-700 dark:text-neutral-300 divide-y divide-neutral-200'>
+  //                   {Amenities_demos.filter((_, i) => i < 1212).map((item) => (
+  //                     <div
+  //                       key={item.name}
+  //                       className='flex items-center py-2.5 sm:py-4 lg:py-5 space-x-5 lg:space-x-8'
+  //                     >
+  //                       <i
+  //                         className={`text-4xl text-neutral-6000 las ${item.icon}`}
+  //                       ></i>
+  //                       <span>{item.name}</span>
+  //                     </div>
+  //                   ))}
+  //                 </div>
+  //               </div>
+  //             </div>
+  //           </Transition.Child>
+  //         </div>
+  //       </Dialog>
+  //     </Transition>
+  //   )
+  // }
 
   const renderSection4 = () => {
     return (
@@ -388,7 +453,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({ }) => {
     )
   }
 
-  const renderSection6 = () => {
+  const renderReviews = () => {
     return (
       <div className='listingSection__wrap'>
         {/* HEADING */}
@@ -512,14 +577,16 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({ }) => {
   }
 
   const renderSidebar = () => {
+    const fiyat = item && (item.price || 0) || 0
+    const pBirim = item && item.currency || ''
     return (
       <div className='listingSectionSidebar__wrap shadow-xl'>
         {/* PRICE */}
         <div className='flex justify-between'>
           <span className='text-3xl font-semibold'>
-            $119
+            {fiyat > 0 && <span>{fiyat}<small>{pBirim}</small></span>}
             <span className='ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400'>
-              /night
+              {item && item.duration + ' Days'}
             </span>
           </span>
           <StartRating />
@@ -533,7 +600,7 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({ }) => {
         </form>
 
         {/* SUM */}
-        <div className='flex flex-col space-y-4'>
+        {/* <div className='flex flex-col space-y-4'>
           <div className='flex justify-between text-neutral-6000 dark:text-neutral-300'>
             <span>$119 x 3 night</span>
             <span>$357</span>
@@ -547,55 +614,73 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({ }) => {
             <span>Total</span>
             <span>$199</span>
           </div>
-        </div>
+        </div> */}
 
         {/* SUBMIT */}
-        <ButtonPrimary href={'/checkout'}>Reserve</ButtonPrimary>
-      </div>
+        <ButtonPrimary href={'/checkout'}>Buy</ButtonPrimary>
+      </div >
     )
   }
 
-  return (
-    <div className='nc-ListingStayDetailPage'>
-      {/*  HEADER */}
+  const renderHeader = () => {
+    // <div key={key} className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? 'hidden sm:block' : ''}`} >
+    const SmallImage = ({ index, itemSrc }: { index: number, itemSrc: string }) => (
+      <div key={index} className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? 'hidden sm:block' : ''}`} >
+        <div className='aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5'>
+          {item &&
+            <Image
+              fill
+              className={`object-cover rounded-md sm:rounded-xl`}
+              src={itemSrc}
+              alt=''
+              sizes='400px'
+
+            />
+          }
+          {!item &&
+            <div
+              className={`object-cover rounded-md sm:rounded-xl bg-slate-500 400px lazy-loading`}
+            >{` `}</div>
+          }
+        </div>
+        <div
+          className='absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer'
+          onClick={handleOpenModalImageGallery}
+        />
+      </div>
+    )
+
+
+    return (
       <header className='rounded-md sm:rounded-xl'>
         <div className='relative grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2'>
           <div
             className='col-span-2 row-span-3 sm:row-span-2 relative rounded-md sm:rounded-xl overflow-hidden cursor-pointer'
             onClick={handleOpenModalImageGallery}
           >
-            <Image
-              fill
-              className='object-cover rounded-md sm:rounded-xl'
-              src={PHOTOS[0]}
-              alt=''
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw'
-            />
+            {item &&
+              <Image
+                fill
+                className={`object-cover rounded-md sm:rounded-xl`}
+                // src={PHOTOS[0]}
+                src={item && item.images[0].src}
+                alt='qwerty'
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw'
+
+              />
+            }
+            {!item &&
+              <div
+                className={`object-cover rounded-md sm:rounded-xl bg-slate-500 (max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw lazy-loading`}
+              >{` `}</div>
+            }
             <div className='absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity'></div>
           </div>
-          {PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (
-            <div
-              key={index}
-              className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? 'hidden sm:block' : ''
-                }`}
-            >
-              <div className='aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5'>
-                <Image
-                  fill
-                  className='object-cover rounded-md sm:rounded-xl '
-                  src={item || ''}
-                  alt=''
-                  sizes='400px'
-                />
-              </div>
 
-              {/* OVERLAY */}
-              <div
-                className='absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer'
-                onClick={handleOpenModalImageGallery}
-              />
-            </div>
-          ))}
+          <SmallImage index={1} itemSrc={item && item.images.length > 1 && item.images[1].src || ''} />
+          <SmallImage index={2} itemSrc={item && item.images.length > 2 && item.images[2].src || ''} />
+          <SmallImage index={3} itemSrc={item && item.images.length > 3 && item.images[3].src || ''} />
+          <SmallImage index={4} itemSrc={item && item.images.length > 4 && item.images[4].src || ''} />
 
           <button
             className='absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-neutral-100 text-neutral-500 hover:bg-neutral-200 z-10'
@@ -609,19 +694,25 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({ }) => {
         </div>
       </header>
 
+    )
+  }
+  return (
+    <div className='nc-ListingStayDetailPage'>
+      {/*  HEADER */}
+      {renderHeader()}
       {/* MAIN */}
       <main className=' relative z-10 mt-11 flex flex-col lg:flex-row '>
         {/* CONTENT */}
         <div className='w-full lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pr-10'>
           {renderSection1()}
-          {renderSection2()}
-          {renderSection3()}
-          {renderSection4()}
-          <SectionDateRange />
-          {renderSection5()}
-          {renderSection6()}
+          {renderDescription()}
+          {renderTravelPlan()}
+          {/* {renderSection4()} */}
+          {/* <SectionDateRange /> */}
+          {/* {renderSection5()}
+          {renderReviews()}
           {renderSection7()}
-          {renderSection8()}
+          {renderSection8()} */}
         </div>
 
         {/* SIDEBAR */}
@@ -633,4 +724,4 @@ const ListingStayDetailPage: FC<ListingStayDetailPageProps> = ({ }) => {
   )
 }
 
-export default ListingStayDetailPage
+export default PageDetail

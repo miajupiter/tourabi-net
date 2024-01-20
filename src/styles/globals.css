@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.stripe {
+  border: 1px solid white;
+  height: 20%;
+  background-color: #babbbc;
+}
+
+.small-stripe {
+  width: 40%;
+}
+
+.medium-stripe {
+  width: 70%;
+}
+
+.long-stripe {
+  width: 100%;
+}
+
+.lazy-loading {
+  animation: hintloading 2s ease-in-out 0s infinite reverse;
+  -webkit-animation: hintloading 2s ease-in-out 0s infinite reverse;
+}
+
+@keyframes hintloading
+{
+  0% {
+    opacity: 0.5;
+  }
+  50%  {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@-webkit-keyframes hintloading
+{
+  0% {
+    opacity: 0.5;
+  }
+  50%  {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}

@@ -9,9 +9,11 @@ export interface RestResultType {
 }
 
 export interface GetRequestType {
-  pathName: string,
-  query?: {},
-  headers?: {},
+  pathName: string
+  page?:number | 1
+  pageSize?:number | 8
+  query?: {}
+  headers?: {}
 }
 
 export interface PostRequestType extends GetRequestType {
@@ -27,7 +29,7 @@ export interface DeleteRequestType extends GetRequestType {
 
 export async function Get(params: GetRequestType) {
   try {
-    const url = `${process.env.API_URI}${params.pathName}`
+    const url = `${process.env.API_URI}${params.pathName}?page=${params.page}&pageSize=${params.pageSize}`
     let headers = Object.assign({}, params.headers, { 'token': tempToken })
     console.log(`url:`,url)
     const resp = await axios.get(url, { headers: headers, responseType: 'json' })

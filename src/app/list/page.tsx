@@ -1,5 +1,7 @@
 'use client'
 import React, { FC, useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+
 // import { DEMO_STAY_LISTINGS } from '@/data/listings'
 import { TourDataType } from '@/data/types'
 import Pagination from '@/shared/Pagination'
@@ -16,6 +18,7 @@ import TourSearchForm from './SearchForm'
 export interface PageListProps {
   // className?: string
   // data?: TourDataType[]
+
 }
 
 // const DEMO_DATA: StayDataType[] = DEMO_STAY_LISTINGS.filter((_, i) => i < 8)
@@ -25,16 +28,22 @@ const PageList: FC<PageListProps> = ({
   // className = '',
   // data = INIT_DATA,
 }) => {
+  const searchParams = useSearchParams()
+ 
+
   const [docs, setDocs] = useState<TourDataType[]>([])
   const [pullData, setPullData] = useState(false)
-  const [pageNo, setPageNo] = useState(1)
-  const [pageSize, setPageSize] = useState(8)
+  const [pageNo, setPageNo] = useState((searchParams.get('page') || 1) as number)
+  const [pageSize, setPageSize] = useState((searchParams.get('pageSize') || 8) as number)
   const [pageCount, setPageCount] = useState(0)
   const [totalDocs, setTotalDocs] = useState(0)
 
 
   const getTourList = async () => {
-    const ret = await fetch('/api/tours')
+    setPullData(true)
+    const url=`/api/tours?page=${pageNo}&pageSize=${pageSize}`
+    console.log('getTourList url:', url)
+    const ret = await fetch(url)
     const result = await ret.json()
     console.log('result:', result)
     if (result.success && result.data) {
@@ -44,7 +53,7 @@ const PageList: FC<PageListProps> = ({
       setTotalDocs(result.data.totalDocs)
       setDocs(result.data.docs as TourDataType[])
     }
-    setPullData(true)
+    
   }
 
 
@@ -56,7 +65,7 @@ const PageList: FC<PageListProps> = ({
 
   return (
     <>
-    {/* <div
+      {/* <div
         className={`nc-SectionGridFilterCard ${className}`}
         data-nc-id='SectionGridFilterCard'
       > */}
@@ -70,7 +79,7 @@ const PageList: FC<PageListProps> = ({
             <TourSearchForm />
           </div>
         </div>
-
+        <p>{pageNo} | {pageSize} | {pageCount} | {totalDocs}</p>
         <div className="container relative space-y-24 mb-24 ">
           <div className='grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
             {docs.map((tour) => {
@@ -81,20 +90,11 @@ const PageList: FC<PageListProps> = ({
             })}
           </div>
           <div className='flex mt-16 justify-center items-center'>
-            <Pagination />
+            <Pagination pageNo={pageNo} pageSize={pageSize} pageCount={pageCount} totalDocs={totalDocs} />
           </div>
         </div>
 
-        {/* <div className="container relative space-y-24 mb-24 ">
-          <div className='grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-            {data.map((stay) => (
-              <StayCard2 key={stay.id} data={stay} />
-            ))}
-          </div>
-          <div className='flex mt-16 justify-center items-center'>
-            <Pagination />
-          </div>
-        </div> */}
+
       </div>
 
       <div className="container overflow-hidden">

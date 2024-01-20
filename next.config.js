@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const withMDX = require('@next/mdx')()
+
 const nextConfig = {
 
   reactStrictMode: false,
@@ -12,7 +14,7 @@ const nextConfig = {
     staticFolder: "/static",
   },
 
-  // cleanDistDir: true,
+  cleanDistDir: true,
   output: "standalone",
   poweredByHeader: false,
   trailingSlash: false,
@@ -59,4 +61,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = withMDX(nextConfig)
