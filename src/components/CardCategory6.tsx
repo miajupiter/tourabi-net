@@ -1,19 +1,19 @@
-import React, { FC } from "react";
-import { TaxonomyType } from "@/data/types";
-import convertNumbThousand from "@/utils/convertNumbThousand";
-import Link from "next/link";
-import Image from "next/image";
+import React, { FC } from "react"
+import { TaxonomyType } from "@/data/types"
+import convertNumbThousand from "@/utils/convertNumbThousand"
+import Link from "next/link"
+import Image from "next/image"
 
 export interface CardCategory6Props {
-  className?: string;
-  taxonomy: TaxonomyType;
+  className?: string
+  taxonomy: TaxonomyType
 }
 
 const CardCategory6: FC<CardCategory6Props> = ({
   className = "flex-1",
   taxonomy,
 }) => {
-  const { count, name, href = "/", thumbnail } = taxonomy;
+  const { count, name, href = "/", thumbnail } = taxonomy
   return (
     <Link
       href={href}
@@ -34,7 +34,7 @@ const CardCategory6: FC<CardCategory6Props> = ({
         </span>
       </div>
     </Link>
-  );
-};
+  )
+}
 
-export default CardCategory6;
+export default CardCategory6

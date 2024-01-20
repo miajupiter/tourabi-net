@@ -1,24 +1,24 @@
-"use client";
+"use client"
 
-import { Tab } from "@headlessui/react";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import React, { FC, Fragment, useState } from "react";
-import visaPng from "@/images/vis.png";
-import mastercardPng from "@/images/mastercard.svg";
-import Input from "@/shared/Input";
-import Label from "@/components/Label";
-import Textarea from "@/shared/Textarea";
-import ButtonPrimary from "@/shared/ButtonPrimary";
-import StartRating from "@/components/StartRating";
-import NcModal from "@/shared/NcModal";
-import ModalSelectDate from "@/components/ModalSelectDate";
-import converSelectedDateToString from "@/utils/converSelectedDateToString";
-import ModalSelectGuests from "@/components/ModalSelectGuests";
-import Image from "next/image";
-import { GuestsObject } from "../(client-components)/type";
+import { Tab } from "@headlessui/react"
+import { PencilSquareIcon } from "@heroicons/react/24/outline"
+import React, { FC, Fragment, useState } from "react"
+import visaPng from "@/images/vis.png"
+import mastercardPng from "@/images/mastercard.svg"
+import Input from "@/shared/Input"
+import Label from "@/components/Label"
+import Textarea from "@/shared/Textarea"
+import ButtonPrimary from "@/shared/ButtonPrimary"
+import StartRating from "@/components/StartRating"
+import NcModal from "@/shared/NcModal"
+import ModalSelectDate from "@/components/ModalSelectDate"
+import converSelectedDateToString from "@/utils/converSelectedDateToString"
+import ModalSelectGuests from "@/components/ModalSelectGuests"
+import Image from "next/image"
+import { GuestsObject } from "../list/type"
 
 export interface CheckOutPagePageMainProps {
-  className?: string;
+  className?: string
 }
 
 const CheckOutPagePageMain: FC<CheckOutPagePageMainProps> = ({
@@ -26,14 +26,14 @@ const CheckOutPagePageMain: FC<CheckOutPagePageMainProps> = ({
 }) => {
   const [startDate, setStartDate] = useState<Date | null>(
     new Date("2023/02/06")
-  );
-  const [endDate, setEndDate] = useState<Date | null>(new Date("2023/02/23"));
+  )
+  const [endDate, setEndDate] = useState<Date | null>(new Date("2023/02/23"))
 
   const [guests, setGuests] = useState<GuestsObject>({
     guestAdults: 2,
     guestChildren: 1,
     guestInfants: 1,
-  });
+  })
 
   const renderSidebar = () => {
     return (
@@ -83,8 +83,8 @@ const CheckOutPagePageMain: FC<CheckOutPagePageMainProps> = ({
           </div>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   const renderMain = () => {
     return (
@@ -139,10 +139,9 @@ const CheckOutPagePageMain: FC<CheckOutPagePageMainProps> = ({
                     <span className="text-sm text-neutral-400">Guests</span>
                     <span className="mt-1.5 text-lg font-semibold">
                       <span className="line-clamp-1">
-                        {`${
-                          (guests.guestAdults || 0) +
+                        {`${(guests.guestAdults || 0) +
                           (guests.guestChildren || 0)
-                        } Guests, ${guests.guestInfants || 0} Infants`}
+                          } Guests, ${guests.guestInfants || 0} Infants`}
                       </span>
                     </span>
                   </div>
@@ -163,11 +162,10 @@ const CheckOutPagePageMain: FC<CheckOutPagePageMainProps> = ({
                 <Tab as={Fragment}>
                   {({ selected }) => (
                     <button
-                      className={`px-4 py-1.5 sm:px-6 sm:py-2.5 rounded-full focus:outline-none ${
-                        selected
+                      className={`px-4 py-1.5 sm:px-6 sm:py-2.5 rounded-full focus:outline-none ${selected
                           ? "bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-900"
                           : "text-neutral-6000 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                      }`}
+                        }`}
                     >
                       Paypal
                     </button>
@@ -176,11 +174,10 @@ const CheckOutPagePageMain: FC<CheckOutPagePageMainProps> = ({
                 <Tab as={Fragment}>
                   {({ selected }) => (
                     <button
-                      className={`px-4 py-1.5 sm:px-6 sm:py-2.5  rounded-full flex items-center justify-center focus:outline-none  ${
-                        selected
+                      className={`px-4 py-1.5 sm:px-6 sm:py-2.5  rounded-full flex items-center justify-center focus:outline-none  ${selected
                           ? "bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-900"
                           : " text-neutral-6000 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                      }`}
+                        }`}
                     >
                       <span className="mr-2.5">Credit card</span>
                       <Image className="w-8" src={visaPng} alt="visa" />
@@ -247,8 +244,8 @@ const CheckOutPagePageMain: FC<CheckOutPagePageMainProps> = ({
           </div>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <div className={`nc-CheckOutPagePageMain ${className}`}>
@@ -257,7 +254,7 @@ const CheckOutPagePageMain: FC<CheckOutPagePageMainProps> = ({
         <div className="hidden lg:block flex-grow">{renderSidebar()}</div>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default CheckOutPagePageMain;
+export default CheckOutPagePageMain

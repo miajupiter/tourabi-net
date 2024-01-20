@@ -5,17 +5,16 @@ import BgGlassmorphism from "@/components/BgGlassmorphism"
 import { TaxonomyType } from "@/data/types"
 import SectionGridAuthorBox from "@/components/SectionGridAuthorBox"
 import SectionGridCategoryBox from "@/components/SectionGridCategoryBox"
-import SectionHero3 from "@/app/(server-components)/SectionHero3"
+// import SectionHero3 from "@/app/(server-components)/SectionHero3"
 import CardCategory6 from "@/components/CardCategory6"
 import SectionGridFeaturePlaces from "@/components/SectionGridFeaturePlaces"
-import SectionHero from './(server-components)/SectionHero'
-import HeroSearchForm from './(client-components)/(HeroSearchForm)/HeroSearchForm'
-import QwHeroSearchForm from './(client-components)/(HeroSearchForm)/QwHeroSearchForm'
+// import SectionHero from './(server-components)/SectionHero'
+import TourSearchForm from './list/SearchForm'
 
 const DEMO_CATS_2: TaxonomyType[] = [
   {
     id: "1",
-    href: "/listing-stay",
+    href: "/list",
     name: "Georgia Tours",
     taxonomy: "category",
     count: 188288,
@@ -24,7 +23,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
   },
   {
     id: "222",
-    href: "/listing-stay",
+    href: "/list",
     name: "Kazakhstan Weekend Tours Kolsay Lakes",
     taxonomy: "category",
     count: 188288,
@@ -33,7 +32,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
   },
   {
     id: "3",
-    href: "/listing-stay",
+    href: "/list",
     name: "Sevanavank - Caucasus Group Tour",
     taxonomy: "category",
     count: 188288,
@@ -42,7 +41,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
   },
   {
     id: "4",
-    href: "/listing-stay",
+    href: "/list",
     name: "Uzbekistan-Tajikistan Tour",
     taxonomy: "category",
     count: 188288,
@@ -51,7 +50,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
   },
   {
     id: "5",
-    href: "/listing-stay",
+    href: "/list",
     name: "Silk Road Group Tour",
     taxonomy: "category",
     count: 188288,
@@ -73,8 +72,9 @@ function PageHome3() {
       </div> */}
       {/* SECTION HERO */}
       <div className="container relative space-y-24 mb-24 lg:space-y-28 lg:mb-28">
-        {/* <SectionHero className="pt-10 lg:pt-16 lg:pb-16" /> */}
-        <QwHeroSearchForm className='mt-10' />
+        <div className={`nc-HeroSearchForm w-full py-5 lg:py-0 mt-10`}    >
+            <TourSearchForm />
+          </div>
       </div>
       <div className="container relative space-y-24 mb-24 ">
         {/* SECTION 1 */}
