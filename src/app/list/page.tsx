@@ -42,10 +42,9 @@ const PageList: FC<PageListProps> = ({
   const getTourList = async () => {
     setPullData(true)
     const url=`/api/tours?page=${pageNo}&pageSize=${pageSize}`
-    console.log('getTourList url:', url)
     const ret = await fetch(url)
     const result = await ret.json()
-    console.log('result:', result)
+
     if (result.success && result.data) {
       setPageNo(result.data.page as number)
       setPageSize(result.data.pageSize)

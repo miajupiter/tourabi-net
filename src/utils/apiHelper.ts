@@ -31,13 +31,9 @@ export async function Get(params: GetRequestType) {
   try {
     const url = `${process.env.API_URI}${params.pathName}?page=${params.page}&pageSize=${params.pageSize}`
     let headers = Object.assign({}, params.headers, { 'token': tempToken })
-    console.log(`url:`,url)
     const resp = await axios.get(url, { headers: headers, responseType: 'json' })
     return NextResponse.json(resp.data)
   } catch (err) {
-    console.log(`get err isAxiosError:`, (err as AxiosError).isAxiosError)
-    console.log(`get err message:`, (err as AxiosError).message)
-    console.log(`get err name:`, (err as AxiosError).name)
     return ErrorResponse(err as AxiosError)
   }
 }
@@ -80,7 +76,5 @@ export async function Delete(params: DeleteRequestType) {
 
 function ErrorResponse(err: AxiosError): NextResponse {
   var e = err as AxiosError
-  console.log(e.response)
-  // return NextResponse.json({ error: e.message }, { status: e.status })
   return NextResponse.json(e.response?.data || 'Error', { status: e.response?.status,  statusText: e.response?.statusText })
 }

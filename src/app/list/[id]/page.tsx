@@ -80,8 +80,6 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
         images: res.images,
       } as TourItemType
       setItem(tour)
-      console.log('result.data', result.data as TourItemType)
-      console.log('tour', tour)
     }
     setPullData(true)
   }
@@ -93,7 +91,6 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
   useEffect(function () {
     if (!pullData) {
       getItem(params.id)
-      console.log('item', item)
     }
   }, [])
 

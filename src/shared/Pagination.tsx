@@ -84,11 +84,6 @@ const Pagination: FC<PaginationProps> = ({ className = "", urlPath = "/list", pa
   }
 
   const pageButtons: CustomLink[] = calculateButtons(urlPath, pageCount, pageSize)
-  // useEffect(()=>{
-  //   const list=calculateButtons(urlPath,pageCount,pageSize)
-  //   console.log('pagination list:',list)
-  //   setPageButtons(list)
-  // },[pageButtons])
 
   return (
     <nav
