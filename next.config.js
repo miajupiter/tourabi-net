@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-// const withMDX = require('@next/mdx')()
+const withMDX = require('@next/mdx')()
 
 const nextConfig = {
 
@@ -9,14 +9,14 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
   },
   experimental: {
-    appDir: true
-
+    appDir: true,
+    mdxRs:true,
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
     staticFolder: "/static",
   },
-
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   cleanDistDir: true,
   output: "standalone",
   poweredByHeader: false,
@@ -62,12 +62,15 @@ const nextConfig = {
       },
     ],
   },
+  ignoreBuildErrors: process.env.NODE_ENV === "development",
 }
 const withPWA = require("next-pwa")({
   dest: "public", // Destination directory for the PWA files
   disable: process.env.NODE_ENV === "development", // Disable PWA in development mode
   register: true, // Register the PWA service worker
   skipWaiting: true, // Skip waiting for service worker activation
+  cacheOnFrontEndNav: true,
+
 })
 
-module.exports = withPWA(nextConfig)
+module.exports = withPWA(withMDX(nextConfig))

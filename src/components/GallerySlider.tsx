@@ -27,7 +27,7 @@ export default function GallerySlider({
   imageClass = "",
   uniqueID = "uniqueID",
   galleryClass = "rounded-xl",
-  href = "/listing-stay-detail",
+  href = "/list",
   navigation = true,
 }: GallerySliderProps) {
   const [loaded, setLoaded] = useState(false);
@@ -94,6 +94,7 @@ export default function GallerySlider({
                   className={`object-cover ${imageClass}`}
                   onLoadingComplete={() => setLoaded(true)}
                   sizes="(max-width: 1025px) 100vw, 300px"
+                  priority={true}
                 />
               </motion.div>
             </AnimatePresence>

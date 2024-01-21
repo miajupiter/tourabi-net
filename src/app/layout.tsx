@@ -50,7 +50,8 @@ export default function RootLayout({
       <head>
         <link rel='icon' href='/favicon.ico' />
       </head>
-      <body className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'>
+      {/* <body className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'> */}
+      <body className='bg-neutral-900 not(dark):bg-white text-base text-neutral-900 dark:text-neutral-200'>
         <ClientCommons />
         <SiteHeader />
         {children}

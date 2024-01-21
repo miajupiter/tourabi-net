@@ -1,12 +1,12 @@
 {
-    "theme_color": "#f69435",
-    "background_color": "#f69435",
+    "theme_color": "#F9A11B",
+    "background_color": "#101033",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "TourAbi",
-    "short_name": "ABI",
-    "description": "TourAbi.net Travel Tour Portal",
+    "name": "TourAbi Tour Portal",
+    "short_name": "TourAbi",
+    "description": "The world's best tour portal",
     "icons": [
         {
             "src": "/icon-192x192.png",

@@ -13,7 +13,7 @@ import BackgroundSection from "@/components/BackgroundSection"
 import SectionGridAuthorBox from "@/components/SectionGridAuthorBox"
 import SectionSliderNewCategories from "@/components/SectionSliderNewCategories"
 import SectionSubscribe2 from "@/components/SectionSubscribe2"
-import TourSearchForm from './SearchForm'
+import SearchForm from './SearchForm'
 // import * as api from '@/utils/apiHelper'
 export interface PageListProps {
   // className?: string
@@ -29,7 +29,7 @@ const PageList: FC<PageListProps> = ({
   // data = INIT_DATA,
 }) => {
   const searchParams = useSearchParams()
- 
+
 
   const [docs, setDocs] = useState<TourDataType[]>([])
   const [pullData, setPullData] = useState(false)
@@ -41,7 +41,7 @@ const PageList: FC<PageListProps> = ({
 
   const getTourList = async () => {
     setPullData(true)
-    const url=`/api/tours?page=${pageNo}&pageSize=${pageSize}`
+    const url = `/api/tours?page=${pageNo}&pageSize=${pageSize}`
     const ret = await fetch(url)
     const result = await ret.json()
 
@@ -52,7 +52,7 @@ const PageList: FC<PageListProps> = ({
       setTotalDocs(result.data.totalDocs)
       setDocs(result.data.docs as TourDataType[])
     }
-    
+
   }
 
 
@@ -64,29 +64,20 @@ const PageList: FC<PageListProps> = ({
 
   return (
     <>
-      {/* <div
-        className={`nc-SectionGridFilterCard ${className}`}
-        data-nc-id='SectionGridFilterCard'
-      > */}
       <div
         className={`nc-SectionGridFilterCard`}
         data-nc-id='SectionGridFilterCard'
       >
-        <div className="container relative space-y-24 mb-24 lg:space-y-28 lg:mb-28">
+        <div className="hidden md:block container relative space-y-24 mb-24 lg:space-y-28 md:mb-28">
           <div className={`nc-HeroSearchForm w-full py-5 lg:py-0 mt-10`}    >
 
-            <TourSearchForm />
+            <SearchForm />
           </div>
         </div>
-        <p>{pageNo} | {pageSize} | {pageCount} | {totalDocs}</p>
-        <div className="container relative space-y-24 mb-24 ">
+
+        <div className="container relative space-y-24 mb-24 mt-2">
           <div className='grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-            {docs.map((tour) => {
-              tour.featuredImage = '/img/tours' + tour.featuredImage
-              return (
-                <TourCard key={tour.id} data={tour} />
-              )
-            })}
+            {docs.map(tour => <TourCard key={tour.id} data={tour} />)}
           </div>
           <div className='flex mt-16 justify-center items-center'>
             <Pagination pageNo={pageNo} pageSize={pageSize} pageCount={pageCount} totalDocs={totalDocs} />
@@ -98,7 +89,6 @@ const PageList: FC<PageListProps> = ({
 
       <div className="container overflow-hidden">
         {/* SECTION 1 */}
-        section1
         <div className="relative py-16">
           <BackgroundSection />
           <SectionSliderNewCategories

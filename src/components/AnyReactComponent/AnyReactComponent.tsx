@@ -1,21 +1,20 @@
-"use client";
+"use client"
 
-import { Transition } from "@headlessui/react";
-import CarCard from "@/components/CarCard";
-import ExperiencesCard from "@/components/ExperiencesCard";
-import StayCard from "@/components/StayCard";
-import { CarDataType, ExperiencesDataType, StayDataType } from "@/data/types";
-import React, { FC, Fragment } from "react";
-import { useState } from "react";
+import { Transition } from "@headlessui/react"
+import ExperiencesCard from "@/components/ExperiencesCard"
+import StayCard from "@/components/StayCard"
+import { CarDataType, ExperiencesDataType, StayDataType } from "@/data/types"
+import React, { FC, Fragment } from "react"
+import { useState } from "react"
 
 export interface AnyReactComponentProps {
-  className?: string;
-  listing?: StayDataType;
-  experiences?: ExperiencesDataType;
-  car?: CarDataType;
-  isSelected?: boolean;
-  lat: number;
-  lng: number;
+  className?: string
+  listing?: StayDataType
+  experiences?: ExperiencesDataType
+  car?: CarDataType
+  isSelected?: boolean
+  lat: number
+  lng: number
 }
 
 const AnyReactComponent: FC<AnyReactComponentProps> = ({
@@ -25,7 +24,7 @@ const AnyReactComponent: FC<AnyReactComponentProps> = ({
   experiences,
   isSelected,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div
@@ -34,11 +33,10 @@ const AnyReactComponent: FC<AnyReactComponentProps> = ({
       onMouseLeave={() => setIsOpen(false)}
     >
       <span
-        className={`flex px-2 py-1 rounded-lg bg-white dark:bg-neutral-900 text-sm font-semibold items-center justify-center min-w-max shadow-lg hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-neutral-900 transition-colors ${
-          isSelected
+        className={`flex px-2 py-1 rounded-lg bg-white dark:bg-neutral-900 text-sm font-semibold items-center justify-center min-w-max shadow-lg hover:bg-neutral-900 hover:text-white dark:hover:bg-white dark:hover:text-neutral-900 transition-colors ${isSelected
             ? "bg-neutral-900 text-white dark:bg-white dark:text-neutral-900"
             : ""
-        }`}
+          }`}
       >
         {listing?.price || experiences?.price || car?.price}
       </span>
@@ -64,11 +62,10 @@ const AnyReactComponent: FC<AnyReactComponentProps> = ({
               className="shadow-2xl bg-white dark:bg-neutral-900 rounded-3xl"
             />
           )}
-          {car && <CarCard size="small" data={car} className="shadow-2xl " />}
         </div>
       </Transition>
     </div>
-  );
-};
+  )
+}
 
-export default AnyReactComponent;
+export default AnyReactComponent

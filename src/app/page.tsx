@@ -9,7 +9,7 @@ import SectionGridCategoryBox from "@/components/SectionGridCategoryBox"
 import CardCategory6 from "@/components/CardCategory6"
 import SectionGridFeaturePlaces from "@/components/SectionGridFeaturePlaces"
 // import SectionHero from './(server-components)/SectionHero'
-import TourSearchForm from './list/SearchForm'
+import SearchForm from './list/SearchForm'
 
 const DEMO_CATS_2: TaxonomyType[] = [
   {
@@ -65,9 +65,9 @@ function PageHome3() {
         <SectionHero3 className="" />
       </div> */}
       {/* SECTION HERO */}
-      <div className="container relative space-y-24 mb-24 lg:space-y-28 lg:mb-28">
+      <div className="container hidden md:block relative space-y-24 mb-24 lg:space-y-28 lg:mb-28">
         <div className={`nc-HeroSearchForm w-full py-5 lg:py-0 mt-10`}    >
-            <TourSearchForm />
+            <SearchForm />
           </div>
       </div>
       <div className="container relative space-y-24 mb-24 ">

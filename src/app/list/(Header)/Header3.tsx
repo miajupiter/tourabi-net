@@ -14,6 +14,8 @@ import { usePathname } from "next/navigation"
 
 import { SearchFormFields } from "../type"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
+import HeroSearchFormSmall from '../(HeroSearchFormSmall)/HeroSearchFormSmall'
+import HeroSearchForm2Mobile from '../(HeroSearchForm2Mobile)/HeroSearchForm2Mobile'
 
 interface Header3Props {
   className?: string
@@ -78,18 +80,16 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
     return (
       <div
         className={`absolute inset-x-0 top-0 transition-all will-change-[transform,opacity] ${showHeroSearch
-            ? "visible"
-            : "-translate-x-0 -translate-y-[90px] scale-x-[0.395] scale-y-[0.6] opacity-0 invisible pointer-events-none"
+          ? "visible"
+          : "-translate-x-0 -translate-y-[90px] scale-x-[0.395] scale-y-[0.6] opacity-0 invisible pointer-events-none"
           }`}
       >
         <div className={`w-full max-w-4xl mx-auto pb-6`}>
-          {/* 
-            qwerty 
-            <HeroSearchFormSmall
+          <HeroSearchFormSmall
             defaultFieldFocus={showHeroSearch || undefined}
-            // onTabChange={setCurrentTab}
-            // defaultTab={currentTab}
-          /> */}
+          // onTabChange={setCurrentTab}
+          // defaultTab={currentTab}
+          />
         </div>
       </div>
     )
@@ -99,8 +99,8 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
     return (
       <div
         className={`w-full relative flex items-center justify-between border border-neutral-200 dark:border-neutral-6000 rounded-full shadow hover:shadow-md transition-all ${showHeroSearch
-            ? "-translate-x-0 translate-y-20 scale-x-[2.55] scale-y-[1.8] opacity-0 pointer-events-none invisible"
-            : "visible"
+          ? "-translate-x-0 translate-y-20 scale-x-[2.55] scale-y-[1.8] opacity-0 pointer-events-none invisible"
+          : "visible"
           }`}
       >
         <div className="flex items-center font-medium text-sm">
@@ -149,41 +149,37 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
       {showHeroSearch && <div id="nc-Header-3-anchor"></div>}
       <header ref={headerInnerRef} className={`sticky top-0 z-40 ${className}`}>
         <div
-          className={`bg-white dark:bg-neutral-900 absolute h-full inset-x-0 top-0 transition-transform will-change-[transform,opacity]`}
-        // className={`bg-white dark:bg-neutral-900 absolute h-full inset-x-0 top-0 transition-transform will-change-[transform,opacity]
-        //   ${showHeroSearch ? "duration-75" : ""}   `}
+          className={`bg-white dark:bg-neutral-900 absolute h-full inset-x-0 top-0 transition-transform will-change-[transform,opacity]
+           ${showHeroSearch ? "duration-75" : ""}   `}
         ></div>
-        <div className="relative px-4 lg:container h-[88px] flex">
-          <div className="flex-1 flex justify-between">
-            <div className="relative z-10 hidden md:flex flex-1 items-center">
+        <div className="relative px-4 lg:container h-[160px] md:h-[88px] flex-grow">
+          <div className="flex-1 flex justify-between items-center">
+            <div className="relative z-10 hidden11 md:flex flex-1 items-center">
               <Logo />
             </div>
 
-            <div className="flex flex-[2] lg:flex-none mx-auto">
+            {/* <div className="flex flex-[2] lg:flex-none mx-auto">
               <div className="flex-1 hidden lg:flex self-center">
                 {renderButtonOpenHeroSearch()}
               </div>
               <div className="self-center flex-1 lg:hidden w-full max-w-lg mx-auto">
-                {/* qwerty
-                <HeroSearchForm2MobileFactory /> */}
+                <HeroSearchForm2Mobile />
               </div>
               {renderHeroSearch()}
-            </div>
+            </div> */}
 
-            <div className="hidden md:flex relative z-10 flex-1 justify-end text-neutral-700 dark:text-neutral-100">
-              <div className=" flex space-x-1">
-                <Link
-                  href={"/add-listing/1"}
-                  className="self-center hidden xl:inline-flex px-4 py-2 border border-neutral-300 hover:border-neutral-400 dark:border-neutral-700 rounded-full items-center text-sm text-gray-700 dark:text-neutral-300 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-                >
-                  List your property
-                </Link>
-
-                <NotifyDropdown />
-                <AvatarDropdown />
+            <div className="hidden11 md:flex relative z-10 flex-1 justify-end text-neutral-700 dark:text-neutral-100">
+              <div className=" flex space-x-1 justify-end">
+                <div className='hidden md:flex'>
+                  <NotifyDropdown />
+                  <AvatarDropdown />
+                </div>
                 <MenuBar />
               </div>
             </div>
+          </div>
+          <div className="self-center flex-1 md:hidden w-full max-w-lg mx-auto mb-30">
+            <HeroSearchForm2Mobile />
           </div>
         </div>
       </header>
