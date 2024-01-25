@@ -21,8 +21,8 @@ const GuestsInput: FC<GuestsInputProps> = ({
   const [guestChildrenInputValue, setGuestChildrenInputValue] = useState(
     defaultValue?.guestChildren || 0
   );
-  const [guestInfantsInputValue, setGuestInfantsInputValue] = useState(
-    defaultValue?.guestInfants || 0
+  const [guestBabyInputValue, setGuestBabyInputValue] = useState(
+    defaultValue?.guestBaby || 0
   );
 
   useEffect(() => {
@@ -32,14 +32,14 @@ const GuestsInput: FC<GuestsInputProps> = ({
     setGuestChildrenInputValue(defaultValue?.guestChildren || 0);
   }, [defaultValue?.guestChildren]);
   useEffect(() => {
-    setGuestInfantsInputValue(defaultValue?.guestInfants || 0);
-  }, [defaultValue?.guestInfants]);
+    setGuestBabyInputValue(defaultValue?.guestBaby || 0);
+  }, [defaultValue?.guestBaby]);
 
   const handleChangeData = (value: number, type: keyof GuestsObject) => {
     let newValue = {
       guestAdults: guestAdultsInputValue,
       guestChildren: guestChildrenInputValue,
-      guestInfants: guestInfantsInputValue,
+      guestBaby: guestBabyInputValue,
     };
     if (type === "guestAdults") {
       setGuestAdultsInputValue(value);
@@ -49,9 +49,9 @@ const GuestsInput: FC<GuestsInputProps> = ({
       setGuestChildrenInputValue(value);
       newValue.guestChildren = value;
     }
-    if (type === "guestInfants") {
-      setGuestInfantsInputValue(value);
-      newValue.guestInfants = value;
+    if (type === "guestBaby") {
+      setGuestBabyInputValue(value);
+      newValue.guestBaby = value;
     }
     onChange && onChange(newValue);
   };
@@ -80,10 +80,10 @@ const GuestsInput: FC<GuestsInputProps> = ({
 
       <NcInputNumber
         className="w-full mt-6"
-        defaultValue={guestInfantsInputValue}
-        onChange={(value) => handleChangeData(value, "guestInfants")}
+        defaultValue={guestBabyInputValue}
+        onChange={(value) => handleChangeData(value, "guestBaby")}
         max={20}
-        label="Infants"
+        label="Baby"
         desc="Ages 0-2"
       />
     </div>

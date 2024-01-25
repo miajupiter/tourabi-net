@@ -28,7 +28,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
 
   const [guestAdultsInputValue, setGuestAdultsInputValue] = useState(2)
   const [guestChildrenInputValue, setGuestChildrenInputValue] = useState(1)
-  const [guestInfantsInputValue, setGuestInfantsInputValue] = useState(1)
+  const [guestBabyInputValue, setGuestBabyInputValue] = useState(1)
   //
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
     let newValue = {
       guestAdults: guestAdultsInputValue,
       guestChildren: guestChildrenInputValue,
-      guestInfants: guestInfantsInputValue,
+      guestBaby: guestBabyInputValue,
     }
     if (type === "guestAdults") {
       setGuestAdultsInputValue(value)
@@ -49,14 +49,14 @@ const GuestsInput: FC<GuestsInputProps> = ({
       setGuestChildrenInputValue(value)
       newValue.guestChildren = value
     }
-    if (type === "guestInfants") {
-      setGuestInfantsInputValue(value)
-      newValue.guestInfants = value
+    if (type === "guestBaby") {
+      setGuestBabyInputValue(value)
+      newValue.guestBaby = value
     }
   }
 
   const totalGuests =
-    guestChildrenInputValue + guestAdultsInputValue + guestInfantsInputValue
+    guestChildrenInputValue + guestAdultsInputValue + guestBabyInputValue
 
   return (
     <div className={`flex z-10 relative ${className}`} ref={refContainer}>
@@ -85,7 +85,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
               onClick={() => {
                 setGuestAdultsInputValue(0)
                 setGuestChildrenInputValue(0)
-                setGuestInfantsInputValue(0)
+                setGuestBabyInputValue(0)
               }}
             />
           )}
@@ -121,10 +121,10 @@ const GuestsInput: FC<GuestsInputProps> = ({
 
           <NcInputNumber
             className="w-full mt-6"
-            defaultValue={guestInfantsInputValue}
-            onChange={(value) => handleChangeData(value, "guestInfants")}
+            defaultValue={guestBabyInputValue}
+            onChange={(value) => handleChangeData(value, "guestBaby")}
             max={4}
-            label="Infants"
+            label="Baby"
             desc="Ages 0-2"
           />
         </div>

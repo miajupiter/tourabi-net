@@ -15,7 +15,7 @@ const SearchForm = () => {
   const [guestInput, setGuestInput] = useState<GuestsObject>({
     guestAdults: 0,
     guestChildren: 0,
-    guestInfants: 0,
+    guestBaby: 0,
   })
   const [startDate, setStartDate] = useState<Date | null>(
     new Date("2023/02/06")
@@ -97,8 +97,8 @@ const SearchForm = () => {
       guestSelected += `${guest} guests`
     }
 
-    if (guestInput.guestInfants) {
-      guestSelected += `, ${guestInput.guestInfants} infants`
+    if (guestInput.guestBaby) {
+      guestSelected += `, ${guestInput.guestBaby} Baby`
     }
 
     return (

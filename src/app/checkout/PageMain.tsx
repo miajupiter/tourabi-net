@@ -32,7 +32,7 @@ const CheckOutPagePageMain: FC<CheckOutPagePageMainProps> = ({
   const [guests, setGuests] = useState<GuestsObject>({
     guestAdults: 2,
     guestChildren: 1,
-    guestInfants: 1,
+    guestBaby: 1,
   })
 
   const renderSidebar = () => {
@@ -141,7 +141,7 @@ const CheckOutPagePageMain: FC<CheckOutPagePageMainProps> = ({
                       <span className="line-clamp-1">
                         {`${(guests.guestAdults || 0) +
                           (guests.guestChildren || 0)
-                          } Guests, ${guests.guestInfants || 0} Infants`}
+                          } Guests, ${guests.guestBaby || 0} Baby`}
                       </span>
                     </span>
                   </div>
