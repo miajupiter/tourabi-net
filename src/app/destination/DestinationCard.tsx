@@ -24,11 +24,11 @@ const DestinationCard: FC<DestinationCardProps> = ({
       href={`/destination/${id}`}
       className={`nc-CardCategoryBox1 relative flex items-center p-3 sm:p-6 [ nc-box-has-hover ] [ nc-dark-box-bg-has-hover ]  ${className}`}
     >
-      <Badge
+      {/* <Badge
         className="absolute right-2 top-2"
         color="gray"
         name={convertNumbThousand(216)}
-      />
+      /> */}
 
       <div className="relative flex-shrink-0 w-24 h-24 rounded-full overflow-hidden">
         <Image

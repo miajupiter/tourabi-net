@@ -10,6 +10,7 @@ import CardCategory6 from "@/components/CardCategory6"
 import SectionGridFeaturePlaces from "@/components/SectionGridFeaturePlaces"
 // import SectionHero from './(server-components)/SectionHero'
 import SearchForm from './list/SearchForm'
+import DestinationGridBox from './destination/DestinationGridBox'
 
 const DEMO_CATS_2: TaxonomyType[] = [
   {
@@ -86,7 +87,7 @@ function PageHome3() {
         </div>
 
         {/* SECTION */}
-        <SectionGridCategoryBox  />
+        <DestinationGridBox  />
 
         {/* SECTION */}
         <div className="relative py-16">

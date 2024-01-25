@@ -26,7 +26,7 @@ const PageList: FC<PageListProps> = ({}) => {
 // const PageList: PageListProps = ({}) => {
 
   return (
-    <div className='w-screen xl:max-w-[1340px] 2xl:max-w-screen-2xl '>
+    <div className='container-fluidmb-24 '>
       <ItemList  />
 
       <div className="container overflow-hidden">
