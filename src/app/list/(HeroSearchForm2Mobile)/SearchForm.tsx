@@ -4,23 +4,30 @@ import converSelectedDateToString from "@/utils/converSelectedDateToString"
 import React, { useState } from "react"
 import { GuestsObject } from "../type"
 import GuestsInput from "./GuestsInput"
-import LocationInput from "./LocationInput"
+import DestinationInput from "./DestinationInput"
 import DatesRangeInput from "./DatesRangeInput"
 
 const SearchForm = () => {
   //
-  const [fieldNameShow, setFieldNameShow] = useState<"location" | "dates" | "guests">("location")
+  const [fieldNameShow, setFieldNameShow] = useState<"destination" | "dates" | "guests">("destination")
   
-  const [locationInputTo, setLocationInputTo] = useState("")
+  const [destinationInputTo, setDestinationInputTo] = useState("")
   const [guestInput, setGuestInput] = useState<GuestsObject>({
     guestAdults: 0,
     guestChildren: 0,
     guestBaby: 0,
   })
+  let tarih1=new Date(new Date().setMonth(new Date().getMonth()+1))
+  let tarih2=new Date(tarih1.getTime())
+  tarih2.setDate(tarih2.getDate()+7)
+  
+
   const [startDate, setStartDate] = useState<Date | null>(
-    new Date("2023/02/06")
+    tarih1
   )
-  const [endDate, setEndDate] = useState<Date | null>(new Date("2023/02/23"))
+  const [endDate, setEndDate] = useState<Date | null>(
+    tarih2
+  )
   //
 
   const onChangeDate = (dates: [Date | null, Date | null]) => {
@@ -29,8 +36,8 @@ const SearchForm = () => {
     setEndDate(end)
   }
 
-  const renderInputLocation = () => {
-    const isActive = fieldNameShow === "location"
+  const renderInputDestination = () => {
+    const isActive = fieldNameShow === "destination"
     return (
       <div
         className={`w-full bg-white dark:bg-neutral-800 ${isActive
@@ -41,17 +48,18 @@ const SearchForm = () => {
         {!isActive ? (
           <button
             className={`w-full flex justify-between text-sm font-medium p-4`}
-            onClick={() => setFieldNameShow("location")}
+            onClick={() => setFieldNameShow("destination")}
           >
             <span className="text-neutral-400">Where</span>
-            <span>{locationInputTo || "Location"}</span>
+            <span>{destinationInputTo || "Destination"}</span>
           </button>
         ) : (
-          <LocationInput
-            defaultValue={locationInputTo}
+          <DestinationInput
+            defaultValue={destinationInputTo}
             onChange={(value) => {
-              setLocationInputTo(value)
-              setFieldNameShow("dates")
+              setDestinationInputTo(value)
+              // setFieldNameShow("dates")
+              setFieldNameShow("guests")
             }}
           />
         )}
@@ -127,7 +135,7 @@ const SearchForm = () => {
     <div>
       <div className="w-full space-y-5">
         {/*  */}
-        {renderInputLocation()}
+        {renderInputDestination()}
         {/*  */}
         {renderInputDates()}
         {/*  */}

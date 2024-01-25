@@ -90,11 +90,10 @@ function PageHome3() {
         <DestinationGridBox  />
 
         {/* SECTION */}
-        <div className="relative py-16">
-          fitifiti
-          <BackgroundSection />
+        {/* <div className="relative py-16">
+          <BackgroundSection /> */}
           {/* <SectionGridAuthorBox boxCard="box2" /> */}
-        </div>
+        {/* </div> */}
 
         {/* <SectionGridFeaturePlaces /> */}
 

@@ -65,7 +65,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
         className="w-full"
         defaultValue={guestAdultsInputValue}
         onChange={(value) => handleChangeData(value, "guestAdults")}
-        max={20}
+        max={100}
         label="Adults"
         desc="Ages 13 or above"
       />
@@ -73,7 +73,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
         className="w-full mt-6"
         defaultValue={guestChildrenInputValue}
         onChange={(value) => handleChangeData(value, "guestChildren")}
-        max={20}
+        max={100}
         label="Children"
         desc="Ages 2-12"
       />
@@ -82,7 +82,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
         className="w-full mt-6"
         defaultValue={guestBabyInputValue}
         onChange={(value) => handleChangeData(value, "guestBaby")}
-        max={20}
+        max={100}
         label="Baby"
         desc="Ages 0-2"
       />

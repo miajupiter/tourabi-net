@@ -11,10 +11,12 @@ export interface LogoProps {
   img?: StaticImageData
   imgLight?: StaticImageData
   className?: string
+  classNameImg?: string
 }
 
 const Logo: React.FC<LogoProps> = ({
   className = "",
+  classNameImg=""
 }) => {
   return (
     <Link
@@ -30,7 +32,7 @@ const Logo: React.FC<LogoProps> = ({
 
       /> */}
       {/* <LogoSvgLight /> */}
-      <LogoSvg width={220} height={80}  />
+      <LogoSvg  width={220} height={80} className={classNameImg}  />
 
     </Link>
   )

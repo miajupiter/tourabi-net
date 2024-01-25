@@ -1,10 +1,11 @@
 import React from "react"
 
 const LogoSvg = ({
+	className,
 	width, height
-}: { width: any, height: any }) => {
+}: {className?:string, width: any, height: any }) => {
 	return (
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 928 358.269" width={width} height={height}>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 928 358.269" className={` ${className}`} width={width} height={height}>
 			<g>
 				<g>
 					<path fillRule="evenodd" clipRule="evenodd" fill="#729E40" stroke="#4F2A0B" strokeWidth="2" strokeMiterlimit="10" d="
