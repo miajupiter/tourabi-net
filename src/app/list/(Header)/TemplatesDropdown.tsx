@@ -1,7 +1,7 @@
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Fragment } from "react";
-import { NAVIGATION_DEMO_2 } from "@/data/navigation";
+import { NAVIGATION_DEMO } from "@/data/navigation";
 import { NavItemType } from "@/shared/Navigation/NavigationItem";
 import Link from "next/link";
 import Collection from "@/components/Collection";
@@ -60,7 +60,7 @@ export default function TemplatesDropdown() {
                   <div className="container">
                     <div className="flex text-sm border-t border-slate-200 dark:border-slate-700 py-14">
                       <div className="flex-1 grid grid-cols-5 gap-6 xl:gap-8 pr-6 xl:pr-8">
-                        {NAVIGATION_DEMO_2.map((item, index) => (
+                        {NAVIGATION_DEMO.map((item, index) => (
                           <div key={index}>
                             <p className="font-medium text-slate-900 dark:text-neutral-200">
                               {item.name}
