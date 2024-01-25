@@ -1,4 +1,4 @@
-import CardCategoryBox1 from "@/components/CardCategoryBox1";
+import CardCategoryBox1 from "@/app/CardCategoryBox1";
 import Heading from "@/shared/Heading";
 import { TaxonomyType } from "@/data/types";
 import React from "react";
@@ -14,7 +14,7 @@ export interface SectionGridCategoryBoxProps {
 const DEMO_CATS: TaxonomyType[] = [
   {
     id: "1",
-    href: "/listing-stay-map",
+    href: "/destination",
     name: "New Yourk",
     taxonomy: "category",
     count: 1882,
@@ -23,7 +23,7 @@ const DEMO_CATS: TaxonomyType[] = [
   },
   {
     id: "2",
-    href: "/listing-stay-map",
+    href: "/destination",
     name: "Singapore",
     taxonomy: "category",
     count: 8288,
@@ -32,7 +32,7 @@ const DEMO_CATS: TaxonomyType[] = [
   },
   {
     id: "3",
-    href: "/listing-stay-map",
+    href: "/destination",
     name: "Paris",
     taxonomy: "category",
     count: 1288,
@@ -41,7 +41,7 @@ const DEMO_CATS: TaxonomyType[] = [
   },
   {
     id: "4",
-    href: "/listing-stay-map",
+     href: "/destination",
     name: "London",
     taxonomy: "category",
     count: 112,
@@ -50,7 +50,7 @@ const DEMO_CATS: TaxonomyType[] = [
   },
   {
     id: "5",
-    href: "/listing-stay-map",
+     href: "/destination",
     name: "Tokyo",
     taxonomy: "category",
     count: 323,
@@ -59,7 +59,7 @@ const DEMO_CATS: TaxonomyType[] = [
   },
   {
     id: "6",
-    href: "/listing-stay-map",
+     href: "/destination",
     name: "Maldives",
     taxonomy: "category",
     count: 2223,
@@ -68,7 +68,7 @@ const DEMO_CATS: TaxonomyType[] = [
   },
   {
     id: "7",
-    href: "/listing-stay-map",
+     href: "/destination",
     name: "New Yourk",
     taxonomy: "category",
     count: 1775,
@@ -77,7 +77,7 @@ const DEMO_CATS: TaxonomyType[] = [
   },
   {
     id: "8",
-    href: "/listing-stay-map",
+     href: "/destination",
     name: "Singapore",
     taxonomy: "category",
     count: 1288,
@@ -93,27 +93,27 @@ const SectionGridCategoryBox: React.FC<SectionGridCategoryBoxProps> = ({
   className = "",
   gridClassName = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
 }) => {
-  let CardComponentName = CardCategoryBox1;
-  switch (categoryCardType) {
-    case "card1":
-      CardComponentName = CardCategoryBox1;
-      break;
+  // let CardComponentName = CardCategoryBox1;
+  // switch (categoryCardType) {
+  //   case "card1":
+  //     CardComponentName = CardCategoryBox1;
+  //     break;
 
-    default:
-      CardComponentName = CardCategoryBox1;
-  }
+  //   default:
+  //     CardComponentName = CardCategoryBox1;
+  // }
 
   return (
     <div className={`nc-SectionGridCategoryBox relative ${className}`}>
       <Heading
-        desc="Discover great places near where you live"
+        desc="Let's discover great tours with together"
         isCenter={headingCenter}
       >
-        Explore nearby
+        destination
       </Heading>
       <div className={`grid ${gridClassName} gap-5 sm:gap-6 md:gap-8`}>
         {categories.map((item, i) => (
-          <CardComponentName key={i} taxonomy={item} />
+          <CardCategoryBox1 key={i} taxonomy={item} />
         ))}
       </div>
     </div>

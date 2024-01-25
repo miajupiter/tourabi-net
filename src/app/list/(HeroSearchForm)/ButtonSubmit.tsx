@@ -3,10 +3,10 @@ import Link from "next/link"
 import React, { FC } from "react"
 
 interface Props {
-  href?: PathName
+  href?: PathName | string
 }
 
-const ButtonSubmit: FC<Props> = ({ href = "/listing-stay" }) => {
+const ButtonSubmit: FC<Props> = ({ href = "/list" }) => {
   return (
     <Link
       href={href}

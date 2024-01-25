@@ -92,7 +92,7 @@ export default function GallerySlider({
                   fill
                   alt="listing card gallery"
                   className={`object-cover ${imageClass}`}
-                  onLoadingComplete={() => setLoaded(true)}
+                  onLoad={() => setLoaded(true)}
                   sizes="(max-width: 1025px) 100vw, 300px"
                   priority={true}
                 />

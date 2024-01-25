@@ -1,46 +1,29 @@
-"use client";
+"use client"
 
-import { Popover, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { Fragment } from "react";
-import { PathName } from "@/routers/types";
-import Link from "next/link";
+import { Popover, Transition } from "@headlessui/react"
+import { ChevronDownIcon } from "@heroicons/react/24/solid"
+import { Fragment } from "react"
+import { PathName } from "@/routers/types"
+import Link from "next/link"
 
 interface SolutionItem {
-  name: string;
-  description: string;
-  href: PathName;
-  icon: any;
-  active?: boolean;
+  name: string
+  description: string
+  href: PathName
+  icon: any
+  active?: boolean
 }
 
 const solutions: SolutionItem[] = [
   {
     name: "Stays",
     description: "Stays rental description ",
-    href: "/listing-stay",
+    href: "/list",
     active: true,
     icon: IconOne,
   },
-  {
-    name: "Real Estate",
-    description: "Real Estate description",
-    href: "/listing-real-estate",
-    icon: IconTwo,
-  },
-  {
-    name: "Cars",
-    description: "Car rental description",
-    href: "/listing-car",
-    icon: IconThree,
-  },
-  {
-    name: "Experiences",
-    description: "Tour and experiences",
-    href: "/listing-experiences",
-    icon: IconFour,
-  },
-];
+
+]
 
 export default function DropdownTravelers() {
   return (
@@ -77,9 +60,8 @@ export default function DropdownTravelers() {
                       key={index}
                       href={item.href}
                       onClick={() => close()}
-                      className={`flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 ${
-                        item.active ? "bg-neutral-100 dark:bg-neutral-700" : ""
-                      }`}
+                      className={`flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 ${item.active ? "bg-neutral-100 dark:bg-neutral-700" : ""
+                        }`}
                     >
                       <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-primary-50 rounded-md text-primary-500 sm:h-12 sm:w-12">
                         <item.icon aria-hidden="true" />
@@ -115,7 +97,7 @@ export default function DropdownTravelers() {
         </>
       )}
     </Popover>
-  );
+  )
 }
 
 function IconFour() {
@@ -162,7 +144,7 @@ function IconFour() {
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 }
 
 function IconTwo() {
@@ -230,7 +212,7 @@ function IconTwo() {
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 }
 
 function IconThree() {
@@ -298,7 +280,7 @@ function IconThree() {
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 }
 
 function IconOne() {
@@ -345,5 +327,5 @@ function IconOne() {
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 }

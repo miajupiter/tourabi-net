@@ -20,7 +20,7 @@ export interface GuestsInputProps {
 const GuestsInput: FC<GuestsInputProps> = ({
   fieldClassName = "[ nc-hero-field-padding ]",
   className = "[ nc-flex-1 ]",
-  buttonSubmitHref = "/listing-stay-map",
+  buttonSubmitHref = "/list",
   hasButtonSubmit = true,
 }) => {
   const [guestAdultsInputValue, setGuestAdultsInputValue] = useState(2)
@@ -117,19 +117,19 @@ const GuestsInput: FC<GuestsInputProps> = ({
               <NcInputNumber
                 className="w-full mt-6"
                 defaultValue={guestChildrenInputValue}
-                onChange={(value) => handleChangeData(value, "guestChildren")}
+                onChange={(value:any) => handleChangeData(value, "guestChildren")}
                 max={4}
                 label="Children"
-                desc="Ages 2-12"
+                desc="Ages 2–12"
               />
 
               <NcInputNumber
                 className="w-full mt-6"
                 defaultValue={guestInfantsInputValue}
-                onChange={(value) => handleChangeData(value, "guestInfants")}
+                onChange={(value:any) => handleChangeData(value, "guestInfants")}
                 max={4}
                 label="Infants"
-                desc="Ages 0-2"
+                desc="Ages 0–2"
               />
             </Popover.Panel>
           </Transition>

@@ -1,13 +1,14 @@
+`use client`
+
 import React, { FC } from "react"
 import GallerySlider from "@/components/GallerySlider"
 // import { DEMO_STAY_LISTINGS } from "@/data/listings"
 import { TourDataType } from "@/data/types"
-import StartRating from "@/components/StartRating"
-import BtnLikeIcon from "@/components/BtnLikeIcon"
-import SaleOffBadge from "@/components/SaleOffBadge"
-import Badge from "@/shared/Badge"
+// import StartRating from "@/components/StartRating"
+// import BtnLikeIcon from "@/components/BtnLikeIcon"
+// import SaleOffBadge from "@/components/SaleOffBadge"
+// import Badge from "@/shared/Badge"
 import Link from "next/link"
-
 export interface TourCardProps {
   className?: string
   data?: TourDataType
@@ -81,6 +82,8 @@ const TourCard: FC<TourCardProps> = ({
       </div>
     )
   }
+
+ 
 
   return (
     <div className={`nc-StayCard2 group relative ${className}`}>

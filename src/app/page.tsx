@@ -4,7 +4,7 @@ import BackgroundSection from "@/components/BackgroundSection"
 import BgGlassmorphism from "@/components/BgGlassmorphism"
 import { TaxonomyType } from "@/data/types"
 import SectionGridAuthorBox from "@/components/SectionGridAuthorBox"
-import SectionGridCategoryBox from "@/components/SectionGridCategoryBox"
+import SectionGridCategoryBox from "@/app/SectionGridCategoryBox"
 // import SectionHero3 from "@/app/(server-components)/SectionHero3"
 import CardCategory6 from "@/components/CardCategory6"
 import SectionGridFeaturePlaces from "@/components/SectionGridFeaturePlaces"
@@ -86,18 +86,19 @@ function PageHome3() {
         </div>
 
         {/* SECTION */}
-        <SectionGridCategoryBox />
+        <SectionGridCategoryBox  />
 
         {/* SECTION */}
         <div className="relative py-16">
+          fitifiti
           <BackgroundSection />
-          <SectionGridAuthorBox boxCard="box2" />
+          {/* <SectionGridAuthorBox boxCard="box2" /> */}
         </div>
 
-        <SectionGridFeaturePlaces />
+        {/* <SectionGridFeaturePlaces /> */}
 
         {/* SECTION */}
-        <SectionSubscribe2 />
+        {/* <SectionSubscribe2 /> */}
       </div>
     </main>
   )

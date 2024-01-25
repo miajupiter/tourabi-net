@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import axios, { AxiosError } from 'axios'
 
-const tempToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSWQiOiI2NWFhMDlhYjdhMTA3YWNmZmY5MDVlZjIiLCJpYXQiOjE3MDU2NDI0MTEsImV4cCI6MTc5MjA0MjQxMX0.Cfr5KPV7XVRpTVidy297F_MxiO3DMjx_iIHNolgQ9w4'
+export const tempToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uSWQiOiI2NWFkMjJjNjRlMGI3ZjBjMWE2NGY1YTAiLCJpYXQiOjE3MDU4NDU0NDYsImV4cCI6MTc5MjI0NTQ0Nn0.HQe441KYRC9IZLfJLRWNaX20Dn3-sZi-rxt1R79Ku-U'
 export interface RestResultType {
   success: boolean,
   error?: string | { name?: string, message: string }

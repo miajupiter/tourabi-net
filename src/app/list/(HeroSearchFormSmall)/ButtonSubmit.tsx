@@ -1,26 +1,17 @@
-"use client";
-
-import React, { FC } from "react";
-import { PathName } from "@/routers/types";
-import Link from "next/link";
+import { PathName } from "@/routers/types"
+import Link from "next/link"
+import React, { FC } from "react"
 
 interface Props {
-  className?: string;
-  href: PathName;
+  href?: PathName | string
 }
 
-const ButtonSubmit: FC<Props> = ({
-  className = "",
-  href = "/listing-stay-map",
-}) => {
+const ButtonSubmit: FC<Props> = ({ href = "/list" }) => {
   return (
     <Link
       href={href}
       type="button"
-      className={`h-14 w-14 rounded-full bg-primary-6000 hover:bg-primary-700 flex items-center justify-center text-neutral-50 focus:outline-none ${className}`}
-      onClick={() => {
-        (document.querySelector(".nc-Footer") as HTMLElement | null)?.click();
-      }}
+      className="h-14 md:h-16 w-full md:w-16 rounded-full bg-primary-6000 hover:bg-primary-700 flex items-center justify-center text-neutral-50 focus:outline-none"
     >
       <span className="mr-3 md:hidden">Search</span>
       <svg
@@ -38,7 +29,7 @@ const ButtonSubmit: FC<Props> = ({
         />
       </svg>
     </Link>
-  );
-};
+  )
+}
 
-export default ButtonSubmit;
+export default ButtonSubmit

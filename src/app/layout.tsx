@@ -7,7 +7,7 @@ import '@/styles/index.scss'
 import 'rc-slider/assets/index.css'
 import Footer from '@/components/Footer'
 import FooterNav from '@/components/FooterNav'
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -15,14 +15,23 @@ const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700'],
 })
 
+export const viewport: Viewport = {
+  themeColor: [{ media: '(prefers-color-scheme: dark)', color: '#fff' }],
+  initialScale:1,
+  width:'device-width',
+  minimumScale:1,
+  maximumScale:1,
+  viewportFit:'cover',
+  userScalable:false,
+  interactiveWidget:'overlays-content'
+}
+
 export const metadata: Metadata = {
   title: 'TourAbi',
   description: 'TourAbi.net Travel Tour Portal',
   // generator: 'Next.js',
-  generator: 'miajupiter',
   manifest: '/manifest.json',
   keywords: ['tourabi', 'tours', 'miajupiter', 'mrtek-yazilimevi', 'travel', 'booking', 'silkroad'],
-  themeColor: [{ media: '(prefers-color-scheme: dark)', color: '#fff' }],
   authors: [
     { name: 'Shaman Coders' },
     {
@@ -30,10 +39,12 @@ export const metadata: Metadata = {
       url: 'https://linktr.ee/alitek',
     },
   ],
-  viewport: 'minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover',
+  
+  // viewport:viewport,
   icons: [
-    { rel: 'apple-touch-icon', url: 'icons/icon-128x128.png' },
-    { rel: 'icon', url: 'icons/icon-128x128.png' },
+    // { rel: 'apple-touch-icon', url: 'icons/icon-128x128.png' },
+    { rel: 'icon', url: '/favicon.ico' },
+    // { rel: 'icon', url: 'icons/icon-128x128.png' },
   ],
 }
 
@@ -46,15 +57,18 @@ export default function RootLayout({
   params: any
 }) {
   return (
-    <html lang='en' className={poppins.className}>
-      <head>
+    <html lang='en' className={`${poppins.className} dark`}>
+    {/* <html lang='en' > */}
+      {/* <head>
         <link rel='icon' href='/favicon.ico' />
-      </head>
-      {/* <body className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'> */}
-      <body className='bg-neutral-900 not(dark):bg-white text-base text-neutral-900 dark:text-neutral-200'>
+      </head> */}
+      <body className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'>
+      {/* <body className='bg-neutral-900 not(dark):bg-white text-base text-neutral-900 dark:text-neutral-200'> */}
         <ClientCommons />
         <SiteHeader />
+        {/* <MDXProvider> */}
         {children}
+        {/* </MDXProvider> */}
         <FooterNav />
         <Footer />
       </body>

@@ -1,4 +1,3 @@
-'use client'
 import { CustomLink } from "@/data/types"
 import React, { FC } from "react"
 import twFocusClass from "@/utils/twFocusClass"
@@ -26,16 +25,23 @@ import { Route } from "@/routers/types"
 
 export interface PaginationProps {
   className?: string
-  pageNo: number
+  pageNo?: number
   pageSize?: number
   pageCount?: number
   totalDocs?: number
   urlPath?: string
+
+  buttonClick?: Function | any
 }
 
-const Pagination: FC<PaginationProps> = ({ className = "", urlPath = "/list", pageNo = 1, pageSize = 8, pageCount = 1, totalDocs = 0 }) => {
+const Pagination: FC<PaginationProps> = ({ className = "", urlPath = "/list", pageNo = 1, pageSize = 8, pageCount = 1, totalDocs = 0, buttonClick=null }) => {
+
+  // const butonTikla = () => {
+  //   buttonClick(pageNo)
+  // }
 
   const renderItem = (pag: CustomLink, isActive: boolean, key: any,) => {
+
     if (isActive) {
       // RETURN ACTIVE PAGINATION
       return (
@@ -47,12 +53,14 @@ const Pagination: FC<PaginationProps> = ({ className = "", urlPath = "/list", pa
         </span>
       )
     }
+
     // RETURN UNACTIVE PAGINATION
     return (
       <a
         key={key}
         className={`inline-flex w-11 h-11 items-center justify-center rounded-full bg-white hover:bg-neutral-100 border border-neutral-200 text-neutral-6000 dark:text-neutral-400 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700 ${twFocusClass()}`}
         href={pag.href as Route}
+        // onClick={butonTikla}
       >
         {pag.label}
       </a>

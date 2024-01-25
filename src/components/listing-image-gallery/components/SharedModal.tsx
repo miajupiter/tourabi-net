@@ -90,7 +90,7 @@ export default function SharedModal({
                   height={navigation ? 853 : 1280}
                   priority
                   alt="Chisfis listing gallery"
-                  onLoadingComplete={() => setLoaded(true)}
+                  onLoad={() => setLoaded(true)}
                   sizes="(max-width: 1025px) 100vw, 1280px"
                 />
               </motion.div>

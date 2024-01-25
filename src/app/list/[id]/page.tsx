@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { FC, Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
@@ -21,9 +21,8 @@ import StayDatesRangeInput from '../DatesRangeInput'
 import GuestsInput from '../GuestsInput'
 import SectionDateRange from './SectionDateRange'
 import { Route } from 'next'
-import PlaceHolder from '@/images/placeholder-large.png'
-import PlaceHolderSmall from '@/images/placeholder-small.png'
-import { useMDXComponents, MDXProvider } from '@mdx-js/react'
+// import PlaceHolder from '@/images/placeholder-large.png'
+// import PlaceHolderSmall from '@/images/placeholder-small.png'
 
 export interface PageDetailProps {
   params: { id: string }
@@ -227,7 +226,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
 
         {/* <div className='grid grid-cols-1 xl:grid-cols-3 gap-6 text-sm text-neutral-700 dark:text-neutral-300 '> */}
         <div className='text-sm text-neutral-700 dark:text-neutral-300 '>
-          {item && item.travelPlan.map((e: any, index) => travelPlanStep(e, index))}
+          {item && item.travelPlan.map((e: any, index:number) => travelPlanStep(e, index))}
 
         </div>
 
@@ -235,77 +234,6 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
     )
   }
 
-  // const renderMotalAmenities = () => {
-  //   return (
-  //     <Transition appear show={isOpenModalAmenities} as={Fragment}>
-  //       <Dialog
-  //         as='div'
-  //         className='fixed inset-0 z-50 overflow-y-auto'
-  //         onClose={closeModalAmenities}
-  //       >
-  //         <div className='min-h-screen px-4 text-center'>
-  //           <Transition.Child
-  //             as={Fragment}
-  //             enter='ease-out duration-300'
-  //             enterFrom='opacity-0'
-  //             enterTo='opacity-100'
-  //             leave='ease-in duration-200'
-  //             leaveFrom='opacity-100'
-  //             leaveTo='opacity-0'
-  //           >
-  //             <Dialog.Overlay className='fixed inset-0 bg-black bg-opacity-40' />
-  //           </Transition.Child>
-
-  //           {/* This element is to trick the browser into centering the modal contents. */}
-  //           <span
-  //             className='inline-block h-screen align-middle'
-  //             aria-hidden='true'
-  //           >
-  //             &#8203;
-  //           </span>
-  //           <Transition.Child
-  //             as={Fragment}
-  //             enter='ease-out duration-300'
-  //             enterFrom='opacity-0 scale-95'
-  //             enterTo='opacity-100 scale-100'
-  //             leave='ease-in duration-200'
-  //             leaveFrom='opacity-100 scale-100'
-  //             leaveTo='opacity-0 scale-95'
-  //           >
-  //             <div className='inline-block py-8 h-screen w-full max-w-4xl'>
-  //               <div className='inline-flex pb-2 flex-col w-full text-left align-middle transition-all transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 shadow-xl h-full'>
-  //                 <div className='relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center'>
-  //                   <h3
-  //                     className='text-lg font-medium leading-6 text-gray-900'
-  //                     id='headlessui-dialog-title-70'
-  //                   >
-  //                     Amenities
-  //                   </h3>
-  //                   <span className='absolute left-3 top-3'>
-  //                     <ButtonClose onClick={closeModalAmenities} />
-  //                   </span>
-  //                 </div>
-  //                 <div className='px-8 overflow-auto text-neutral-700 dark:text-neutral-300 divide-y divide-neutral-200'>
-  //                   {Amenities_demos.filter((_, i) => i < 1212).map((item) => (
-  //                     <div
-  //                       key={item.name}
-  //                       className='flex items-center py-2.5 sm:py-4 lg:py-5 space-x-5 lg:space-x-8'
-  //                     >
-  //                       <i
-  //                         className={`text-4xl text-neutral-6000 las ${item.icon}`}
-  //                       ></i>
-  //                       <span>{item.name}</span>
-  //                     </div>
-  //                   ))}
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </Transition.Child>
-  //         </div>
-  //       </Dialog>
-  //     </Transition>
-  //   )
-  // }
 
   const renderSection4 = () => {
     return (
@@ -642,7 +570,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
         </div>
         <div
           className='absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer'
-          onClick={handleOpenModalImageGallery}
+          // onClick={handleOpenModalImageGallery}
         />
       </div>
     )
@@ -653,26 +581,29 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
         <div className='relative grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2'>
           <div
             className='col-span-2 row-span-3 sm:row-span-2 relative rounded-md sm:rounded-xl overflow-hidden cursor-pointer'
-            onClick={handleOpenModalImageGallery}
+            // onClick={handleOpenModalImageGallery}
           >
-            {item &&
+            {item && item.images.length>=1 &&
               <Image
                 fill
                 className={`object-cover rounded-md sm:rounded-xl`}
                 // src={PHOTOS[0]}
-                src={item && item.images[0].src}
+                src={item.images[0].src}
                 alt='qwerty'
                 sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw'
 
               />
             }
-            {!item &&
+            {!(item && item.images.length>=1) &&
               <div
-                className={`object-cover rounded-md sm:rounded-xl bg-slate-500 (max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw lazy-loading`}
+                className={`object-cover rounded-md sm:rounded-xl bg-slate-500 w-[650px] h-[530px]`}
               >{` `}</div>
             }
-            <div className='absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity'></div>
+            <div
+                className='absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer'
+          />
           </div>
+
 
           <SmallImage index={1} itemSrc={item && item.images.length > 1 && item.images[1].src || ''} />
           <SmallImage index={2} itemSrc={item && item.images.length > 2 && item.images[2].src || ''} />
@@ -681,7 +612,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
 
           <button
             className='absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-neutral-100 text-neutral-500 hover:bg-neutral-200 z-10'
-            onClick={handleOpenModalImageGallery}
+            // onClick={handleOpenModalImageGallery}
           >
             <Squares2X2Icon className='w-5 h-5' />
             <span className='ml-2 text-neutral-800 text-sm font-medium'>

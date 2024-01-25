@@ -1,33 +1,13 @@
 /** @type {import('next').NextConfig} */
-const withMDX = require('@next/mdx')()
+const withMDX=require('@next/mdx')
 
 const nextConfig = {
-
-  reactStrictMode: false,
-  swcMinify: true,
-  compiler: {
-    removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
-  },
+  reactStrictMode: true,
   experimental: {
-    appDir: true,
-    mdxRs:true,
+    // typedRoutes: true,
   },
-  publicRuntimeConfig: {
-    // Will be available on both server and client
-    staticFolder: "/static",
-  },
-  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-  cleanDistDir: true,
   output: "standalone",
   poweredByHeader: false,
-  trailingSlash: false,
-  // headers: { 'developed-by': 'ali tek' },
-  httpAgentOptions: {
-    keepAlive: false,
-    // keepAliveMsecs: 12000,
-    // maxSockets: 25,
-    // maxFreeSockets: 25,
-  },
   images: {
     remotePatterns: [
       {
@@ -62,7 +42,7 @@ const nextConfig = {
       },
     ],
   },
-  ignoreBuildErrors: process.env.NODE_ENV === "development",
+  pageExtensions:['ts','tsx','jsx','md','mdx']
 }
 const withPWA = require("next-pwa")({
   dest: "public", // Destination directory for the PWA files
@@ -73,4 +53,4 @@ const withPWA = require("next-pwa")({
 
 })
 
-module.exports = withPWA(withMDX(nextConfig))
+module.exports = withPWA(nextConfig)
