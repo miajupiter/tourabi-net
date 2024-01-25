@@ -5,7 +5,7 @@ import { Popover, Transition } from '@headlessui/react'
 import NcInputNumber from '@/components/NcInputNumber'
 import { FC } from 'react'
 import ClearDataButton from './ClearDataButton'
-import ButtonSubmit from './ButtonSubmit'
+// import ButtonSubmit from './ButtonSubmit'
 import { PathName } from '@/routers/types'
 import { UserPlusIcon } from '@heroicons/react/24/outline'
 import { GuestsObject } from './type'
@@ -13,25 +13,31 @@ import { GuestsObject } from './type'
 export interface GuestsInputProps {
   fieldClassName?: string
   className?: string
-  buttonSubmitHref?: PathName
-  hasButtonSubmit?: boolean
+  // buttonSubmitHref?: PathName
+  // hasButtonSubmit?: boolean
+  adults?:number
+  childeren?:number
+  baby?:number
 }
 
 const GuestsInput: FC<GuestsInputProps> = ({
   fieldClassName = '[ nc-hero-field-padding ]',
   className = '[ nc-flex-1 ]',
-  buttonSubmitHref = '/list',
-  hasButtonSubmit = true,
+  // buttonSubmitHref = '/list',
+  // hasButtonSubmit = true,
+  adults=1,
+  childeren=0,
+  baby=0,
 }) => {
-  const [guestAdultsInputValue, setGuestAdultsInputValue] = useState(2)
-  const [guestChildrenInputValue, setGuestChildrenInputValue] = useState(1)
-  const [guestInfantsInputValue, setGuestInfantsInputValue] = useState(1)
+  const [guestAdultsInputValue, setGuestAdultsInputValue] = useState(adults)
+  const [guestChildrenInputValue, setGuestChildrenInputValue] = useState(childeren)
+  const [guestBabyInputValue, setGuestBabyInputValue] = useState(baby)
 
   const handleChangeData = (value: number, type: keyof GuestsObject) => {
     let newValue = {
       guestAdults: guestAdultsInputValue,
       guestChildren: guestChildrenInputValue,
-      guestInfants: guestInfantsInputValue,
+      guestBaby: guestBabyInputValue,
     }
     if (type === 'guestAdults') {
       setGuestAdultsInputValue(value)
@@ -41,14 +47,14 @@ const GuestsInput: FC<GuestsInputProps> = ({
       setGuestChildrenInputValue(value)
       newValue.guestChildren = value
     }
-    if (type === 'guestInfants') {
-      setGuestInfantsInputValue(value)
-      newValue.guestInfants = value
+    if (type === 'guestBaby') {
+      setGuestBabyInputValue(value)
+      newValue.guestBaby = value
     }
   }
 
   const totalGuests =
-    guestChildrenInputValue + guestAdultsInputValue + guestInfantsInputValue
+    guestChildrenInputValue + guestAdultsInputValue + guestBabyInputValue
 
   return (
     <Popover className={`flex relative ${className}`}>
@@ -69,7 +75,10 @@ const GuestsInput: FC<GuestsInputProps> = ({
                   {totalGuests || ''} Guests
                 </span>
                 <span className='block mt-1 text-sm text-neutral-400 leading-none font-light'>
-                  {totalGuests ? 'Guests' : 'Add guests'}
+                  {guestAdultsInputValue>0 && `${guestAdultsInputValue} Adults `}
+                  {guestChildrenInputValue>0 && `${guestChildrenInputValue} Children `}
+                  {guestBabyInputValue>0 && `${guestBabyInputValue} Baby`}
+                  {/* {totalGuests ? 'Guests' : 'Add guests'} */}
                 </span>
               </div>
 
@@ -78,18 +87,18 @@ const GuestsInput: FC<GuestsInputProps> = ({
                   onClick={() => {
                     setGuestAdultsInputValue(0)
                     setGuestChildrenInputValue(0)
-                    setGuestInfantsInputValue(0)
+                    setGuestBabyInputValue(0)
                   }}
                 />
               )}
             </Popover.Button>
 
-            {/* BUTTON SUBMIT OF FORM */}
-            {hasButtonSubmit && (
+           
+            {/* {hasButtonSubmit && (
               <div className='pr-2 xl:pr-4'>
                 <ButtonSubmit href={buttonSubmitHref} />
               </div>
-            )}
+            )} */}
           </div>
 
           {open && (
@@ -109,7 +118,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
                 className='w-full'
                 defaultValue={guestAdultsInputValue}
                 onChange={(value) => handleChangeData(value, 'guestAdults')}
-                max={10}
+                max={100}
                 min={1}
                 label='Adults'
                 desc='Ages 13 or above'
@@ -118,17 +127,17 @@ const GuestsInput: FC<GuestsInputProps> = ({
                 className='w-full mt-6'
                 defaultValue={guestChildrenInputValue}
                 onChange={(value) => handleChangeData(value, 'guestChildren')}
-                max={4}
+                max={100}
                 label='Children'
                 desc='Ages 2-12'
               />
 
               <NcInputNumber
                 className='w-full mt-6'
-                defaultValue={guestInfantsInputValue}
-                onChange={(value) => handleChangeData(value, 'guestInfants')}
-                max={4}
-                label='Infants'
+                defaultValue={guestBabyInputValue}
+                onChange={(value) => handleChangeData(value, 'guestBaby')}
+                max={100}
+                label='Baby'
                 desc='Ages 0-2'
               />
             </Popover.Panel>

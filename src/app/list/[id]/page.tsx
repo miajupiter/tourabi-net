@@ -21,6 +21,8 @@ import StayDatesRangeInput from '../DatesRangeInput'
 import GuestsInput from '../GuestsInput'
 import SectionDateRange from './SectionDateRange'
 import { Route } from 'next'
+import { tempToken } from '../../../utils/apiHelper'
+
 // import PlaceHolder from '@/images/placeholder-large.png'
 // import PlaceHolderSmall from '@/images/placeholder-small.png'
 
@@ -57,8 +59,9 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
   const [pullData, setPullData] = useState(false)
 
   const getItem = async (itemId: string) => {
-
-    const ret = await fetch(`/api/tours/${itemId}`)
+    const url = `${process.env.NEXT_PUBLIC_API_URI}/tours/${itemId}`
+    const ret = await fetch(url, { headers: { 'token': tempToken } })
+    // const ret = await fetch(`/api/tours/${itemId}`)
     const result = await ret.json()
 
     if (result.success && result.data) {
@@ -625,7 +628,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
     )
   }
   return (
-    <div className='nc-ListingStayDetailPage'>
+    <div className='container nc-ListingStayDetailPage mb-20'>
       {/*  HEADER */}
       {renderHeader()}
       {/* MAIN */}

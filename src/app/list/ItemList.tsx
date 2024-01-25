@@ -7,7 +7,7 @@ import TourCard from './TourCard'
 
 import SearchForm from './SearchForm'
 import { tempToken } from '../../utils/apiHelper'
-import Pagination from '@/shared/Pagination'
+// import Pagination from '@/shared/Pagination'
 export interface ItemListProps { }
 
 const ItemList = ({ }: ItemListProps) => {
@@ -29,7 +29,7 @@ const ItemList = ({ }: ItemListProps) => {
       setPageCount(result.data.pageCount as number)
       setTotalDocs(result.data.totalDocs as number)
       setDocs(result.data.docs as TourDataType[])
-    }else{
+    } else {
       setPageCount(1)
       setTotalDocs(0)
       setDocs([])
@@ -74,34 +74,32 @@ const ItemList = ({ }: ItemListProps) => {
   }, [])
 
   return (
-    <>
-      <div
-        className={`nc-SectionGridFilterCard`}
-        data-nc-id='SectionGridFilterCard'
-      >
-        <div className="hidden md:block container relative space-y-24 mb-24 lg:space-y-28 md:mb-28">
-          <div className={`nc-HeroSearchForm w-full py-5 lg:py-0 mt-10`}    >
+    <div
+      className={`nc-SectionGridFilterCard`}
+      data-nc-id='SectionGridFilterCard'
+    >
+      <div className="hidden md:block container relative space-y-24 mb-24 lg:space-y-28 md:mb-28">
+        <div className={`nc-HeroSearchForm w-full py-5 lg:py-0 mt-10`}    >
 
-            <SearchForm />
-          </div>
+          <SearchForm />
         </div>
-
-        <div className="container relative space-y-12 mb-24 mt-2">
-          <div className='flex mt-4 justify-end items-center'>
-            <Sayfalar />
-          </div>
-          <div className='grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-            {docs.map((tour: TourDataType) => <TourCard key={tour.id} data={tour} />)}
-          </div>
-          <div className='flex mt-4 justify-end items-center'>
-            <Sayfalar />
-          </div>
-        </div>
-
-
       </div>
 
-    </>
+      <div className="container relative space-y-12 mb-24 mt-2">
+        <div className='flex mt-4 justify-end items-center'>
+          <Sayfalar />
+        </div>
+        <div className='grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+          {docs.map((tour: TourDataType) => <TourCard key={tour.id} data={tour} />)}
+        </div>
+        <div className='flex mt-4 justify-end items-center'>
+          <Sayfalar />
+        </div>
+      </div>
+
+
+    </div>
+
   )
 }
 

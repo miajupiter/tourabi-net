@@ -26,7 +26,7 @@ const PageList: FC<PageListProps> = ({}) => {
 // const PageList: PageListProps = ({}) => {
 
   return (
-    <>
+    <div className='w-screen xl:max-w-[1340px] 2xl:max-w-screen-2xl '>
       <ItemList  />
 
       <div className="container overflow-hidden">
@@ -40,7 +40,7 @@ const PageList: FC<PageListProps> = ({}) => {
           <BackgroundSection className="bg-orange-50 dark:bg-black dark:bg-opacity-20 " />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
