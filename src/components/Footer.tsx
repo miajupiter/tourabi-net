@@ -39,7 +39,7 @@ const widgetMenus: WidgetFooterMenu[] = [
     id: "2",
     title: "Resources",
     menus: [
-      { href: "#", label: "Installation" },
+      { href: "/install", label: "Install App" },
       { href: "https://github.com/miajupiter/tourabi-api", label: "API Resources" },
       { href: "https://github.com/miajupiter/tourabi-net", label: "Frontside Resources" },
       // { href: "#", label: "Developers" },
