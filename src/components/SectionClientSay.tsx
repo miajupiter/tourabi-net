@@ -2,13 +2,13 @@
 
 import Heading from "@/shared/Heading";
 import React, { FC, useState } from "react";
-import clientSayMain from "@/images/clientSayMain.png";
+import clientSayMain from "@/images/clientSay1.png";
 import clientSay1 from "@/images/clientSay1.png";
-import clientSay2 from "@/images/clientSay2.png";
-import clientSay3 from "@/images/clientSay3.png";
-import clientSay4 from "@/images/clientSay4.png";
-import clientSay5 from "@/images/clientSay5.png";
-import clientSay6 from "@/images/clientSay6.png";
+import clientSay2 from "@/images/clientSay1.png";
+import clientSay3 from "@/images/clientSay1.png";
+import clientSay4 from "@/images/clientSay1.png";
+import clientSay5 from "@/images/clientSay1.png";
+import clientSay6 from "@/images/clientSay1.png";
 import quotationImg from "@/images/quotation.png";
 import quotationImg2 from "@/images/quotation2.png";
 import { MapPinIcon } from "@heroicons/react/24/outline";
