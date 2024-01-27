@@ -4,7 +4,7 @@ WORKDIR /app
 COPY ./package.json .
 COPY ./yarn.lock .
 RUN yarn install
-RUN npm i sharp
+# RUN npm i sharp
 
 COPY . .
 
