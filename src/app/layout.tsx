@@ -8,6 +8,10 @@ import 'rc-slider/assets/index.css'
 import Footer from '@/components/Footer'
 import FooterNav from '@/components/FooterNav'
 import { Metadata, Viewport } from 'next'
+// import { SessionProvider, SessionProviderProps } from "next-auth/react"
+// import { getServerSession } from "next-auth/next"
+// import { authOptions } fro./api/auth/routeth]'
+// import { useSession, getSession } from "next-auth/react"
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -15,15 +19,16 @@ const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700'],
 })
 
+
 export const viewport: Viewport = {
   themeColor: [{ media: '(prefers-color-scheme: dark)', color: '#fff' }],
-  initialScale:1,
-  width:'device-width',
-  minimumScale:1,
-  maximumScale:1,
-  viewportFit:'cover',
-  userScalable:false,
-  interactiveWidget:'overlays-content'
+  initialScale: 1,
+  width: 'device-width',
+  minimumScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
+  userScalable: false,
+  interactiveWidget: 'overlays-content'
 }
 
 export const metadata: Metadata = {
@@ -39,7 +44,7 @@ export const metadata: Metadata = {
       url: 'https://linktr.ee/alitek',
     },
   ],
-  
+
   // viewport:viewport,
   icons: [
     // { rel: 'apple-touch-icon', url: 'icons/icon-128x128.png' },
@@ -48,7 +53,6 @@ export const metadata: Metadata = {
   ],
 }
 
-
 export default function RootLayout({
   children,
   params,
@@ -56,21 +60,19 @@ export default function RootLayout({
   children: React.ReactNode
   params: any
 }) {
+  // const { data: session } = useSession()
+  // console.log('data',session)
   return (
     <html lang='en' className={`${poppins.className} dark`}>
-    {/* <html lang='en' > */}
-      {/* <head>
-        <link rel='icon' href='/favicon.ico' />
-      </head> */}
+
       <body className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'>
-      {/* <body className='bg-neutral-900 not(dark):bg-white text-base text-neutral-900 dark:text-neutral-200'> */}
         <ClientCommons />
         <SiteHeader />
-        {/* <MDXProvider> */}
+        {/* <SessionProvider session={session}> */}
         {children}
-        {/* </MDXProvider> */}
         <FooterNav />
         <Footer />
+        {/* </SessionProvider> */}
       </body>
     </html>
   )

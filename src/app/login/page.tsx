@@ -1,3 +1,5 @@
+"use client"
+
 import React, { FC } from 'react'
 import facebookSvg from '@/images/Facebook.svg'
 import twitterSvg from '@/images/Twitter.svg'
@@ -6,6 +8,8 @@ import Input from '@/shared/Input'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import Image from 'next/image'
 import Link from 'next/link'
+import { signIn, signOut, useSession } from "next-auth/react"
+
 // import {authOptions} from '@/app/api/auth/[...nextauth]'
 
 export interface PageLoginProps { }
@@ -36,6 +40,14 @@ const PageLogin: FC<PageLoginProps> = ({ }) => {
           Login
         </h2>
         <div className='max-w-md mx-auto space-y-6'>
+          <a 
+            className='flex w-full rounded-lg bg-primary-50 dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]'
+            href={`/api/auth/signin/yandex`}
+            // onClick={(e) => {
+            //   e.preventDefault()
+            //   signIn()
+            // }}
+          >Sign in</a>
           <div className='grid gap-3'>
             {loginSocials.map((item, index) => (
               <a

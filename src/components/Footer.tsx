@@ -47,17 +47,17 @@ const widgetMenus: WidgetFooterMenu[] = [
       // { href: "#", label: "Releases" },
     ],
   },
-  // {
-  //   id: "4",
-  //   title: "Community",
-  //   menus: [
-  //     { href: "#", label: "Discussion Forums" },
-  //     { href: "#", label: "Code of Conduct" },
-  //     { href: "#", label: "Community Resources" },
-  //     { href: "#", label: "Contributing" },
-  //     { href: "#", label: "Concurrent Mode" },
-  //   ],
-  // },
+  {
+    id: "4",
+    title: "Community",
+    menus: [
+      { href: "/login", label: "Login" },
+      { href: "/subscription", label: "Subscription" },
+      // { href: "#", label: "Community Resources" },
+      // { href: "#", label: "Contributing" },
+      // { href: "#", label: "Concurrent Mode" },
+    ],
+  },
 ]
 
 const Footer: React.FC = () => {
