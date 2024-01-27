@@ -8,10 +8,11 @@ import 'rc-slider/assets/index.css'
 import Footer from '@/components/Footer'
 import FooterNav from '@/components/FooterNav'
 import { Metadata, Viewport } from 'next'
-// import { SessionProvider, SessionProviderProps } from "next-auth/react"
-// import { getServerSession } from "next-auth/next"
-// import { authOptions } fro./api/auth/routeth]'
-// import { useSession, getSession } from "next-auth/react"
+// import { Providers } from "@/shared/providers"
+import { useSession } from 'next-auth/react'
+import { auth } from "auth"
+import { SessionProvider } from "next-auth/react"
+import type { Session } from "next-auth"
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -53,26 +54,29 @@ export const metadata: Metadata = {
   ],
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode
   params: any
 }) {
-  // const { data: session } = useSession()
+  const session: Session | null = await auth()
+  //  const { data: session } = useSession()
   // console.log('data',session)
   return (
+
     <html lang='en' className={`${poppins.className} dark`}>
 
       <body className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'>
-        <ClientCommons />
-        <SiteHeader />
-        {/* <SessionProvider session={session}> */}
-        {children}
-        <FooterNav />
-        <Footer />
-        {/* </SessionProvider> */}
+        <SessionProvider session={session}>
+          <ClientCommons />
+          <SiteHeader />
+
+          {children}
+          <FooterNav />
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   )

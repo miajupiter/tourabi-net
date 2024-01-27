@@ -5,6 +5,9 @@ import SocialsList1 from "@/shared/SocialsList1"
 import { CustomLink } from "@/data/types"
 import React from "react"
 import FooterNav from "./FooterNav"
+import { useSession } from "next-auth/react"
+// import SessionData from "@/shared/session-data"
+
 
 export interface WidgetFooterMenu {
   id: string
@@ -51,7 +54,7 @@ const widgetMenus: WidgetFooterMenu[] = [
     id: "4",
     title: "Community",
     menus: [
-      { href: "/login", label: "Login" },
+      // { href: "/login", label: "Login" },
       { href: "/subscription", label: "Subscription" },
       // { href: "#", label: "Community Resources" },
       // { href: "#", label: "Contributing" },
@@ -84,6 +87,8 @@ const Footer: React.FC = () => {
     )
   }
 
+  const { data: session, status } = useSession()
+
   return (
     <>
       <FooterNav />
@@ -100,7 +105,13 @@ const Footer: React.FC = () => {
           </div>
           {widgetMenus.map(renderWidgetMenuItem)}
         </div>
+        {status === "loading" ? (
+        <div>Loading...</div>
+      ) : (
+        <pre>{JSON.stringify(session || {}, null, 2)}</pre>
+      )}
       </div>
+      
     </>
   )
 }
