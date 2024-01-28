@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from "react"
 import SwitchDarkMode2 from "@/shared/SwitchDarkMode2"
 import Link from "next/link"
 
-import { useSession } from 'next-auth/react'
+import { useSession, getSession } from 'next-auth/react'
 interface Props {
   className?: string
 }
@@ -17,7 +17,6 @@ const SignInSvg = ({ width = '1.5em', height = '1.5em' }) => (
 export default function AvatarDropdown({ className = "" }: Props) {
 
   const { data: session, status } = useSession()
-
 
   return (
     <>

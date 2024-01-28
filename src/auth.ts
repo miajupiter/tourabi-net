@@ -7,6 +7,9 @@ import Yandex from "next-auth/providers/yandex"
 import GitHub from "next-auth/providers/github"
 import Slack from "next-auth/providers/slack"
 import Email from "next-auth/providers/email"
+// import Apple from "next-auth/providers/apple"
+import Twitter from "next-auth/providers/twitter"
+
 import { randomUUID } from 'crypto'
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
 import clientPromise from './utils/mongodb'
@@ -17,7 +20,7 @@ declare module "next-auth" {
     //   picture?: string,
     // },
     user: {
-      picture?: string
+      picture?: string,
     } & Omit<User, "id">
   }
 }
@@ -58,6 +61,10 @@ export const authConfig = {
       clientId: process.env.AUTH_YANDEX_ID,
       clientSecret: process.env.AUTH_YANDEX_SECRET,
     }),
+    Twitter({
+      clientId: process.env.AUTH_TWITTER_ID,
+      clientSecret: process.env.AUTH_TWITTER_SECRET,
+    }),
     GitHub({
       clientId: process.env.AUTH_GITHUB_ID,
       clientSecret: process.env.AUTH_GITHUB_SECRET,
@@ -65,24 +72,24 @@ export const authConfig = {
     Slack({
       clientId: process.env.AUTH_SLACK_ID,
       clientSecret: process.env.AUTH_SLACK_SECRET,
-    }),
-    // Email({
-    //   from:process.env.AUTH_EMAIL_FROM,
-    //   server:process.env.AUTH_EMAIL_SERVER,
 
-    // }),
-    Credentials({
-      credentials: { password: { label: "Password", type: "password" } },
-      authorize(c) {
-        if (c.password !== "1") return null
-        return {
-          name: "Fill Murray",
-          email: "bill@fillmurray.com",
-          image: "https://www.fillmurray.com/64/64",
-          id: "1",
-        }
-      },
     }),
+    Email({
+      from:process.env.AUTH_EMAIL_FROM,
+      server:process.env.AUTH_EMAIL_SERVER,
+    }),
+    // Credentials({
+    //   credentials: { password: { label: "Password", type: "password" } },
+    //   authorize(c) {
+    //     if (c.password !== "1") return null
+    //     return {
+    //       name: "Fill Murray",
+    //       email: "bill@fillmurray.com",
+    //       image: "https://www.fillmurray.com/64/64",
+    //       id: "1",
+    //     }
+    //   },
+    // }),
   ],
   // jwt: {
   //   maxAge: 86400000
