@@ -62,6 +62,7 @@ export default async function RootLayout({
   params: any
 }) {
   const session: Session | null = await auth()
+  
   //  const { data: session } = useSession()
   // console.log('data',session)
   return (

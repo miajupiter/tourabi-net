@@ -1,23 +1,21 @@
 import { Popover, Transition } from "@headlessui/react"
 import { Fragment, useEffect, useState } from "react"
-import Avatar from "@/shared/Avatar"
+// import Avatar from "@/shared/Avatar"
 import SwitchDarkMode2 from "@/shared/SwitchDarkMode2"
 import Link from "next/link"
-// import { auth } from "@/auth"
-// import { useSession, SessionProvider } from "next-auth/react"
-import type { Session } from "next-auth"
+
 import { useSession } from 'next-auth/react'
 interface Props {
   className?: string
 }
 
-const SignInSvg=({width='1.5em',height='1.5em'})=>(
+const SignInSvg = ({ width = '1.5em', height = '1.5em' }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24"><path fill="currentColor" d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8z"></path>
   </svg>
 )
 
 export default function AvatarDropdown({ className = "" }: Props) {
-  
+
   const { data: session, status } = useSession()
 
 
@@ -26,8 +24,8 @@ export default function AvatarDropdown({ className = "" }: Props) {
 
       {!session && <Link href="/api/auth/signin" className='text-xl self-center'>
         <SignInSvg />
-        </Link>}
-      {session &&
+      </Link>}
+      {session && status==="authenticated" &&
         <Popover className={`AvatarDropdown relative flex ${className}`}>
           {({ open, close }) => (
             <>

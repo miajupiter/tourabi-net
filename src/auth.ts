@@ -7,21 +7,48 @@ import Yandex from "next-auth/providers/yandex"
 import GitHub from "next-auth/providers/github"
 import Slack from "next-auth/providers/slack"
 import Email from "next-auth/providers/email"
+import { randomUUID } from 'crypto'
+import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import clientPromise from './utils/mongodb'
 
 declare module "next-auth" {
   interface Session {
+    // user: {
+    //   picture?: string,
+    // },
     user: {
       picture?: string
     } & Omit<User, "id">
   }
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URI
 export const authConfig = {
   debug: false,
+  adapter: MongoDBAdapter(clientPromise,{
+    collections: {
+      Accounts:'usersAccounts',
+      Users:'users',
+      Sessions:'usersSessions',
+      VerificationTokens:'usersVerificationTokens'
+    },
+    databaseName:'passportdb',
+  }),
+  session: {
+    maxAge: 86400000,
+    updateAge: 86400000,
+    strategy: 'database',
+    generateSessionToken() {
+      const ret = randomUUID()
+      console.log(`generateSessionToken ret:`, ret)
+      return ret
+    },
+  },
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
+
     }),
     Facebook({
       clientId: process.env.AUTH_FACEBOOK_ID,
@@ -57,7 +84,51 @@ export const authConfig = {
       },
     }),
   ],
+  // jwt: {
+  //   maxAge: 86400000
+
+  // },
   callbacks: {
+
+    async jwt(params) {
+      console.log('jwt params:', params)
+      // console.log('params.session:', params.session)
+      // console.log('params.user:', params.user)
+      // console.log('params.account:', params.account)
+      return params.token
+    },
+    // async signIn(params) {
+    //   try {
+    //     const data = {
+    //       id: params.user.id || '',
+    //       name: params.user.name || '',
+    //       email: params.user.email || '',
+    //       image: params.user.image || '',
+    //       provider: params.account?.provider
+    //     }
+    //     console.log(`callbacks signIn account:`, params.account)
+    //     console.log(`callbacks signIn user:`, params.user)
+
+
+    //     const ret = await fetch(`${baseUrl}/auth/socialLogin`, {
+    //       body: JSON.stringify(data),
+    //       headers: { "Content-Type": "application/json" },
+    //       method: 'POST',
+    //     } as RequestInit)
+
+    //     const resp = await ret.json()
+
+    //     console.log(`resp:`, resp)
+
+    //     return true
+    //   } catch (err: any) {
+    //     return false
+    //   }
+    // },
+    session(params) {
+       console.log(`callbacks session params:`, params.session)
+      return params.session
+    },
     authorized(params) {
       console.log(`callbacks params:`, params)
       return !!params.auth?.user
