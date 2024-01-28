@@ -133,7 +133,7 @@ export const authConfig = {
     //   }
     // },
     session(params) {
-       console.log(`callbacks session params:`, params.session)
+      //  console.log(`callbacks session params:`, params.session)
       return params.session
     },
     authorized(params) {
