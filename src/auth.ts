@@ -98,7 +98,7 @@ export const authConfig = {
   callbacks: {
 
     async jwt(params) {
-      console.log('jwt params:', params)
+      // console.log('jwt params:', params)
       // console.log('params.session:', params.session)
       // console.log('params.user:', params.user)
       // console.log('params.account:', params.account)
