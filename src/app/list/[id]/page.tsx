@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React, { FC, Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
@@ -19,9 +19,9 @@ import { usePathname, useRouter } from 'next/navigation'
 import { Amenities_demos, PHOTOS } from './constant'
 import StayDatesRangeInput from '../DatesRangeInput'
 import GuestsInput from '../GuestsInput'
-import SectionDateRange from './SectionDateRange'
+// import SectionDateRange from './SectionDateRange'
 import { Route } from 'next'
-import { tempToken } from '../../../utils/apiHelper'
+import { getToken } from '@/utils/apiHelper'
 
 // import PlaceHolder from '@/images/placeholder-large.png'
 // import PlaceHolderSmall from '@/images/placeholder-small.png'
@@ -55,46 +55,48 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
 
   const thisPathname = usePathname()
   const router = useRouter()
+  const [sessionToken, setSessionToken] = useState('')
   const [item, setItem] = useState<TourItemType>()
   const [pullData, setPullData] = useState(false)
 
-  const getItem = async (itemId: string) => {
-    const url = `${process.env.NEXT_PUBLIC_API_URI}/tours/${itemId}`
-    const ret = await fetch(url, { headers: { 'token': tempToken } })
-    // const ret = await fetch(`/api/tours/${itemId}`)
-    const result = await ret.json()
+  const getItem = (itemId: string, token: string) => {
 
-    if (result.success && result.data) {
-      var res = result.data as TourItemType
-      var tour = {
-        id: res.id,
-        title: res.title,
-        description: res.description,
-        duration: res.duration,
-        places: res.places,
-        currency: res.currency,
-        price: res.price,
-        singleSupplement: res.singleSupplement,
-        priceTable: res.priceTable,
-        travelPlan: res.travelPlan,
-        inclusions: res.inclusions,
-        exclusions: res.exclusions,
-        images: res.images,
-      } as TourItemType
-      setItem(tour)
-    }
-    setPullData(true)
+    fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours/${itemId}`, { headers: { 'token': token } })
+      .then(ret => ret.json())
+      .then(result => {
+        if (result.success && result.data) {
+          var res = result.data as TourItemType
+          var tour = {
+            id: res.id,
+            title: res.title,
+            description: res.description,
+            duration: res.duration,
+            places: res.places,
+            currency: res.currency,
+            price: res.price,
+            singleSupplement: res.singleSupplement,
+            priceTable: res.priceTable,
+            travelPlan: res.travelPlan,
+            inclusions: res.inclusions,
+            exclusions: res.exclusions,
+            images: res.images,
+          } as TourItemType
+          setItem(tour)
+        }
+      }).catch(console.error)
+
+
   }
 
-  // if (!pullData) {
-  //   getItem(params.id)
-  // }
+  useEffect(() => {
+    getToken().then(token => {
+      console.log('token:', token)
+      setSessionToken(token)
+      getItem(params.id,token)
+    }).catch(err => console.log(err))
 
-  useEffect(function () {
-    if (!pullData) {
-      getItem(params.id)
-    }
   }, [])
+
 
   function closeModalAmenities() {
     setIsOpenModalAmenities(false)
@@ -196,24 +198,24 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
   }
 
   const travelPlanStep = (plan: any, index: number) => (
-      <div className={`flex-grow p-3 rounded-lg ${index%2==1?' bg-slate-400 dark:bg-[#1f273a]':''}`}>
-        <div className="flex justify-between space-x-3">
-          <div className="flex flex-col">
-            <div className="text-sm font-bold">
-              {plan.title.split(',')[1] && plan.title.split(',')[1]}
-            </div>
-            {/* <span className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
+    <div className={`flex-grow p-3 rounded-lg ${index % 2 == 1 ? ' bg-slate-400 dark:bg-[#1f273a]' : ''}`}>
+      <div className="flex justify-between space-x-3">
+        <div className="flex flex-col">
+          <div className="text-sm font-bold">
+            {plan.title.split(',')[1] && plan.title.split(',')[1]}
+          </div>
+          {/* <span className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
               subtitle
             </span> */}
-          </div>
-          <div className="flex text-yellow-500">
-            {plan.title.split(',')[0]}
-          </div>
         </div>
-        <span className="block mt-3 mb-5 text-neutral-6000 dark:text-neutral-300">
-          {plan.description}
-        </span>
+        <div className="flex text-yellow-500">
+          {plan.title.split(',')[0]}
+        </div>
       </div>
+      <span className="block mt-3 mb-5 text-neutral-6000 dark:text-neutral-300">
+        {plan.description}
+      </span>
+    </div>
   )
 
   const renderTravelPlan = () => {
@@ -229,7 +231,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
 
         {/* <div className='grid grid-cols-1 xl:grid-cols-3 gap-6 text-sm text-neutral-700 dark:text-neutral-300 '> */}
         <div className='text-sm text-neutral-700 dark:text-neutral-300 '>
-          {item && item.travelPlan.map((e: any, index:number) => travelPlanStep(e, index))}
+          {item && item.travelPlan.map((e: any, index: number) => travelPlanStep(e, index))}
 
         </div>
 
@@ -551,14 +553,15 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
   }
 
   const renderHeader = () => {
-    // <div key={key} className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? 'hidden sm:block' : ''}`} >
     const SmallImage = ({ index, itemSrc }: { index: number, itemSrc: string }) => (
-      <div key={index} className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? 'hidden sm:block' : ''}`} >
+      // <div key={index} className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? 'hidden sm:block' : ''}`} >
+      <div key={index} className={`relative rounded-[3px] overflow-hidden ${index >= 3 ? 'hidden sm:block' : ''}`} >
         <div className='aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5'>
           {item &&
             <Image
               fill
-              className={`object-cover rounded-md sm:rounded-xl`}
+              // className={`object-cover rounded-md sm:rounded-xl`}
+              className={`object-cover rounded-[3px]`}
               src={itemSrc}
               alt=''
               sizes='400px'
@@ -567,29 +570,30 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
           }
           {!item &&
             <div
-              className={`object-cover rounded-md sm:rounded-xl bg-slate-500 400px lazy-loading`}
+              // className={`object-cover rounded-md sm:rounded-xl bg-slate-500 400px lazy-loading`}
+              className={`object-cover rounded-[3px] bg-slate-500 400px lazy-loading`}
             >{` `}</div>
           }
         </div>
         <div
           className='absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer'
-          // onClick={handleOpenModalImageGallery}
+        // onClick={handleOpenModalImageGallery}
         />
       </div>
     )
 
 
     return (
-      <header className='rounded-md sm:rounded-xl'>
+      <header className='rounded-[3px]'>
         <div className='relative grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2'>
           <div
-            className='col-span-2 row-span-3 sm:row-span-2 relative rounded-md sm:rounded-xl overflow-hidden cursor-pointer'
-            // onClick={handleOpenModalImageGallery}
+            className='col-span-2 row-span-3 sm:row-span-2 relative rounded-[3px] overflow-hidden cursor-pointer'
+          // onClick={handleOpenModalImageGallery}
           >
-            {item && item.images.length>=1 &&
+            {item && item.images.length >= 1 &&
               <Image
                 fill
-                className={`object-cover rounded-md sm:rounded-xl`}
+                className={`object-cover rounded-[3px]`}
                 // src={PHOTOS[0]}
                 src={item.images[0].src}
                 alt='qwerty'
@@ -597,14 +601,14 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
 
               />
             }
-            {!(item && item.images.length>=1) &&
+            {!(item && item.images.length >= 1) &&
               <div
-                className={`object-cover rounded-md sm:rounded-xl bg-slate-500 w-[650px] h-[530px]`}
+                className={`object-cover rounded-[3px] bg-slate-500 w-[650px] h-[530px]`}
               >{` `}</div>
             }
             <div
-                className='absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer'
-          />
+              className='absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer'
+            />
           </div>
 
 
@@ -615,7 +619,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
 
           <button
             className='absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-neutral-100 text-neutral-500 hover:bg-neutral-200 z-10'
-            // onClick={handleOpenModalImageGallery}
+          // onClick={handleOpenModalImageGallery}
           >
             <Squares2X2Icon className='w-5 h-5' />
             <span className='ml-2 text-neutral-800 text-sm font-medium'>

@@ -1,18 +1,16 @@
-// "use client"
+"use client"
 
 import React, { useEffect, useState } from 'react'
 import { TourDataType } from '@/data/types'
-// import Pagination from '@/shared/Pagination'
+
 import TourCard from './TourCard'
 
 import SearchForm from './SearchForm'
-// import { cookies } from 'next/dist/client/components/headers'
-import { cookies } from "next/headers"
-// import Pagination from '@/shared/Pagination'
+import { getToken } from '@/utils/apiHelper'
 export interface ItemListProps { }
 
 const ItemList = ({ }: ItemListProps) => {
-  
+  const [sessionToken, setSessionToken] = useState('')
   const [pullData, setPullData] = useState(false)
   const [pageNo, setPageNo] = useState(1)
   const [pageSize, setPageSize] = useState(8)
@@ -20,22 +18,26 @@ const ItemList = ({ }: ItemListProps) => {
   const [totalDocs, setTotalDocs] = useState(0)
   const [docs, setDocs] = useState<TourDataType[]>([])
 
-  const getList = async (sayfaNo: number) => {
-    // const sessionToken = cookies().get("tourabi.sessionToken")
+  const getList = (sayfaNo: number, token:string) => {
+   
     setPageNo(sayfaNo)
+    // ApiGet(`/tours?page=${sayfaNo}&pageSize=${pageSize}`)
 
-    // const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours?page=${sayfaNo}&pageSize=${pageSize}`, { headers: { token: (sessionToken?.value || '') } })
-    const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours?page=${sayfaNo}&pageSize=${pageSize}`, { headers: { token: '' } })
-    const result = await ret.json()
-    if (result.success && result.data) {
-      setPageCount(result.data.pageCount as number)
-      setTotalDocs(result.data.totalDocs as number)
-      setDocs(result.data.docs as TourDataType[])
-    } else {
-      setPageCount(1)
-      setTotalDocs(0)
-      setDocs([])
-    }
+    fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours?page=${sayfaNo}&pageSize=${pageSize}`, { headers: { token: token } })
+      .then(ret => ret.json())
+      .then((result: any) => {
+        console.log('result:', result)
+        if (result && result.data) {
+          setPageCount(result.data.pageCount as number)
+          setTotalDocs(result.data.totalDocs as number)
+          setDocs(result.data.docs as TourDataType[])
+        } else {
+          setPageCount(1)
+          setTotalDocs(0)
+          setDocs([])
+        }
+      }).catch(console.error)
+
   }
 
 
@@ -60,7 +62,7 @@ const ItemList = ({ }: ItemListProps) => {
             return <button
               key={no}
               className={`inline-flex w-11 h-11 items-center justify-center rounded-full bg-white hover:bg-neutral-100 border border-neutral-200 text-neutral-6000 dark:text-neutral-400 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700`}
-              onClick={() => getList(no)}
+              onClick={() => getList(no,sessionToken)}
             >{no}</button>
           }
         })}
@@ -69,10 +71,12 @@ const ItemList = ({ }: ItemListProps) => {
   }
 
   useEffect(() => {
-    if (!pullData) {
-      setPullData(true)
-      getList(1)
-    }
+    getToken().then(token => {
+      console.log('token:', token)
+      setSessionToken(token)
+      getList(1,token)
+    }).catch(err => console.log(err))
+
   }, [])
 
   return (
@@ -86,19 +90,19 @@ const ItemList = ({ }: ItemListProps) => {
           <SearchForm />
         </div>
       </div>
-
-      <div className="container relative space-y-12 mb-24 mt-2">
-        <div className='flex mt-4 justify-end items-center'>
-          <Sayfalar />
+      {docs &&
+        <div className="container relative space-y-12 mb-24 mt-2">
+          <div className='flex mt-4 justify-end items-center'>
+            <Sayfalar />
+          </div>
+          <div className='grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+            {docs.map((tour: TourDataType) => <TourCard key={tour.id} data={tour} />)}
+          </div>
+          <div className='flex mt-4 justify-end items-center'>
+            <Sayfalar />
+          </div>
         </div>
-        <div className='grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-          {docs.map((tour: TourDataType) => <TourCard key={tour.id} data={tour} />)}
-        </div>
-        <div className='flex mt-4 justify-end items-center'>
-          <Sayfalar />
-        </div>
-      </div>
-
+      }
 
     </div>
 

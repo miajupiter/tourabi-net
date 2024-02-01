@@ -12,6 +12,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "tourabi.s3.eu-central-1.amazonaws.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "miajupiter.com",
         port: "",
         pathname: "/**",

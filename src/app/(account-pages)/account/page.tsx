@@ -80,7 +80,7 @@ const AccountPage = () => {
         console.log('awsS3PutTest err:', err)
       })
   }
-  
+
   const awsS3GetTest = () => {
     awsGetObject('central-asia/deneme123.txt')
       .then((val) => {
@@ -146,6 +146,12 @@ const AccountPage = () => {
                 <input
                   type="file"
                   className="absolute inset-0 opacity-0 cursor-pointer"
+                  onChange={(e)=>{
+                    if(e.target.files && e.target.files?.length>0){
+                      const file=e.target.files?.item(0)
+                      console.log('file tyle:',file?.type)
+                    }
+                  }}
                 />
               </div>
             </div>
