@@ -10,7 +10,7 @@ export const useThemeMode = () => {
   useEffect(() => {
     // Enbale this if you want use the dark-mode for default mode.
     if (!localStorage.theme) {
-      localStorage.theme = "dark"
+      localStorage.theme = "light"
     }
 
     if (localStorage.theme === "dark") {

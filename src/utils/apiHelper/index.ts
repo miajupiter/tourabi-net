@@ -1,7 +1,7 @@
 export { getToken } from './getToken'
 // export { awsClient } fro./!!__awsClient.ts.bakent'
-export { awsGetObject } from './awsGetObject'
-export { awsPutObject } from './awsPutObject'
+export { awsGetObject, awsPutObject } from './aws'
+// export { awsPutObject } from './awsPutObject'
 
 import { NextResponse } from 'next/server'
 

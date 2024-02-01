@@ -17,9 +17,9 @@ const SwitchDarkMode: React.FC<SwitchDarkModeProps> = ({ className = "" }) => {
     >
       <span className="sr-only">Enable dark mode</span>
       {isDarkMode ? (
-        <MoonIcon className="w-7 h-7" aria-hidden="true" />
-      ) : (
         <SunIcon className="w-7 h-7" aria-hidden="true" />
+      ) : (
+        <MoonIcon className="w-7 h-7" aria-hidden="true" />
       )}
     </button>
   );
