@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from "react"
 import SwitchDarkMode2 from "@/shared/SwitchDarkMode2"
 import Link from "next/link"
 
-import { useSession, getSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 interface Props {
   className?: string
 }

@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 
 import React, { useEffect, useState } from 'react'
 import { TourDataType } from '@/data/types'
@@ -6,12 +6,13 @@ import { TourDataType } from '@/data/types'
 import TourCard from './TourCard'
 
 import SearchForm from './SearchForm'
-import { tempToken } from '../../utils/apiHelper'
+// import { cookies } from 'next/dist/client/components/headers'
+import { cookies } from "next/headers"
 // import Pagination from '@/shared/Pagination'
 export interface ItemListProps { }
 
 const ItemList = ({ }: ItemListProps) => {
-
+  
   const [pullData, setPullData] = useState(false)
   const [pageNo, setPageNo] = useState(1)
   const [pageSize, setPageSize] = useState(8)
@@ -20,10 +21,11 @@ const ItemList = ({ }: ItemListProps) => {
   const [docs, setDocs] = useState<TourDataType[]>([])
 
   const getList = async (sayfaNo: number) => {
-    // setDocs([])
+    // const sessionToken = cookies().get("tourabi.sessionToken")
     setPageNo(sayfaNo)
-    const url = `${process.env.NEXT_PUBLIC_API_URI}/tours?page=${sayfaNo}&pageSize=${pageSize}`
-    const ret = await fetch(url, { headers: { 'token': tempToken } })
+
+    // const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours?page=${sayfaNo}&pageSize=${pageSize}`, { headers: { token: (sessionToken?.value || '') } })
+    const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours?page=${sayfaNo}&pageSize=${pageSize}`, { headers: { token: '' } })
     const result = await ret.json()
     if (result.success && result.data) {
       setPageCount(result.data.pageCount as number)

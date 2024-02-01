@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^2.1.0",
+    "@aws-sdk/client-s3": "^3.504.0",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.0.18",
     "@mdx-js/loader": "^3.0.0",

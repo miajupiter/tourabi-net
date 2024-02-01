@@ -1,5 +1,5 @@
 import NextAuth from "next-auth"
-import type { NextAuthConfig, User } from "next-auth"
+import type { NextAuthConfig, User, DefaultSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import Google from "next-auth/providers/google"
 import Facebook from "next-auth/providers/facebook"
@@ -12,30 +12,66 @@ import Twitter from "next-auth/providers/twitter"
 
 import { randomUUID } from 'crypto'
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
-import clientPromise from './utils/mongodb'
+import clientPromise from './db/mongodb'
 
 declare module "next-auth" {
   interface Session {
     // user: {
     //   picture?: string,
-    // },
+    // } & User,
+
     user: {
       picture?: string,
-    } & Omit<User, "id">
+      token?: string,
+    } & Omit<User, "id">,
   }
+
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URI
 export const authConfig = {
   debug: false,
-  adapter: MongoDBAdapter(clientPromise,{
-    collections: {
-      Accounts:'usersAccounts',
-      Users:'users',
-      Sessions:'usersSessions',
-      VerificationTokens:'usersVerificationTokens'
+  events: {
+
+    async session(message) {
+      // console.log('events session', message)
+
     },
-    databaseName:'passportdb',
+
+  },
+  cookies: {
+
+    sessionToken: {
+      name: "tourabi.sessionToken",
+      options: {
+
+        encode(value) {
+          // console.log('sessionToken encode val', value)
+          return value
+        },
+      }
+    },
+    csrfToken: {
+      name: "tourabi.csrfToken",
+      options: {
+        encode(value) {
+          // console.log('csrfToken encode val', value)
+          return value
+        },
+      }
+    },
+    state: {
+      name: "tourabi.state"
+    }
+  },
+  adapter: MongoDBAdapter(clientPromise, {
+    collections: {
+      Accounts: 'usersAccounts',
+      Users: 'users',
+      Sessions: 'usersSessions',
+      VerificationTokens: 'usersVerificationTokens'
+    },
+    // databaseName: 'passportdb',
   }),
   session: {
     maxAge: 86400000,
@@ -75,8 +111,8 @@ export const authConfig = {
 
     }),
     Email({
-      from:process.env.AUTH_EMAIL_FROM,
-      server:process.env.AUTH_EMAIL_SERVER,
+      from: process.env.AUTH_EMAIL_FROM,
+      server: process.env.AUTH_EMAIL_SERVER,
     }),
     // Credentials({
     //   credentials: { password: { label: "Password", type: "password" } },
@@ -96,14 +132,17 @@ export const authConfig = {
 
   // },
   callbacks: {
-
-    async jwt(params) {
-      // console.log('jwt params:', params)
-      // console.log('params.session:', params.session)
-      // console.log('params.user:', params.user)
-      // console.log('params.account:', params.account)
-      return params.token
-    },
+    // async signIn(params) {
+    //   console.log('signIn params:', params)
+    //   return true
+    // },
+    // async jwt(params) {
+    //   console.log('jwt params:', params)
+    //   // console.log('params.session:', params.session)
+    //   // console.log('params.user:', params.user)
+    //   // console.log('params.account:', params.account)
+    //   return params.token
+    // },
     // async signIn(params) {
     //   try {
     //     const data = {
@@ -132,15 +171,15 @@ export const authConfig = {
     //     return false
     //   }
     // },
-    session(params) {
-      //  console.log(`callbacks session params:`, params.session)
-      return params.session
-    },
-    authorized(params) {
-      console.log(`callbacks params:`, params)
-      return !!params.auth?.user
-    },
+    // session(params) {
+    //   console.log(`callbacks session params:`, params)
+    //   return params.session
+    // },
+    // authorized(params) {
+    //   console.log(`callbacks params:`, params)
+    //   return !!params.auth?.user
+    // },
   },
 } satisfies NextAuthConfig
 
-export const { handlers, auth, signIn, signOut } = NextAuth(authConfig)
+export const { handlers, auth, signIn, signOut, } = NextAuth(authConfig)
