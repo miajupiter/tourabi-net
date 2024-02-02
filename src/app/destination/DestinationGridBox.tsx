@@ -30,7 +30,7 @@ const DestinationGridBox: React.FC<DestinationGridBoxProps> = ({
       <div className="grid grid-cols-12 gap-6">
         {DESTINATION_LIST.map((item, i) => (
           <div className="col-span-12 sm:col-span-6 md:col-span-4 gap-6">
-            <DestinationCard key={i} title={item.title} imageSrc={item.imageSrc || ''} id={item.id} />
+            <DestinationCard key={i.toString()} title={item.title} imageSrc={item.imageSrc || ''} id={item.id} />
           </div>
         ))}
 
@@ -41,21 +41,3 @@ const DestinationGridBox: React.FC<DestinationGridBoxProps> = ({
 }
 
 export default DestinationGridBox
-
-
-//  <div className="col-span-12 sm:col-span-6 lg:col-span-4 flex">
-//             <CardCategory6 taxonomy={DEMO_CATS_2[0]} />
-//           </div>
-//           <div className="col-span-12 sm:col-span-6 lg:col-span-4 grid grid-rows-2 gap-6">
-//             <CardCategory6 taxonomy={DEMO_CATS_2[3]} />
-//             <CardCategory6 taxonomy={DEMO_CATS_2[1]} />
-//           </div>
-//           <div className="col-span-12 sm:col-span-6 lg:col-span-4 flex">
-//             <CardCategory6 taxonomy={DEMO_CATS_2[4]} />
-//           </div>
-
-//  <div className={`grid ${gridClassName} gap-5 sm:gap-6 md:gap-8`}>
-//         {DESTINATION_LIST.map((item, i) => (
-//           <DestinationCard key={i} title={item.title} imageSrc={item.imageSrc || ''} id={item.id} />
-//         ))}
-//       </div>
