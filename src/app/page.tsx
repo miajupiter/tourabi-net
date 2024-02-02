@@ -19,7 +19,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
     name: "Georgia Tours",
     taxonomy: "category",
     count: 188288,
-    thumbnail: "https://miajupiter.com/media/tour-img01/georgia-tours-georgia-tour-3-tbilisi3.jpg",
+    thumbnail: "https://tourabi.s3.eu-central-1.amazonaws.com/tour-images001/georgia-tours-georgia-tour-3-tbilisi3.jpg",
   },
   {
     id: "222",
@@ -27,7 +27,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
     name: "Kazakhstan Weekend Tours Kolsay Lakes",
     taxonomy: "category",
     count: 188288,
-    thumbnail:'https://miajupiter.com/media/tour-img01/kazakhstan-tours-weekend-tour-1-kolsay-lakes.jpg',
+    thumbnail:'https://tourabi.s3.eu-central-1.amazonaws.com/tour-images001/kazakhstan-tours-weekend-tour-1-kolsay-lakes.jpg',
   },
   {
     id: "3",
@@ -35,7 +35,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
     name: "Sevanavank - Caucasus Group Tour",
     taxonomy: "category",
     count: 188288,
-    thumbnail:'https://miajupiter.com/media/tour-img01/tours-caucasus-group-tour-sevanavank4.jpg',
+    thumbnail:'https://tourabi.s3.eu-central-1.amazonaws.com/tour-images001/tours-caucasus-group-tour-sevanavank4.jpg',
   },
   {
     id: "4",
@@ -43,7 +43,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
     name: "Uzbekistan-Tajikistan Tour",
     taxonomy: "category",
     count: 188288,
-    thumbnail:'https://miajupiter.com/media/tour-img01/uzbekistan-tours-uzbekistan-tajikistan-tour-1-bukhara2.jpg',
+    thumbnail:'https://tourabi.s3.eu-central-1.amazonaws.com/tour-images001/uzbekistan-tours-uzbekistan-tajikistan-tour-1-bukhara2.jpg',
   },
   {
     id: "5",
@@ -51,7 +51,7 @@ const DEMO_CATS_2: TaxonomyType[] = [
     name: "Silk Road Group Tour",
     taxonomy: "category",
     count: 188288,
-    thumbnail:'https://miajupiter.com/media/tour-img01/tours-silk-road-group-tour-ararat1.jpg'
+    thumbnail:'https://tourabi.s3.eu-central-1.amazonaws.com/tour-images001/tours-silk-road-group-tour-ararat1.jpg'
   },
 ]
 

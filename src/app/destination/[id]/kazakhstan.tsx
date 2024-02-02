@@ -1,6 +1,6 @@
 const PageKazakhstan = () => (
   <div>
-    <img className='rounded-2xl' src="https://miajupiter.com/media/tour-img01/kazakhstan.jpg" alt="azerbaijan" />
+    <img className='rounded-[4px]' src="https://tourabi.s3.eu-central-1.amazonaws.com/destinations/kazakhstan.jpg" alt="azerbaijan" />
     <h2 className='text-4xl mt-10 mb-10'>Kazakhstan</h2>
     <div className='my-4'>Kazakhstan Travel brings you to the heart of Eurasia, a clash of time and cultures at the confluence of nomadic, Soviet and 21st-century history. Stand on the brink of the world’s largest steppe, an endless ocean of pasturelands marked by ripples of mountains, wildflowers and sleepy towns. Travel cross-country on the modern-day Orient Express, passing the fields where freedom-loving tribes once tamed the wild horse.</div>
     <div className='my-4'>Straddling this vast expanse, stretching from the Caspian Sea to China, are cities layered with remnants of the past and bold displays of innovative architecture, while national parks the size of countries are cloaked in a myriad of natural colors which mirror each season.</div>

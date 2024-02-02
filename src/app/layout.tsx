@@ -9,7 +9,6 @@ import Footer from '@/components/Footer'
 import FooterNav from '@/components/FooterNav'
 import { Metadata, Viewport } from 'next'
 // import { Providers } from "@/shared/providers"
-import { useSession } from 'next-auth/react'
 import { auth } from "auth"
 import { SessionProvider } from "next-auth/react"
 import type { Session } from "next-auth"
@@ -62,9 +61,7 @@ export default async function RootLayout({
   params: any
 }) {
   const session: Session | null = await auth()
-  
-  //  const { data: session } = useSession()
-  // console.log('data',session)
+
   return (
 
     <html lang='en' className={`${poppins.className}`}>
@@ -73,7 +70,7 @@ export default async function RootLayout({
         <SessionProvider session={session}>
           <ClientCommons />
           <SiteHeader />
-
+          
           {children}
           <FooterNav />
           <Footer />

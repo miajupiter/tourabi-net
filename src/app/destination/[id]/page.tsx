@@ -11,7 +11,7 @@ export interface PageDestinationProps {
 }
 const PageQwerty = ({ ...props }) => (
   <div>
-    <img className='rounded-2xl' src={`https://miajupiter.com/media/tour-img01/${props.id}.jpg`} alt={`${props.id}`} />
+    <img className='rounded-[4px]' src={`https://tourabi.s3.eu-central-1.amazonaws.com/destinations/${props.id}.jpg`} alt={`${props.id}`} />
     <h2 className='text-4xl mt-10 mb-10 capitalize '>{props.title}</h2>
     <div className='my-4'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab reiciendis eum deserunt sequi cum alias animi! Dolorum, corporis repellendus, perferendis laudantium in sunt aut maiores iste ab corrupti eos voluptatibus!</div>
     <div className='my-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum expedita sit commodi rerum. Facilis blanditiis necessitatibus beatae esse explicabo, repudiandae at a, atque eum delectus, quidem culpa similique modi ad.</div>

@@ -87,7 +87,6 @@ const Footer: React.FC = () => {
     )
   }
 
-  const { data: session, status } = useSession()
 
   return (
     <>
@@ -99,19 +98,15 @@ const Footer: React.FC = () => {
             <div className="col-span-2 md:col-span-1">
               <Logo classNameImg='w-[160px] md:w-[220px]' />
             </div>
-            <div className="col-span-2 flex items-center md:col-span-3">
-              <SocialsList1 className="flex items-center space-x-3 lg:space-x-0 lg:flex-col lg:space-y-2.5 lg:items-start" />
-            </div>
+            
           </div>
-          {widgetMenus.map(renderWidgetMenuItem)}
+            {widgetMenus.map(renderWidgetMenuItem)}
+            <SocialsList1 className="flex items-center space-x-3 lg:space-x-0 lg:flex-col lg:space-y-2.5 lg:items-start" />
+
         </div>
-        {status === "loading" ? (
-        <div>Loading...</div>
-      ) : (
-        <pre>{JSON.stringify(session || {}, null, 2)}</pre>
-      )}
+
       </div>
-      
+
     </>
   )
 }
