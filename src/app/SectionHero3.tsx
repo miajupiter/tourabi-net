@@ -1,15 +1,39 @@
 "use client"
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 // import imagePng from "@/images/travelhero2.png";
 import Image from "next/image"
 import ButtonPrimary from "@/shared/ButtonPrimary"
 import ButtonSecondary from '@/shared/ButtonSecondary'
+import { useInterval } from 'react-use'
 
 export interface SectionHero3Props {
   className?: string
 }
-
+const SLIDE_IMAGES = [
+  'https://tourabi.s3.eu-central-1.amazonaws.com/destinations/russia/moscow-red-square.jpg',
+  'https://tourabi.s3.eu-central-1.amazonaws.com/destinations/silk-road.jpg',
+  'https://tourabi.s3.eu-central-1.amazonaws.com/destinations/kyrgyzstan.jpg',
+  'https://tourabi.s3.eu-central-1.amazonaws.com/central-asia/mogolistan-gobi-desert01.jpg',
+  'https://tourabi.s3.eu-central-1.amazonaws.com/central-asia/mogolistan-gobi-desert01.jpg'
+]
 const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
+
+  const [slideImg, setSlideImg] = useState(SLIDE_IMAGES[0])
+
+  const randomIndex=()=>{
+    return Math.round(Math.random() * (SLIDE_IMAGES.length - 1))
+  }
+  const slideInterval = useInterval(() => {
+    var rnd = randomIndex()
+    if(SLIDE_IMAGES[rnd]==slideImg){
+      rnd=randomIndex()
+    }
+    setSlideImg(SLIDE_IMAGES[rnd])
+  }, 7000)
+
+
+
+
   return (
     <div
       className={`nc-SectionHero3 relative ${className}`}
@@ -20,16 +44,16 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
           {' '}
         </span>
         <h2 className="font-bold text-slate-100  text-xl sm:text-xl md:text-2xl lg:text-4xl xl:text-6xl !leading-[115%] "
-          style={{textShadow:'1px 1px 3px black'}}
+          style={{ textShadow: '1px 1px 3px black' }}
         >
           <span className='text-[#0093D2]'>tour</span><span className='text-[#A3C616]'>Abi</span> is the world's best tour portal
         </h2>
         <ButtonSecondary
           sizeClass="px-6 py-3 lg:px-8 lg:py-4 rounded-lg"
           fontSize="text-sm sm:text-base lg:text-lg font-medium"
-          onClick={()=>{
+          onClick={() => {
             // window.scrollBy(0,700)
-            window.scrollTo(0,700)
+            window.scrollTo(0, 800)
           }}
         >
           Get started 🚀🥰
@@ -41,7 +65,7 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
           fill
 
           className="absolute inset-0 object-cover top-0"
-          src={'https://tourabi.s3.eu-central-1.amazonaws.com/destinations/silk-road.jpg'}
+          src={slideImg}
           alt="hero"
           // width={900}
           // height={600}

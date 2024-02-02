@@ -114,10 +114,7 @@ const AccountPage = () => {
         <div className="space-y-6 sm:space-y-8">
           <h2 className="text-3xl font-semibold">Account infomation</h2>
           <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-          <div>
-            <Label>Image</Label>
-            <Input className="mt-1.5" type='image' defaultValue={`${me.image}`} onChange={(e) => setMe({ ...me, image: e.target.value })} />
-          </div>
+          
           <div className="flex flex-col md:flex-row">
             <div className="flex-shrink-0 flex items-start">
               <div className="relative rounded-full overflow-hidden flex">
