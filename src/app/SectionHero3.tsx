@@ -14,21 +14,26 @@ const SLIDE_IMAGES = [
   'https://tourabi.s3.eu-central-1.amazonaws.com/destinations/silk-road.jpg',
   'https://tourabi.s3.eu-central-1.amazonaws.com/destinations/kyrgyzstan.jpg',
   'https://tourabi.s3.eu-central-1.amazonaws.com/central-asia/mogolistan-gobi-desert01.jpg',
-  'https://tourabi.s3.eu-central-1.amazonaws.com/central-asia/mogolistan-gobi-desert01.jpg'
+  'https://tourabi.s3.eu-central-1.amazonaws.com/central-asia/mogolistan-gobi-desert02.jpg'
 ]
 const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
 
-  const [slideImg, setSlideImg] = useState(SLIDE_IMAGES[0])
+  const [slideIndex, setSlideIndex] = useState(0)
 
   const randomIndex=()=>{
     return Math.round(Math.random() * (SLIDE_IMAGES.length - 1))
   }
   const slideInterval = useInterval(() => {
-    var rnd = randomIndex()
-    if(SLIDE_IMAGES[rnd]==slideImg){
-      rnd=randomIndex()
+    // var rnd = randomIndex()
+    // if(SLIDE_IMAGES[rnd]==slideImg){
+    //   rnd=randomIndex()
+    // }
+    // setSlideImg(SLIDE_IMAGES[rnd])
+    if(slideIndex==SLIDE_IMAGES.length-1){
+      setSlideIndex(0)
+    }else{
+      setSlideIndex(slideIndex+1)
     }
-    setSlideImg(SLIDE_IMAGES[rnd])
   }, 7000)
 
 
@@ -65,7 +70,7 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
           fill
 
           className="absolute inset-0 object-cover top-0"
-          src={slideImg}
+          src={SLIDE_IMAGES[slideIndex]}
           alt="hero"
           // width={900}
           // height={600}
