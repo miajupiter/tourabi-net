@@ -27,7 +27,7 @@ const PageList: FC<PageListProps> = ({}) => {
 // const PageList: PageListProps = ({}) => {
 
   return (
-    <div className='container-fluidmb-24 '>
+    <div className='container-fluid mb-12 '>
       <ItemList  />
 
       <div className="container overflow-hidden">

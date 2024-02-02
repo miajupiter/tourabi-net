@@ -147,14 +147,14 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
           }`}
       ></div>
       {showHeroSearch && <div id="nc-Header-3-anchor"></div>}
-      <header ref={headerInnerRef} className={`sticky top-0 z-40 ${className}`}>
+      <header ref={headerInnerRef} className={`sticky top-0 z-40 bg-white dark:bg-neutral-900 ${className}`}>
         <div className='flex h-8 bg-[#0090d7]'></div>
         <div
-          className={`bg-white dark:bg-neutral-900 absolute h-full inset-x-0 top-8 transition-transform will-change-[transform,opacity]
+          className={`bg-white dark:bg-neutral-900 absolute inset-x-0 top-8 transition-transform will-change-[transform,opacity]
            ${showHeroSearch ? "duration-75" : ""}   `}
         ></div>
 
-        <div className="relative px-4 lg:container h-[160px] md:h-[88px] flex-grow">
+        <div className="relative px-4 lg:container h-[140px] md:h-[88px] flex-grow">
           <div className="flex-1 flex justify-between items-center">
 
             <div className="relative z-10  md:flex flex-1 items-center">
