@@ -584,7 +584,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
 
 
     return (
-      <header className='rounded-[3px] bg-white dark:bg-neutral-900'>
+      <header className='rounded-[3px] bg-white dark:bg-neutral-900 mt-8'>
         <div className='relative grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2'>
           <div
             className='col-span-2 row-span-3 sm:row-span-2 relative rounded-[3px] overflow-hidden cursor-pointer'

@@ -1,7 +1,9 @@
+"use client"
 import React, { FC } from "react"
 // import imagePng from "@/images/travelhero2.png";
 import Image from "next/image"
 import ButtonPrimary from "@/shared/ButtonPrimary"
+import ButtonSecondary from '@/shared/ButtonSecondary'
 
 export interface SectionHero3Props {
   className?: string
@@ -22,12 +24,16 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
         >
           <span className='text-[#0093D2]'>tour</span><span className='text-[#A3C616]'>Abi</span> is the world's best tour portal
         </h2>
-        <ButtonPrimary
+        <ButtonSecondary
           sizeClass="px-6 py-3 lg:px-8 lg:py-4 rounded-lg"
           fontSize="text-sm sm:text-base lg:text-lg font-medium"
+          onClick={()=>{
+            // window.scrollBy(0,700)
+            window.scrollTo(0,700)
+          }}
         >
-          Enjoy :-)
-        </ButtonPrimary>
+          Get started 🚀🥰
+        </ButtonSecondary>
       </div>
       {/* <div className="relative aspect-w-1 aspect-h-1 sm:aspect-w-4 sm:aspect-h-3 lg:aspect-w-16 lg:aspect-h-9 xl:aspect-h-8 "> */}
       <div className="relative h-[85vh] w-full p-0 m-0">
