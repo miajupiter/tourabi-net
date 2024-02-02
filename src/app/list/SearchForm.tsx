@@ -14,7 +14,7 @@ const SearchForm: FC<{}> = ({ }) => {
       <DatesRangeInput className='flex-1' />
       <div className='self-center border-r border-slate-200 dark:border-slate-700 h-8'></div>
       <GuestsInput className='flex-1' />
-      <div className='pr-2 xl:pr-4 pt-5'>
+      <div className='pr-2 xl:pr-4 pt-2'>
         <ButtonSubmit href='/list' />
       </div>
     </form>

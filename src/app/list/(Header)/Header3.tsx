@@ -165,31 +165,31 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
               <div className=" flex space-x-1 justify-end ">
                 <div className='hidden md:flex items-center text-center'>
                   <div className='mx-3 text-sm'>
-                    <a href="/destination" >
+                    <Link href="/destination" >
                       <i className='la la-map text-4xl' ></i><br />
                       <span className=''>Destinations</span>
-                    </a>
+                    </Link>
                   </div>
                   <div className='text-sm mx-3'>
-                    <a href="https://wa.me/994506807191" target='_blank' >
+                    <Link href="https://wa.me/994506807191" target='_blank' >
                       <i className='lab la-whatsapp text-4xl'></i><br />
                       <span className=''>{'+994 50 680 71 91'}</span>
-                    </a>
+                    </Link>
                   </div>
                   <div className='text-sm mx-3'>
-                    <a href="/list" >
+                    <Link href="/list">
                       <i className='las la-search text-4xl'></i><br />
                       <span className=''>Search</span>
-                    </a>
+                    </Link>
                   </div>
                   <div className='text-4xl mx-3'>
                     <NotifyDropdown />
                   </div>
                 </div>
-                <div  className='mt-8 md:mt-0 self-center'>
+                <div className='mt-8 md:mt-0 self-center'>
                   <AvatarDropdown />
                 </div>
-                
+
                 <MenuBar className='mt-8 md:mt-0 ' />
               </div>
             </div>

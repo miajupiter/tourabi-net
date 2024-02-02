@@ -51,7 +51,7 @@ const NotifyDropdown: FC<Props> = ({ className = "" }) => {
                   } group self-center w-10 h-10 sm:w-12 sm:h-12 hover:bg-gray-100 dark:hover:bg-neutral-800 rounded-full inline-flex items-center justify-center text-base font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 relative`}
               >
                 <span className="w-2 h-2 bg-blue-500 absolute top-2 right-2 rounded-full"></span>
-                <BellIcon className="h-6 w-6" />
+                <BellIcon className="h-8 w-8" />
               </Popover.Button>
               <Transition
                 as={Fragment}
@@ -64,7 +64,7 @@ const NotifyDropdown: FC<Props> = ({ className = "" }) => {
               >
                 <Popover.Panel className="absolute z-10 w-screen max-w-xs sm:max-w-sm px-4 top-full -right-28 sm:right-0 sm:px-0">
                   <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black ring-opacity-5">
-                    <div className="relative grid gap-8 bg-white dark:bg-neutral-800 p-7">
+                    <div className="relative grid gap-8 bg-white dark:bg-neutral-800 p-7 text-left">
                       <h3 className="text-xl font-semibold">Notifications</h3>
                       {notifications.map((item, index) => (
                         <a
