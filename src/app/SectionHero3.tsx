@@ -5,6 +5,8 @@ import Image from "next/image"
 import ButtonPrimary from "@/shared/ButtonPrimary"
 import ButtonSecondary from '@/shared/ButtonSecondary'
 import { useInterval } from 'react-use'
+import ButtonThird from '@/shared/ButtonThird'
+import Button from '@/shared/Button'
 
 export interface SectionHero3Props {
   className?: string
@@ -51,18 +53,20 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
         <h2 className="font-bold text-slate-100  text-xl sm:text-xl md:text-2xl lg:text-4xl xl:text-6xl !leading-[115%] "
           style={{ textShadow: '1px 1px 3px black' }}
         >
-          <span className='text-[#0093D2]'>tour</span><span className='text-[#A3C616]'>Abi</span> is the world's best tour portal
+          <span className='text-[#0093D2]'>tour</span><span className='text-[#A3C616]'>Abi</span>
+          <br />the world's best tour portal
         </h2>
-        <ButtonSecondary
+        <Button
           sizeClass="px-6 py-3 lg:px-8 lg:py-4 rounded-lg"
           fontSize="text-sm sm:text-base lg:text-lg font-medium"
           onClick={() => {
             // window.scrollBy(0,700)
             window.scrollTo(0, 800)
           }}
+          className='bg-[#0093D2] border-slate-100 text-slate-100 border'
         >
           Get started 🚀🥰
-        </ButtonSecondary>
+        </Button>
       </div>
       {/* <div className="relative aspect-w-1 aspect-h-1 sm:aspect-w-4 sm:aspect-h-3 lg:aspect-w-16 lg:aspect-h-9 xl:aspect-h-8 "> */}
       <div className="relative h-[85vh] w-full p-0 m-0">

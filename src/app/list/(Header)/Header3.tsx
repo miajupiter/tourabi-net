@@ -16,7 +16,7 @@ import { SearchFormFields } from "../type"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import HeroSearchFormSmall from '../(HeroSearchFormSmall)/HeroSearchFormSmall'
 import HeroSearchForm2Mobile from '../(HeroSearchForm2Mobile)/HeroSearchForm2Mobile'
-
+import IconMapEdit from '@/images/TdesignMapEdit.svg'
 interface Header3Props {
   className?: string
 }
@@ -157,17 +157,40 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
         <div className="relative px-4 lg:container h-[140px] md:h-[88px] flex-grow">
           <div className="flex-1 flex justify-between items-center">
 
-            <div className="relative z-10  md:flex flex-1 items-center">
-              <Logo />
+            <div className="relative z-10  md:flex flex-2 items-center">
+              <Logo className='h-24 md:h-full' />
             </div>
 
-            <div className=" md:flex relative z-10 flex-1 justify-end text-neutral-700 dark:text-neutral-100">
-              <div className=" flex space-x-1 justify-end">
-                <div className='hidden md:flex'>
-                  <NotifyDropdown />
+            <div className=" md:flex relative z-10 flex-1 h-24 justify-end text-neutral-700 dark:text-neutral-100">
+              <div className=" flex space-x-1 justify-end ">
+                <div className='hidden md:flex items-center text-center'>
+                  <div className='mx-3 text-sm'>
+                    <a href="/destination" >
+                      <i className='la la-map text-4xl' ></i><br />
+                      <span className=''>Destinations</span>
+                    </a>
+                  </div>
+                  <div className='text-sm mx-3'>
+                    <a href="https://wa.me/994506807191" target='_blank' >
+                      <i className='lab la-whatsapp text-4xl'></i><br />
+                      <span className=''>{'+994 50 680 71 91'}</span>
+                    </a>
+                  </div>
+                  <div className='text-sm mx-3'>
+                    <a href="/list" >
+                      <i className='las la-search text-4xl'></i><br />
+                      <span className=''>Search</span>
+                    </a>
+                  </div>
+                  <div className='text-4xl mx-3'>
+                    <NotifyDropdown />
+                  </div>
+                </div>
+                <div  className='mt-8 md:mt-0 self-center'>
                   <AvatarDropdown />
                 </div>
-                <MenuBar />
+                
+                <MenuBar className='mt-8 md:mt-0 ' />
               </div>
             </div>
           </div>
