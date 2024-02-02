@@ -9,6 +9,7 @@ import React, { FC } from 'react'
 // import TourCard from './TourCard'
 import BackgroundSection from "@/components/BackgroundSection"
 import ItemList from './ItemList'
+import DestinationGridBox from '../destination/DestinationGridBox'
 
 // import SearchForm from './SearchForm'
 
@@ -31,7 +32,8 @@ const PageList: FC<PageListProps> = ({}) => {
 
       <div className="container overflow-hidden">
         <div className="relative py-16">
-          <BackgroundSection />
+          {/* <BackgroundSection /> */}
+          <DestinationGridBox  />
         </div>
 
         {/* <SectionSubscribe2 className="py-24 lg:py-28" /> */}

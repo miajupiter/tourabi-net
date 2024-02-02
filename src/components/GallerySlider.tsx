@@ -26,7 +26,7 @@ export default function GallerySlider({
   ratioClass = "aspect-w-4 aspect-h-3",
   imageClass = "",
   uniqueID = "uniqueID",
-  galleryClass = "rounded-xl",
+  galleryClass = "rounded-[4px]",
   href = "/list",
   navigation = true,
 }: GallerySliderProps) {

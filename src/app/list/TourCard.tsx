@@ -29,16 +29,17 @@ const TourCard: FC<TourCardProps> = ({
     return (
       <div className={size === "default" ? "mt-3 space-y-3" : "mt-2 space-y-2"}>
         <div className="space-y-2">
-          <span className="text-sm text-neutral-500 dark:text-neutral-400">
+          <span className="text-sm font-bold text-neutral-500 dark:text-neutral-400">
             {duration} days
           </span>
           <div className="flex items-center space-x-2">
 
             <h2
-              className={`font-semibold capitalize text-neutral-900 dark:text-white ${size === "default" ? "text-base" : "text-base"
+              className={`font-semibold w-full uppercase text-start text-neutral-900 dark:text-white ${size === "default" ? "text-base" : "text-base"
                 }`}
             >
-              <span className="line-clamp-1">{title}</span>
+              {title}
+              {/* <span className="line-clamp-1"></span> */}
             </h2>
           </div>
           <div className="flex items-center text-neutral-500 dark:text-neutral-400 text-sm space-x-1.5">
@@ -92,7 +93,7 @@ const TourCard: FC<TourCardProps> = ({
           uniqueID={`StayCard2_${id}`}
           ratioClass="aspect-w-12 aspect-h-11"
           galleryImgs={images}
-          imageClass="rounded-lg"
+          imageClass="rounded-[4px]"
           href={`/list/${id}`}
         />
         {/* <BtnLikeIcon isLiked={like} className="absolute right-3 top-3 z-[1]" />
