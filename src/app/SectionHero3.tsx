@@ -78,6 +78,7 @@ const SectionHero3: FC<SectionHero3Props> = ({ className = "" }) => {
           alt="hero"
           // width={900}
           // height={600}
+          sizes="(max-width: 100%) 100vw, 85vh"
           priority
         />
       </div>

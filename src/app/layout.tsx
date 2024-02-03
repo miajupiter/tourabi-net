@@ -70,7 +70,7 @@ export default async function RootLayout({
         <SessionProvider session={session}>
           <ClientCommons />
           <SiteHeader />
-          
+
           {children}
           <FooterNav />
           <Footer />

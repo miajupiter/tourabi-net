@@ -3,23 +3,25 @@
 import React, { FC, FormEvent, useState, useEffect } from "react"
 
 import Label from "@/components/Label"
-import Avatar from "@/shared/Avatar"
+// import Avatar from "@/shared/Avatar"
 import ButtonPrimary from "@/shared/ButtonPrimary"
 import Input from "@/shared/Input"
 import Select from "@/shared/Select"
 import Textarea from "@/shared/Textarea"
-import {awsGetObject, awsPutObject, getToken} from '@/utils/apiHelper'
+import { awsUploadFile, getToken } from '@/utils/apiHelper'
 import ButtonSecondary from '@/shared/ButtonSecondary'
 
 export interface MyProfileType {
-  name: string
+  _id?: string
+  id?: string
+  name?: string
   username?: string
-  email: string
+  email?: string
   image?: string
   gender?: string
   dateOfBirth?: string
   phoneNumber?: string
-  address: {
+  address?: {
     room?: string,
     streetName?: string,
     blockName?: string,
@@ -35,8 +37,8 @@ export interface MyProfileType {
       identificationCode?: string,
       name?: string
     } | null,
-  }
-  bio?: string,
+  } 
+  bio?: string
 }
 export interface AccountPageProps { }
 
@@ -46,6 +48,9 @@ const AccountPage = () => {
 
 
   const [me, setMe] = useState<MyProfileType | null>(null)
+  // const [file, setFile] = useState<File | null>(null)
+  const [uploading, setUploading] = useState(false)
+
 
   const getMyProfile = (token: string) => {
     fetch(`${process.env.NEXT_PUBLIC_API_URI}/me`, { headers: { token: token } })
@@ -71,29 +76,63 @@ const AccountPage = () => {
       }).catch(console.log)
   }
 
-  const awsS3PutTest = () => {
-    awsPutObject('central-asia/deneme123.txt', 'merhaba dunya\nnasilsin?\niyi misin?')
-      .then((val) => {
-        console.log('awsS3PutTest val:', val)
-      })
-      .catch((err) => {
-        console.log('awsS3PutTest err:', err)
-      })
-  }
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault()
+  const handleSubmit = async (file:File) => {
 
-  const awsS3GetTest = () => {
-    awsGetObject('central-asia/deneme123.txt')
-      .then((val) => {
-        console.log('awsS3GetTest val:', val)
+    if (!file) {
+      alert('Please select a file to upload.')
+      return
+    }
+
+    setUploading(true)
+
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + '/api/upload',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // body: JSON.stringify({ filename: file.name, contentType: file.type }),
+        body: JSON.stringify({ filename: `profiles/${me?._id}-${file.name}`, contentType: file.type }),
+      }
+    )
+
+    if (response.ok) {
+      const { url, fields } = await response.json()
+      console.log('url2:', url)
+      console.log('fields2:', fields)
+      const formData = new FormData()
+      Object.entries(fields).forEach(([key, value]) => {
+        formData.append(key, value as string)
       })
-      .catch((err) => {
-        console.log('awsS3GetTest err:', err)
+      formData.append('file', file)
+
+      const uploadResponse = await fetch(url, {
+        method: 'POST',
+        body: formData,
       })
+
+      if (uploadResponse.ok) {
+        console.log(url + fields.key)
+        const imgUrl =`${url}${fields.key}`
+        setMe({ ...me, image: imgUrl })
+        // alert('Upload successful!')
+      } else {
+        console.error('S3 Upload Error:', uploadResponse)
+        alert('Upload failed.')
+      }
+    } else {
+      alert('Failed to get pre-signed URL.')
+    }
+
+    setUploading(false)
   }
 
   useEffect(() => {
     getToken().then(token => {
-      console.log('token:', token)
+      
       setSessionToken(token)
       getMyProfile(token)
     }).catch(err => console.log(err))
@@ -102,24 +141,27 @@ const AccountPage = () => {
 
   return (
     <>
-      <div className="pt-2">
-        <ButtonSecondary type='button' onClick={() => awsS3PutTest()}>awsS3PutTest</ButtonSecondary>
-      </div>
-      <div className="pt-2">
-        <ButtonSecondary type='button' onClick={() => awsS3GetTest()}>awsS3GetTest</ButtonSecondary>
-      </div>
 
       {me &&
 
         <div className="space-y-6 sm:space-y-8">
           <h2 className="text-3xl font-semibold">Account infomation</h2>
           <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-          
+            {/* <input id="file" type="file"
+              onChange={(e) => {
+                const files = e.target.files
+                if (files) {
+                  // setFile(files[0])
+                  handleSubmit(files[0])
+                }
+              }}
+              accept="image/*"
+            />
+             */}
           <div className="flex flex-col md:flex-row">
             <div className="flex-shrink-0 flex items-start">
               <div className="relative rounded-full overflow-hidden flex">
-                {/* <Avatar sizeClass="w-32 h-32" imgUrl={me.image || ''} /> */}
-                {/* <img className='absolute inset-0 w-12 h-12 object-cover rounded-full self-center' src={me.image || ''} alt="tourabi" width={100} height={100} /> */}
+
                 <img className='w-32 h-32 rounded-full self-center' src={me.image} alt="tourabi" width={100} height={100} />
                 <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-neutral-50 cursor-pointer">
                   <svg
@@ -143,16 +185,25 @@ const AccountPage = () => {
                 <input
                   type="file"
                   className="absolute inset-0 opacity-0 cursor-pointer"
+                  accept="image/*"
                   onChange={(e)=>{
-                    if(e.target.files && e.target.files?.length>0){
-                      const file=e.target.files?.item(0)
-                      console.log('file tyle:',file?.type)
+                    const files = e.target.files
+                    if (files) {
+                      handleSubmit(files[0])
                     }
                   }}
                 />
+
+
               </div>
             </div>
             <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
+              <div>
+                <Label>id:{me.id} | _id:{me._id}</Label>
+              </div>
+              <div>
+                <Label>upload status:{uploading ? 'yukleniyor' : ''}</Label>
+              </div>
               <div>
                 <Label>Name</Label>
                 <Input className="mt-1.5" defaultValue={`${me.name}`} onChange={(e) => setMe({ ...me, name: e.target.value })} />

@@ -1,6 +1,6 @@
 "use server"
 
-import { PutObjectCommand, GetObjectCommand,S3Client } from "@aws-sdk/client-s3"
+import { PutObjectCommand, GetObjectCommand, S3Client, PutObjectAclCommandInput } from "@aws-sdk/client-s3"
 // import { awsClient } from './awsClient'
 
 export const awsClient = new S3Client({
@@ -12,7 +12,7 @@ export const awsClient = new S3Client({
 
 })
 
-export const awsGetObject=async (key: string)=>{
+export const awsGetObject = async (key: string) => {
 
   const command = new GetObjectCommand({
     Bucket: process.env.AWS_S3_BUCKET,
@@ -29,14 +29,41 @@ export const awsGetObject=async (key: string)=>{
 }
 
 
-export const awsPutObject=async (key: string, body: any)=>{
-
+export const awsPutObject = async (key: string, body: any) => {
   const command = new PutObjectCommand({
     Bucket: process.env.AWS_S3_BUCKET,
     Key: key,
     Body: body,
   })
+  
   try {
+
+    
+    const response = await awsClient.send(command)
+    console.log('awsPutObject response', response)
+
+  } catch (err: any) {
+    console.log(err.message)
+  }
+
+}
+
+
+export const awsUploadFile = async (key: string, file:File) => {
+  // const file:File=body as File
+
+  try {
+    // const reader=file.stream().getReader()
+    // const buf=await reader.read()
+
+    const command = new PutObjectCommand({
+      Bucket: process.env.AWS_S3_BUCKET,
+      Key: key,
+      Body: await file.text(),
+      ContentType: file.type,
+      ContentLength: file.size,
+
+    })
     const response = await awsClient.send(command)
     console.log('awsPutObject response', response)
 

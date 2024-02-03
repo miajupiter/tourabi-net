@@ -38,7 +38,7 @@ const DestinationCard: FC<DestinationCardProps> = ({
           src={imageSrc || ""}
           fill
           alt=""
-          // sizes="(max-width: 400px) 100vw, 400px"
+          sizes="(max-width: 400px) 100vw, 400px"
           className="object-cover rounded-[4px] group-hover:scale-105 transition-transform duration-300"
         />
         <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 text-white">
