@@ -1,0 +1,9 @@
+{
+  "login": "ログイン",
+  "email_address": "メールアドレス",
+  "password": "パスワード",
+  "continue": "続行",
+  "new_user?": "新規ユーザー？",
+  "create_an_account": "アカウントを作成",
+  "forgot_password?": "パスワードを忘れた場合？"
+}

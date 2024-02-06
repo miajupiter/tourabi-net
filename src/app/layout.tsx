@@ -7,7 +7,7 @@ import '@/styles/index.scss'
 import 'rc-slider/assets/index.css'
 import Footer from '@/components/Footer'
 import FooterNav from '@/components/FooterNav'
-import { Metadata, Viewport } from 'next'
+import { Metadata, Viewport, Route } from 'next'
 // import { Providers } from "@/shared/providers"
 import { auth } from "auth"
 import { SessionProvider } from "next-auth/react"
@@ -69,11 +69,19 @@ export default async function RootLayout({
       <body className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'>
         <SessionProvider session={session}>
           <ClientCommons />
-          <SiteHeader />
-
-          {children}
-          <FooterNav />
-          <Footer />
+          {session &&
+            <>
+              <SiteHeader />
+              {children}
+              <FooterNav />
+              <Footer />
+            </>
+          }
+          {session == null &&
+            <>
+              {children}
+            </>
+          }
         </SessionProvider>
       </body>
     </html>

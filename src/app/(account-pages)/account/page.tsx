@@ -37,7 +37,7 @@ export interface MyProfileType {
       identificationCode?: string,
       name?: string
     } | null,
-  } 
+  }
   bio?: string
 }
 export interface AccountPageProps { }
@@ -78,7 +78,7 @@ const AccountPage = () => {
 
   // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   //   e.preventDefault()
-  const handleSubmit = async (file:File) => {
+  const handleSubmit = async (file: File) => {
 
     if (!file) {
       alert('Please select a file to upload.')
@@ -95,7 +95,8 @@ const AccountPage = () => {
           'Content-Type': 'application/json',
         },
         // body: JSON.stringify({ filename: file.name, contentType: file.type }),
-        body: JSON.stringify({ filename: `profiles/${me?._id}-${file.name}`, contentType: file.type }),
+        // body: JSON.stringify({ filename: `profiles/${me?._id}-${file.name}`, contentType: file.type }),
+        body: JSON.stringify({ filename: `profiles/${me?._id}`, contentType: file.type }),
       }
     )
 
@@ -116,7 +117,7 @@ const AccountPage = () => {
 
       if (uploadResponse.ok) {
         console.log(url + fields.key)
-        const imgUrl =`${url}${fields.key}`
+        const imgUrl = `${url}${fields.key}`
         setMe({ ...me, image: imgUrl })
         // alert('Upload successful!')
       } else {
@@ -132,7 +133,7 @@ const AccountPage = () => {
 
   useEffect(() => {
     getToken().then(token => {
-      
+
       setSessionToken(token)
       getMyProfile(token)
     }).catch(err => console.log(err))
@@ -147,7 +148,7 @@ const AccountPage = () => {
         <div className="space-y-6 sm:space-y-8">
           <h2 className="text-3xl font-semibold">Account infomation</h2>
           <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-            {/* <input id="file" type="file"
+          {/* <input id="file" type="file"
               onChange={(e) => {
                 const files = e.target.files
                 if (files) {
@@ -186,10 +187,13 @@ const AccountPage = () => {
                   type="file"
                   className="absolute inset-0 opacity-0 cursor-pointer"
                   accept="image/*"
-                  onChange={(e)=>{
+                  onChange={(e) => {
                     const files = e.target.files
                     if (files) {
                       handleSubmit(files[0])
+                      // console.log(files[0])
+                      // setFile(files[0])
+                      // setMe({...me, image:files[0].webkitRelativePath})
                     }
                   }}
                 />
@@ -232,19 +236,19 @@ const AccountPage = () => {
               </div>
               <div>
                 <Label>Addess Street</Label>
-                <Input className="mt-1.5" defaultValue={`${me.address.streetName}`} onChange={(e) => setMe({ ...me, address: { streetName: e.target.value } })} />
+                <Input className="mt-1.5" defaultValue={`${me.address && me.address.streetName}`} onChange={(e) => setMe({ ...me, address: { streetName: e.target.value } })} />
               </div>
               <div>
                 <Label>Addess District</Label>
-                <Input className="mt-1.5" defaultValue={`${me.address.district}`} onChange={(e) => setMe({ ...me, address: { district: e.target.value } })} />
+                <Input className="mt-1.5" defaultValue={`${me.address && me.address.district}`} onChange={(e) => setMe({ ...me, address: { district: e.target.value } })} />
               </div>
               <div>
                 <Label>Addess City</Label>
-                <Input className="mt-1.5" defaultValue={`${me.address.cityName}`} onChange={(e) => setMe({ ...me, address: { cityName: e.target.value } })} />
+                <Input className="mt-1.5" defaultValue={`${me.address && me.address.cityName}`} onChange={(e) => setMe({ ...me, address: { cityName: e.target.value } })} />
               </div>
               <div>
                 <Label>Addess Region</Label>
-                <Input className="mt-1.5" defaultValue={`${me.address.region}`} onChange={(e) => setMe({ ...me, address: { region: e.target.value } })} />
+                <Input className="mt-1.5" defaultValue={`${me.address && me.address.region}`} onChange={(e) => setMe({ ...me, address: { region: e.target.value } })} />
               </div>
               <div>
                 <Label>Phone number</Label>

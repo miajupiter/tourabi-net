@@ -1,11 +1,19 @@
 "use client"
 
 import React, { useEffect } from "react"
-import { usePathname } from "next/navigation"
+import { redirect, usePathname } from "next/navigation"
 import { useThemeMode } from "@/utils/useThemeMode"
+import { useSession } from 'next-auth/react'
 
 const ClientCommons = () => {
-  //
+  const {data:session, status} = useSession()
+  const pathName=usePathname()
+  if(status=='unauthenticated' && !(pathName=='/login' || pathName.startsWith('/signup')) ){
+    redirect('/login')
+    return
+  }
+  // console.log('pathname:',usePathname())
+  // console.log('status:',status)
   useThemeMode()
 
   const pathname = usePathname()

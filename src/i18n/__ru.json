@@ -1,0 +1,9 @@
+{
+  "login": "Войти",
+  "email_address": "Адрес электронной почты",
+  "password": "Пароль",
+  "continue": "Продолжить",
+  "new_user?": "Новый пользователь?",
+  "create_an_account": "Создать аккаунт",
+  "forgot_password?": "Забыли пароль?"
+}

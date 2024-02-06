@@ -1,6 +1,6 @@
 "use client"
 
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import facebookSvg from '@/images/Facebook.svg'
 import twitterSvg from '@/images/Twitter.svg'
 import googleSvg from '@/images/Google.svg'
@@ -8,104 +8,70 @@ import Input from '@/shared/Input'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import Image from 'next/image'
 import Link from 'next/link'
+import Select from '@/shared/Select'
+import { useLanguage } from '@/i18n'
+import SelectLanguage from '../SelectLanguage'
+import InputWithLabel from '@/shared/InputWithLabel'
+import SectionHero3 from '@/app/SectionHero3'
+import LoginBackground from '../LoginBackground'
+import Logo from '@/shared/Logo'
 // import { signIn, signOut, useSession } from "next-auth/react"
 
 // import {authOptions} from '@/app/api/auth/[...nextauth]'
 
 export interface PageLoginProps { }
+export interface LoginProps {
+  email?: string
+  password?: string
 
-const loginSocials= [
-  {
-    name: 'Continue with Facebook',
-    href: '/api/auth/signup/facebook',
-    icon: facebookSvg,
-  },
-  {
-    name: 'Continue with Twitter',
-    href: '#',
-    icon: twitterSvg,
-  },
-  {
-    name: 'Continue with Google',
-    href: '#',
-    icon: googleSvg,
-  },
-]
+}
 
 const PageLogin: FC<PageLoginProps> = ({ }) => {
+  const { t } = useLanguage()
+
+  const [loginInfo, setLoginInfo] = useState<LoginProps>({ email: '', password: '' })
+  const Login = () => (
+    <form className="relative bg-white dark:bg-neutral-900 w-full flex flex-col rounded-[8px] border border-neutral-200 dark:border-neutral-700 space-y-3 p-4 md:p-6"
+      action='#' method='post'>
+      <h2 className=' flex items-center text-3xl leading-[115%] md:text-4xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100'>
+        {t('login')}
+      </h2>
+      <InputWithLabel className='my-4' type='email' label={t('email_address')} required
+        onChange={(e: any) => setLoginInfo({ ...loginInfo, email: e.target.value })}
+      />
+      <InputWithLabel className='my-4' type='password' label={t('password')} required
+        onChange={(e: any) => setLoginInfo({ ...loginInfo, password: e.target.value })}
+      />
+      <div className='flex justify-end'>
+        <Link href='/login' className='text-sm underline font-medium'>
+          {t('forgot_password?')}
+        </Link>
+      </div>
+
+      <ButtonPrimary type='submit'>{t('continue')}</ButtonPrimary>
+      <span className='block text-center text-neutral-700 dark:text-neutral-300'>
+        {t('new_user?')} {` `}
+        <Link href='/signup' className='font-semibold underline'>
+          {t('create_an_account')}
+        </Link>
+      </span>
+    </form>
+  )
   return (
     <div className={`nc-PageLogin`}>
-      <div className='container mb-24 lg:mb-32'>
-        <h2 className='my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center'>
-          Login
-        </h2>
-        <div className='max-w-md mx-auto space-y-6'>
-          <a 
-            className='flex w-full rounded-lg bg-primary-50 dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]'
-            href={`/api/auth/signin`}
-            // onClick={(e) => {
-            //   e.preventDefault()
-            //   signIn()
-            // }}
-          >Sign in</a>
-          <div className='grid gap-3'>
-            {loginSocials.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className='flex w-full rounded-lg bg-primary-50 dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]'
-              >
-                {/* <Image
-                  className='flex-shrink-0'
-                  src={item.icon}
-                  alt={item.name}
-                /> */}
-                <h3 className='flex-grow text-center text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:text-sm'>
-                  {item.name}
-                </h3>
-              </a>
-            ))}
-          </div>
-          {/* OR */}
-          <div className='relative text-center'>
-            <span className='relative z-10 inline-block px-4 font-medium text-sm bg-white dark:text-neutral-400 dark:bg-neutral-900'>
-              OR
-            </span>
-            <div className='absolute left-0 w-full top-1/2 transform -translate-y-1/2 border border-neutral-100 dark:border-neutral-800'></div>
-          </div>
-          {/* FORM */}
-          <form className='grid grid-cols-1 gap-6' action='#' method='post'>
-            <label className='block'>
-              <span className='text-neutral-800 dark:text-neutral-200'>
-                Email address
-              </span>
-              <Input
-                type='email'
-                placeholder='example@example.com'
-                className='mt-1'
-              />
-            </label>
-            <label className='block'>
-              <span className='flex justify-between items-center text-neutral-800 dark:text-neutral-200'>
-                Password
-                <Link href='/login' className='text-sm underline font-medium'>
-                  Forgot password?
-                </Link>
-              </span>
-              <Input type='password' className='mt-1' />
-            </label>
-            <ButtonPrimary type='submit'>Continue</ButtonPrimary>
-          </form>
-
-          {/* ==== */}
-          <span className='block text-center text-neutral-700 dark:text-neutral-300'>
-            New user? {` `}
-            <Link href='/signup' className='font-semibold underline'>
-              Create an account
-            </Link>
-          </span>
+      <div className="relative container-fluid p-0 m-0 ">
+        <LoginBackground className="relative" />
+        <div className='absolute top-3 start-5'>
+          <Logo width={150} />
+        </div>
+        <div className='absolute top-5 end-5'>
+          <SelectLanguage className='bg-transparent' />
+        </div>
+        <div className='absolute top-[20vh] start-0 px-5 w-[100%] md:w-[400px] md:top-[30vh] md:start-10'>
+    {Login()}
         </div>
       </div>
+
     </div>
   )
 }

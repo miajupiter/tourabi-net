@@ -25,7 +25,7 @@ const CardCategory6: FC<CardCategory6Props> = ({
         alt=""
         src={thumbnail || ""}
         className="object-cover rounded-[4px] group-hover:scale-105 transition-transform duration-300"
-        sizes="(max-width: 400px) 100vw, 400px"
+        sizes="(max-width: 100%) 100vw, 100%"
       />
       <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 text-white">
         <span className="absolute inset-0 bg-gradient-to-t from-black/60"></span>
@@ -35,6 +35,7 @@ const CardCategory6: FC<CardCategory6Props> = ({
         </span>
       </div>
     </Link>
+   
   )
 }
 

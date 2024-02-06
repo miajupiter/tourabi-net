@@ -1,0 +1,9 @@
+{
+  "login": "Connexion",
+  "email_address": "Adresse e-mail",
+  "password": "Mot de passe",
+  "continue": "Continuer",
+  "new_user?": "Nouvel utilisateur ?",
+  "create_an_account": "Créer un compte",
+  "forgot_password?": "Mot de passe oublié ?"
+}

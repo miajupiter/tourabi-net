@@ -32,7 +32,7 @@ const Button: FC<ButtonProps> = ({
   loading,
   onClick = () => {},
 }) => {
-  const CLASSES = `nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors ${fontSize} ${sizeClass} ${translate} ${className} `;
+  const CLASSES = `nc-Button relative h-auto inline-flex items-center justify-center rounded-[6px] transition-colors ${fontSize} ${sizeClass} ${translate} ${className} `;
 
   const _renderLoading = () => {
     return (

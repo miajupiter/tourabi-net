@@ -198,7 +198,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
   }
 
   const travelPlanStep = (plan: any, index: number) => (
-    <div className={`flex-grow p-3 rounded-lg ${index % 2 == 1 ? ' bg-slate-100 dark:bg-[#1f273a]' : ''}`}>
+    <div key={index} className={`flex-grow p-3 rounded-lg ${index % 2 == 1 ? ' bg-slate-100 dark:bg-[#1f273a]' : ''}`}>
       <div className="flex justify-between space-x-3">
         <div className="flex flex-col">
           <div className="text-sm font-bold">

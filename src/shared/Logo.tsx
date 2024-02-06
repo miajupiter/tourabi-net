@@ -12,28 +12,25 @@ export interface LogoProps {
   imgLight?: StaticImageData
   className?: string
   classNameImg?: string
+  width?: number
+  height?: number
 }
 
 const Logo: React.FC<LogoProps> = ({
   className = "",
-  classNameImg=""
+  classNameImg = "",
+  width = 220,
+ height,
 }) => {
+  if(!height && width>0){
+    height=Math.round(width*80/220)
+  }
   return (
     <Link
       href="/"
       className={`ttnc-logo inline-block text-primary-6000 focus:outline-none focus:ring-0 ${className}`}
-    
     >
-      {/* <Image
-        src={LogoSvg}
-        alt="tourabi"
-        width={220}
-        height={80}
-
-      /> */}
-      {/* <LogoSvgLight /> */}
-      <LogoSvg  width={220} height={80} className={classNameImg}  />
-
+      <LogoSvg width={width} height={height} className={classNameImg} />
     </Link>
   )
 }
