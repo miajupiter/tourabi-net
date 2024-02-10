@@ -8,10 +8,10 @@ import 'rc-slider/assets/index.css'
 import Footer from '@/components/Footer'
 import FooterNav from '@/components/FooterNav'
 import { Metadata, Viewport, Route } from 'next'
-// import { Providers } from "@/shared/providers"
-import { auth } from "auth"
+import { auth } from "@/auth"
 import { SessionProvider } from "next-auth/react"
 import type { Session } from "next-auth"
+// import {useLogin} from '@/yeni_auth'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -61,6 +61,8 @@ export default async function RootLayout({
   params: any
 }) {
   const session: Session | null = await auth()
+  // const {token, status}=useLogin()
+  // console.log('layout session', session)
 
   return (
 
@@ -69,6 +71,10 @@ export default async function RootLayout({
       <body className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'>
         <SessionProvider session={session}>
           <ClientCommons />
+          {/* <SiteHeader />
+            {children}
+          <FooterNav />
+          <Footer />  */}
           {session &&
             <>
               <SiteHeader />

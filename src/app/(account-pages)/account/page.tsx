@@ -96,7 +96,8 @@ const AccountPage = () => {
         },
         // body: JSON.stringify({ filename: file.name, contentType: file.type }),
         // body: JSON.stringify({ filename: `profiles/${me?._id}-${file.name}`, contentType: file.type }),
-        body: JSON.stringify({ filename: `profiles/${me?._id}`, contentType: file.type }),
+        // body: JSON.stringify({ filename: `profiles/${me?._id}`, contentType: file.type }),
+        body: JSON.stringify({ filename: `profiles2024/${me?._id}/profilresmi.jpg`, contentType: file.type }),
       }
     )
 
@@ -133,12 +134,12 @@ const AccountPage = () => {
 
   useEffect(() => {
     getToken().then(token => {
-
+      console.log('token:',token)
       setSessionToken(token)
       getMyProfile(token)
     }).catch(err => console.log(err))
 
-  }, [])
+  }, [sessionToken])
 
   return (
     <>

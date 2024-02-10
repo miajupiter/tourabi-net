@@ -3,15 +3,18 @@
 import React, { useEffect } from "react"
 import { redirect, usePathname } from "next/navigation"
 import { useThemeMode } from "@/utils/useThemeMode"
+// import { useLogin } from '@/yeni_auth'
 import { useSession } from 'next-auth/react'
 
 const ClientCommons = () => {
   const {data:session, status} = useSession()
+  // const {status}=useLogin()
+
   const pathName=usePathname()
-  if(status=='unauthenticated' && !(pathName=='/login' || pathName.startsWith('/signup')) ){
-    redirect('/login')
-    return
-  }
+  // if(status!='authenticated' && !(pathName=='/login' || pathName.startsWith('/signup')) ){
+  //   redirect('/login')
+  //   return
+  // }
   // console.log('pathname:',usePathname())
   // console.log('status:',status)
   useThemeMode()

@@ -14,8 +14,8 @@ const SelectLanguage:FC<SelectLanguageProps> = ({
   const { lang , changeLanguage } = useLanguage()
   return (
     <div className='flex items-center'>
-      <i className='la la-language text-4xl'></i>
-      <select className={`nc-Select block w-full text-sm rounded-[4px] border-neutral-200 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-transparent dark:border-neutral-700 dark:focus:ring-primary-6000 dark:focus:ring-opacity-25 dark:bg-neutral-900 h-11 ${className}`}
+      <i className='la la-language text-4xl text-white'></i>
+      <select className={`nc-Select block w-full text-sm rounded-[4px] border-neutral-200 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 bg-white dark:bg-neutral-900 dark:border-neutral-700 dark:focus:ring-primary-6000 dark:focus:ring-opacity-25 h-11 ${className}`}
        value={lang} onChange={(e) => changeLanguage(e.target.value as string)} >
         <option value="en">English</option>
         <option value="es">Española</option>

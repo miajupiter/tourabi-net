@@ -24,7 +24,7 @@ export default function AvatarDropdown({ className = "" }: Props) {
       {!session && <Link href="/api/auth/signin" className='text-xl self-center'>
         <SignInSvg width='36px' height='36px' />
       </Link>}
-      {session && status === "authenticated" &&
+      {session && session.user && status === "authenticated" &&
         <Popover className={`AvatarDropdown relative flex ${className}`}>
           {({ open, close }) => (
             <>

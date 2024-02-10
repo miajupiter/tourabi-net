@@ -16,6 +16,7 @@
   "last_name":"Soyad",
   "legal_information":"Yasal Bilgiler",
   "date_of_birth":"Doğum Tarihi",
+  "phone_number":"Telefon numarası",
   "gender":"Cinsiyet",
   "female":"Kadın",
   "male":"Erkek",
@@ -33,5 +34,9 @@
   "block":"Blok",
   "room_number":"Daire numarası",
   "bank_account_name":"Banka hesap ismi",
-  "iban_no":"Iban No"
+  "iban_no":"Iban No",
+  "company_legal_name":"Firma/Şirket resmi ismi",
+  "swift_code":"Swift kod",
+  "ethereum_wallet":"Ethereum cüzdan",
+  "bitcoin_wallet":"Bitcoin cüzdan"
 }

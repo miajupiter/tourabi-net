@@ -29,7 +29,7 @@
         "./src/*"
       ],
       "auth": [
-        "./src/auth.ts"
+        "src/auth.ts"
       ]
     }
   },

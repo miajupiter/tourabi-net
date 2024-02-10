@@ -16,6 +16,7 @@
   "last_name":"Last name",
   "legal_information":"Legal Information",
   "date_of_birth":"Date of birth",
+  "phone_number":"Phone number",
   "gender":"Gender",
   "female":"Female",
   "male":"Male",
@@ -33,5 +34,9 @@
   "block":"Block",
   "room_number":"Room number",
   "bank_account_name":"Bank account name",
-  "iban_no":"Iban No"
+  "iban_no":"Iban No",
+  "company_legal_name":"Firm/Company legal name",
+  "swift_code":"Swift code",
+  "ethereum_wallet":"Ethereum wallet",
+  "bitcoin_wallet":"Bitcoin wallet"
 }

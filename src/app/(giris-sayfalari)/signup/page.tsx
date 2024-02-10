@@ -27,6 +27,7 @@ export interface MemberProps {
   rePassword?: string
   firstName?: string
   lastName?: string
+  phoneNumber?: string
   gender?: string
   dateOfBirth?: string
   address_region?: string
@@ -41,14 +42,18 @@ export interface MemberProps {
   address_postalZone?: string
   address_country_identificationCode?: string
   address_country_name?: string
+  companyLegalName?: string
   taxOffice?: string
   taxNumber?: string
   bankAccountName?: string
   ibanNo?: string
+  swiftCode?: string
+  ethereumWallet?: string
+  bitcoinWallet?: string
 }
 
 
-const maxStep = 3
+const maxStep = 4
 
 
 const PageSignUp: FC<PageSignUpProps> = ({ }) => {
@@ -88,7 +93,11 @@ const PageSignUp: FC<PageSignUpProps> = ({ }) => {
             onChange={(e: any) => setMember({ ...member, lastName: e.target.value })}
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-5">
+          <InputWithLabel type='tel' label={t('phone_number')} required
+            value={member?.phoneNumber}
+            onChange={(e: any) => setMember({ ...member, phoneNumber: e.target.value })}
+          />
           <SelectWithLabel label={t('Gender')} required
             value={member?.gender}
             onChange={(e: any) => setMember({ ...member, gender: e.target.value })}
@@ -138,7 +147,7 @@ const PageSignUp: FC<PageSignUpProps> = ({ }) => {
             value={member?.address_cityName || ''}
             onChange={(e: any) => setMember({ ...member, address_cityName: e.target.value })}
           />
-          <InputWithLabel type='text' label={t('District')} required
+          <InputWithLabel type='text' label={t('District')}
             value={member?.address_district || ''}
             onChange={(e: any) => setMember({ ...member, address_district: e.target.value })}
           />
@@ -154,22 +163,22 @@ const PageSignUp: FC<PageSignUpProps> = ({ }) => {
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-5">
-          <InputWithLabel type='text' label={t('Building Number')} required
+          <InputWithLabel type='text' label={t('Building Number')}
             value={member?.address_buildingNumber || ''}
             onChange={(e: any) => setMember({ ...member, address_buildingNumber: e.target.value })}
           />
-          <InputWithLabel type='text' label={t('Building/site Name')} required
+          <InputWithLabel type='text' label={t('Building/site Name')}
             value={member?.address_buildingName || ''}
             onChange={(e: any) => setMember({ ...member, address_buildingName: e.target.value })}
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-5">
-          <InputWithLabel type='text' label={t('Block')} required
+          <InputWithLabel type='text' label={t('Block')}
             value={member?.address_blockName || ''}
             onChange={(e: any) => setMember({ ...member, address_blockName: e.target.value })}
           />
 
-          <InputWithLabel type='text' label={t('Room')} required
+          <InputWithLabel type='text' label={t('Room')}
             value={member?.address_room || ''}
             onChange={(e: any) => setMember({ ...member, address_room: e.target.value })}
           />
@@ -194,6 +203,12 @@ const PageSignUp: FC<PageSignUpProps> = ({ }) => {
       <h2 className="text-2xl font-semibold">{t('Legal Information')}</h2>
       <div className="w-[50%] border-b border-neutral-200 dark:border-neutral-700"></div>
       <div className="space-y-4 mt-4">
+        <div className="grid grid-cols-1 gap-8 md:gap-5">
+          <InputWithLabel type='text' label={t('company_legal_name')} required
+            value={member?.companyLegalName || ''}
+            onChange={(e: any) => setMember({ ...member, companyLegalName: e.target.value })}
+          />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-5">
           <InputWithLabel type='text' label={t('tax_office')} required
             value={member?.taxOffice || ''}
@@ -205,111 +220,52 @@ const PageSignUp: FC<PageSignUpProps> = ({ }) => {
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-5">
-          <InputWithLabel type='text' label={t('Bank Account Name')}
-            value={member?.bankAccountName || ''}
-            onChange={(e: any) => setMember({ ...member, bankAccountName: e.target.value })}
-          />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-1 gap-8 md:gap-5">
-          <InputWithLabel type='text' label={t('Iban No')}
-            value={member?.ibanNo || ''}
-            onChange={(e: any) => setMember({ ...member, ibanNo: e.target.value })}
-          />
+          <Checkbox label={t('agreement')} name="agreement"   />
+          <Checkbox label={t('terms_of_use')} name="terms_of_use"   />
         </div>
       </div>
     </div>
   )
 
 
-  // const Step4 = () => (
-  //   <>
-  //     <div>
-  //       <h2 className="text-2xl font-semibold">Amenities </h2>
-  //       <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
-  //         Many customers have searched for accommodation based on amenities
-  //         criteria
-  //       </span>
-  //     </div>
-  //     <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-  //     <div className="space-y-4 mt-4">
-  //       <NcInputNumber label="Guests" defaultValue={4} />
-  //       <NcInputNumber label="Bedroom" defaultValue={4} />
-  //       <NcInputNumber label="Beds" defaultValue={4} />
-  //       <NcInputNumber label="Bathroom" defaultValue={2} />
-  //       <NcInputNumber label="Kitchen" defaultValue={2} />
-  //       <div>
-  //         <label className="text-lg font-semibold" htmlFor="">
-  //           General amenities
-  //         </label>
-  //         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-  //           <Checkbox label="Wifi" name="Wifi" defaultChecked />
-  //           <Checkbox label="Internet" name="Internet" />
-  //           <Checkbox label="TV" name="TV" defaultChecked />
-  //           <Checkbox label="Air conditioning" name="Air conditioning" />
-  //           <Checkbox label="Fan" name="Fan" />
-  //           <Checkbox label="Private entrance" name="Private entrance" />
-  //           <Checkbox label="Dryer" name="Dryer" defaultChecked />
-  //           <Checkbox label="Heater" name="Heater" />
-  //           <Checkbox label="Washing machine" name="Washing machine" />
-  //           <Checkbox label="Detergent" name="Detergent" defaultChecked />
-  //           <Checkbox label="Clothes dryer" name="Clothes dryer" />
-  //           <Checkbox label="Baby cot" name="Baby cot" />
-  //           <Checkbox label="Desk" name="Desk " defaultChecked />
-  //           <Checkbox label="Fridge" name="Fridge" />
-  //           <Checkbox label="Dryer" name="Dryer" defaultChecked />
-  //         </div>
-  //       </div>
-
-  //       {/* ITEM */}
-  //       <div>
-  //         <label className="text-lg font-semibold" htmlFor="">
-  //           Other amenities
-  //         </label>
-  //         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-  //           <Checkbox label="Wardrobe" name="Wardrobe" defaultChecked />
-  //           <Checkbox label="Cloth hook" name="Cloth hook" />
-  //           <Checkbox
-  //             label="Extra cushion"
-  //             name="Extra cushion"
-  //             defaultChecked
-  //           />
-  //           <Checkbox label="Gas stove" name="Gas stove" />
-  //           <Checkbox label="Toilet paper" name="Toilet paper" />
-  //           <Checkbox
-  //             label="Free toiletries"
-  //             name="Free toiletries"
-  //             defaultChecked
-  //           />
-  //           <Checkbox label="Makeup table" name="Makeup table" />
-  //           <Checkbox label="Hot pot" name="Hot pot" />
-  //           <Checkbox label="Bathroom heaters" name="Bathroom heaters" />
-  //           <Checkbox label="Kettle" name="Kettle" defaultChecked />
-  //           <Checkbox label="Dishwasher" name="Dishwasher" />
-  //           <Checkbox label="BBQ grill" name="BBQ grill" defaultChecked />
-  //           <Checkbox label="Toaster" name="Toaster" defaultChecked />
-  //           <Checkbox label="Towel" name="Towel" />
-  //           <Checkbox label="Dining table" name="Dining table" />
-  //         </div>
-  //       </div>
-
-  //       <div>
-  //         <label className="text-lg font-semibold" htmlFor="">
-  //           Safe amenities
-  //         </label>
-  //         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-  //           <Checkbox label="Fire siren" name="Fire siren" defaultChecked />
-  //           <Checkbox label="Fire extinguisher" name="Fire extinguisher" />
-  //           <Checkbox label="Anti-theft key" name="Anti-theft key" />
-  //           <Checkbox label="Safe vault" name="Safe vault" />
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </>
-  // )
-
-  // useEffect(() => {
-  //   // setLang(localStorage.getItem('lang') || 'en')
-  // }, [])
+  const Step4 = () => (
+    <div>
+      <h2 className="text-2xl font-semibold">{t('Payment Methods')}</h2>
+      <div className="w-[50%] border-b border-neutral-200 dark:border-neutral-700"></div>
+      <div className="space-y-4 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-5">
+          <InputWithLabel type='text' label={t('bank_account_name')}
+            value={member?.bankAccountName || ''}
+            onChange={(e: any) => setMember({ ...member, bankAccountName: e.target.value })}
+          />
+        </div>
+        <div className="grid grid-cols-1 gap-8 md:gap-5">
+          <InputWithLabel type='text' label={t('iban_no')}
+            value={member?.ibanNo || ''}
+            onChange={(e: any) => setMember({ ...member, ibanNo: e.target.value })}
+          />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-5">
+          <InputWithLabel type='text' label={t('swift_code')}
+            value={member?.swiftCode || ''}
+            onChange={(e: any) => setMember({ ...member, swiftCode: e.target.value })}
+          />
+        </div>
+        <div className="grid grid-cols-1 gap-8 md:gap-5">
+          <InputWithLabel type='text' label={t('ethereum_wallet')}
+            value={member?.ethereumWallet || ''}
+            onChange={(e: any) => setMember({ ...member, ethereumWallet: e.target.value })}
+          />
+        </div>
+        <div className="grid grid-cols-1 gap-8 md:gap-5">
+          <InputWithLabel type='text' label={t('bitcoin_wallet')}
+            value={member?.bitcoinWallet || ''}
+            onChange={(e: any) => setMember({ ...member, bitcoinWallet: e.target.value })}
+          />
+        </div>
+      </div>
+    </div>
+  )
 
   return (
     <div
@@ -338,11 +294,11 @@ const PageSignUp: FC<PageSignUpProps> = ({ }) => {
           </div>
         </div>
         <form className='' action='#' method='post'>
-          <div className="w-full flex flex-col rounded-[8px] border border-neutral-200 dark:border-neutral-700 space-y-3 p-4">
+          <div className="w-full flex flex-col rounded-[8px] border border-neutral-200 dark:border-neutral-700 space-y-3 p-4 pb-8">
             <div className={`${stepIndex != 0 ? 'hidden' : ''}`}>{Step1()}</div>
             <div className={`${stepIndex != 1 ? 'hidden' : ''}`}>{Step2()}</div>
             <div className={`${stepIndex != 2 ? 'hidden' : ''}`}>{Step3()}</div>
-            {/* <div className={`${stepIndex != 3 ? 'hidden' : ''}`}>{Step4()}</div> */}
+            <div className={`${stepIndex != 3 ? 'hidden' : ''}`}>{Step4()}</div>
           </div>
 
           <div className="flex justify-end space-x-5 mt-10">
