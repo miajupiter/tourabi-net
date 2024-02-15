@@ -13,6 +13,8 @@
 
 ## Development steps
 
+### 🏖️Agency/User Side  ✈️[tourabi.net](https://tourabi.net)
+
 - [x] **Chis Fis** theme implementation
 - [ ] Tour list
   - [x] show list
@@ -22,24 +24,49 @@
   - [x] show tour page
   - [ ] show all images
   - [ ] buy button
-- [x] Sign in & Sign up
-  - [x] Google
-  - [x] Yandex
-  - [x] Github
-  - [x] Twitter
-  - [ ] Facebook
-  - [x] Email
-- [ ] User/Agency Pages
-- [ ] Account information
-- [ ] Photo upload
-- [ ] Address , phone etc.
+- ~~[x] Sign in & Sign up~~ **(next-auth approach cancelled)**
+  - ~~[x] Google~~
+  - ~~[x] Yandex~~
+  - ~~[x] Github~~
+  - ~~[x] Twitter~~
+  - ~~[ ] Facebook~~
+  - ~~[x] Email~~
+- [x] Signup
+- [x] Login
+- [C] User/Agency Pages
+- [C] Account information
+- [X] AWS S3 Bucket Photo upload
+- [] Address , phone etc.
 - [ ] Tour functions
   - [ ] Create a new tour
   - [ ] List own tours
   - [ ] Edit/Update a tour
   - [ ] Delete/Set passive
-- [ ] Admin Panel
-- [ ] Dashboard
+  
+
+### 💪Admin Side | 📈Management ✈️[admin.tourabi.net](https://admin.tourabi.net)
+
+- [x] Admin Panel Implamentation
+  - [x] Login Page
+  - [x] Integrated backed (only the user must have one of these roles => 'admin' | 'manager' | 'sysadmin' )
+
+- [ ] Simple Dashboard
+  - [ ] Active & Total Users Widget
+  - [ ] Last Online Users
+  - [ ] Last signed up users
+  - [ ] Last 7 days reports
+    - [ ] Most visited tours
+    - [ ] Most visited destinations
+  - [ ] Sales Reports Widgets
+    - [ ] Daily
+    - [ ] Weekly
+    - [ ] Montly
+  - [ ] DevOps Reports
+    - [ ] Disk usage
+    - [ ] Memory usage
+    - [ ] Cpu usage
+    - [ ] Database capacities
+
 - [ ] Users
   - [ ] List Users
   - [ ] Approve
@@ -56,3 +83,13 @@
   - [ ] List Destinations
   - [ ] Create a destination
   - [ ] Edit/Update
+
+---
+
+# 🚀🌐👽❤️💰🍀🍺🐞🐪🐫🦃🌍🌏🌎🌈🛼🎨🎬🛰️🚀🛸🚁✈️🛫🛬🛩️
+
+# 🏖️🏝️🏜️ 💵💶💷🪙💰🧲⚖️🛡️⚔️🔆
+
+# 🏆🥇🥈🥉🏅🎖️🏵️🎗️🎪
+
+# 😎🗺️🚹🧲⚙️🌈💎🎬🖥️🕵️👻💀☠️💪🏁🪤👨‍🍳♟️📣📑⚖️🔋🪫💰🧿🪬📊📈🧮🛼

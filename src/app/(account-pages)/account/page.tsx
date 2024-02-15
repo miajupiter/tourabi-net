@@ -8,8 +8,9 @@ import ButtonPrimary from "@/shared/ButtonPrimary"
 import Input from "@/shared/Input"
 import Select from "@/shared/Select"
 import Textarea from "@/shared/Textarea"
-import { awsUploadFile, getToken } from '@/utils/apiHelper'
-import ButtonSecondary from '@/shared/ButtonSecondary'
+import {useLogin} from '@/hooks/useLogin'
+// import { awsUploadFile, getToken } from '@/utils/apiHelper'
+// import ButtonSecondary from '@/shared/ButtonSecondary'
 
 export interface MyProfileType {
   _id?: string
@@ -44,16 +45,16 @@ export interface AccountPageProps { }
 
 const AccountPage = () => {
 
-  const [sessionToken, setSessionToken] = useState('')
-
+  // const [sessionToken, setSessionToken] = useState('')
+  const {token }=useLogin()
 
   const [me, setMe] = useState<MyProfileType | null>(null)
   // const [file, setFile] = useState<File | null>(null)
   const [uploading, setUploading] = useState(false)
 
 
-  const getMyProfile = (token: string) => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URI}/me`, { headers: { token: token } })
+  const getMyProfile = () => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URI}/me`, { method:'GET', headers: {'Content-Type': 'application/json', token: token } })
       .then(ret => ret.json())
       .then(resp => {
         if (resp && resp.data) {
@@ -65,11 +66,11 @@ const AccountPage = () => {
 
   }
   const updateMyProfile = () => {
-    if (!sessionToken) {
-      console.log('sessionToken required')
+    if (!token) {
+      console.log('token required')
       return
     }
-    fetch(`${process.env.NEXT_PUBLIC_API_URI}/me`, { method: 'PUT', headers: { 'Content-Type': 'application/json', token: sessionToken }, body: JSON.stringify(me) })
+    fetch(`${process.env.NEXT_PUBLIC_API_URI}/me`, { method: 'PUT', headers: { 'Content-Type': 'application/json', token: token }, body: JSON.stringify(me) })
       .then(ret => ret.json())
       .then(resp => {
         console.log('Basarili', resp)
@@ -94,10 +95,7 @@ const AccountPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        // body: JSON.stringify({ filename: file.name, contentType: file.type }),
-        // body: JSON.stringify({ filename: `profiles/${me?._id}-${file.name}`, contentType: file.type }),
-        // body: JSON.stringify({ filename: `profiles/${me?._id}`, contentType: file.type }),
-        body: JSON.stringify({ filename: `profiles2024/${me?._id}/profilresmi.jpg`, contentType: file.type }),
+        body: JSON.stringify({ filename: `profiles/${me?._id}`, contentType: file.type }),
       }
     )
 
@@ -133,13 +131,13 @@ const AccountPage = () => {
   }
 
   useEffect(() => {
-    getToken().then(token => {
-      console.log('token:',token)
-      setSessionToken(token)
-      getMyProfile(token)
-    }).catch(err => console.log(err))
-
-  }, [sessionToken])
+    // getToken().then(token => {
+    //   console.log('token:',token)
+    //   setSessionToken(token)
+    //   getMyProfile(token)
+    // }).catch(err => console.log(err))
+    getMyProfile()
+  }, [token])
 
   return (
     <>
@@ -149,17 +147,7 @@ const AccountPage = () => {
         <div className="space-y-6 sm:space-y-8">
           <h2 className="text-3xl font-semibold">Account infomation</h2>
           <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-          {/* <input id="file" type="file"
-              onChange={(e) => {
-                const files = e.target.files
-                if (files) {
-                  // setFile(files[0])
-                  handleSubmit(files[0])
-                }
-              }}
-              accept="image/*"
-            />
-             */}
+         
           <div className="flex flex-col md:flex-row">
             <div className="flex-shrink-0 flex items-start">
               <div className="relative rounded-full overflow-hidden flex">
@@ -192,9 +180,7 @@ const AccountPage = () => {
                     const files = e.target.files
                     if (files) {
                       handleSubmit(files[0])
-                      // console.log(files[0])
-                      // setFile(files[0])
-                      // setMe({...me, image:files[0].webkitRelativePath})
+                     
                     }
                   }}
                 />

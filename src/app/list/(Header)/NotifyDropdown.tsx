@@ -7,7 +7,8 @@ import { BellIcon } from "@heroicons/react/24/outline"
 import avatar4 from "@/images/avatars/Image-4.png"
 import avatar5 from "@/images/avatars/Image-5.png"
 import avatar6 from "@/images/avatars/Image-6.png"
-import { useSession } from 'next-auth/react'
+// import { useSession } from 'next-auth/react'
+import {useLogin} from '@/hooks/useLogin'
 
 const notifications = [
   {
@@ -38,11 +39,12 @@ interface Props {
 }
 
 const NotifyDropdown: FC<Props> = ({ className = "" }) => {
-  const { data: session, status } = useSession()
+  // const { data: session, status } = useSession()
+  const {token}=useLogin()
 
   return (
     <>
-      {session &&
+      {token &&
         <Popover className={`relative flex mx-3 ${className}`}>
           {({ open }) => (
             <>

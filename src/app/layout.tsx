@@ -1,3 +1,5 @@
+"use client"
+
 import { Poppins } from 'next/font/google'
 import SiteHeader from './list/SiteHeader'
 import ClientCommons from './ClientCommons'
@@ -8,10 +10,11 @@ import 'rc-slider/assets/index.css'
 import Footer from '@/components/Footer'
 import FooterNav from '@/components/FooterNav'
 import { Metadata, Viewport, Route } from 'next'
-import { auth } from "@/auth"
-import { SessionProvider } from "next-auth/react"
-import type { Session } from "next-auth"
-// import {useLogin} from '@/yeni_auth'
+// import { auth } from "@/auth"
+// import { SessionProvider } from "next-auth/react"
+// import type { Session } from "next-auth"
+import { useEffect, useState } from 'react'
+import {useLogin} from '@/hooks/useLogin'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -31,51 +34,53 @@ export const viewport: Viewport = {
   interactiveWidget: 'overlays-content'
 }
 
-export const metadata: Metadata = {
-  title: 'TourAbi',
-  description: 'TourAbi.net Travel Tour Portal',
-  // generator: 'Next.js',
-  manifest: '/manifest.json',
-  keywords: ['tourabi', 'tours', 'miajupiter', 'mrtek-yazilimevi', 'travel', 'booking', 'silkroad'],
-  authors: [
-    { name: 'Shaman Coders' },
-    {
-      name: 'Ali TEK',
-      url: 'https://linktr.ee/alitek',
-    },
-  ],
+// export const metadata: Metadata = {
+//   title: 'TourAbi',
+//   description: 'TourAbi.net Travel Tour Portal',
+//   // generator: 'Next.js',
+//   manifest: '/manifest.json',
+//   keywords: ['tourabi', 'tours', 'miajupiter', 'mrtek-yazilimevi', 'travel', 'booking', 'silkroad'],
+//   authors: [
+//     { name: 'Shaman Coders' },
+//     {
+//       name: 'Ali TEK',
+//       url: 'https://linktr.ee/alitek',
+//     },
+//   ],
 
-  // viewport:viewport,
-  icons: [
-    // { rel: 'apple-touch-icon', url: 'icons/icon-128x128.png' },
-    { rel: 'icon', url: '/favicon.ico' },
-    // { rel: 'icon', url: 'icons/icon-128x128.png' },
-  ],
-}
+//   // viewport:viewport,
+//   icons: [
+//     // { rel: 'apple-touch-icon', url: 'icons/icon-128x128.png' },
+//     { rel: 'icon', url: '/favicon.ico' },
+//     // { rel: 'icon', url: 'icons/icon-128x128.png' },
+//   ],
+// }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode
   params: any
 }) {
-  const session: Session | null = await auth()
-  // const {token, status}=useLogin()
+  // const session: Session | null = await auth()
+  const {token}=useLogin()
   // console.log('layout session', session)
-
+  // useEffect(()=>{
+  //   setToken(localStorage.getItem('token') || '')
+  // },[token])
   return (
 
     <html lang='en' className={`${poppins.className}`}>
 
       <body className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'>
-        <SessionProvider session={session}>
+        {/* <SessionProvider session={session}> */}
           <ClientCommons />
           {/* <SiteHeader />
             {children}
           <FooterNav />
           <Footer />  */}
-          {session &&
+          {token &&
             <>
               <SiteHeader />
               {children}
@@ -83,12 +88,12 @@ export default async function RootLayout({
               <Footer />
             </>
           }
-          {session == null &&
+          {!token &&
             <>
               {children}
             </>
           }
-        </SessionProvider>
+        {/* </SessionProvider> */}
       </body>
     </html>
   )

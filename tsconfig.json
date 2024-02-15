@@ -38,7 +38,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/utils/apiHelper/!!__awsClient.ts.bak"  ],
+  ],
   "exclude": [
     "./node_modules/**/*"
   ]

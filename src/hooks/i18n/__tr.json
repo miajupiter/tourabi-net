@@ -38,5 +38,6 @@
   "company_legal_name":"Firma/Şirket resmi ismi",
   "swift_code":"Swift kod",
   "ethereum_wallet":"Ethereum cüzdan",
-  "bitcoin_wallet":"Bitcoin cüzdan"
+  "bitcoin_wallet":"Bitcoin cüzdan",
+  "email_already_exists":"E-posta zaten mevcut"
 }

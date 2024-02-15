@@ -1,4 +1,4 @@
-import { useLanguage } from '@/i18n'
+import { useLanguage } from '@/hooks/i18n'
 import Select from '@/shared/Select'
 import React, {FC, useEffect, useState } from 'react'
 
