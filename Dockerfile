@@ -10,4 +10,6 @@ COPY . .
 
 RUN  yarn build
 
+ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+
 CMD ["yarn", "start"]
