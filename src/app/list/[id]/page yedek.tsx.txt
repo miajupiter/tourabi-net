@@ -20,11 +20,10 @@ import { Amenities_demos, PHOTOS } from './constant'
 import StayDatesRangeInput from '../DatesRangeInput'
 import GuestsInput from '../GuestsInput'
 // import SectionDateRange from './SectionDateRange'
-// import { Route } from 'next'
-// import { getToken } from '@/utils/apiHelper'
-import { AliAbiMDXViewer } from '@/components/Editor/AliAbiMDXEditor'
+import { Route } from 'next'
+import { getToken } from '@/utils/apiHelper'
+import { AliAbiMDXViewer } from './Editor/AliAbiMDXEditor'
 import { useLanguage } from '@/hooks/i18n'
-import { useLogin } from '@/hooks/useLogin'
 
 // import PlaceHolder from '@/images/placeholder-large.png'
 // import PlaceHolderSmall from '@/images/placeholder-small.png'
@@ -52,8 +51,8 @@ export interface TourItemType {
 
 
 const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } }) => {
-  const { t } = useLanguage()
-  const { token } = useLogin()
+  const {t}=useLanguage()
+
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false)
 
   const thisPathname = usePathname()
@@ -62,7 +61,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
   const [item, setItem] = useState<TourItemType>()
   const [pullData, setPullData] = useState(false)
 
-  const getItem = (itemId: string) => {
+  const getItem = (itemId: string, token: string) => {
 
     fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours/${itemId}`, { headers: { 'token': token } })
       .then(ret => ret.json())
@@ -85,17 +84,33 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
             images: res.images,
           } as TourItemType
           setItem(tour)
-        } else if (result.error) {
-          alert(result.error)
         }
-      }).catch(err => {
-        alert(err.message || err || 'error')
-      })
+      }).catch(console.error)
 
 
   }
 
+  useEffect(() => {
+    getToken().then(token => {
+      console.log('token:', token)
+      setSessionToken(token)
+      getItem(params.id,token)
+    }).catch(err => console.log(err))
 
+  }, [])
+
+
+  function closeModalAmenities() {
+    setIsOpenModalAmenities(false)
+  }
+
+  function openModalAmenities() {
+    setIsOpenModalAmenities(true)
+  }
+
+  const handleOpenModalImageGallery = () => {
+    router.push(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE` as Route)
+  }
 
   const renderSection1 = () => {
 
@@ -178,7 +193,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
         <div className='text-neutral-6000 dark:text-neutral-300'>
 
           {item && item.description && <>
-            <AliAbiMDXViewer markdown={item.description} />
+          <AliAbiMDXViewer markdown={item.description} />
           </>}
 
         </div>
@@ -191,7 +206,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
       <div className="flex justify-start space-x-3">
         <div className="flex flex-col">
           <div className="text-sm font-bold">
-            {index + 1}. {t('Day')}
+            {index+1}. {t('Day')}
           </div>
           {/* <span className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5">
               subtitle
@@ -211,9 +226,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
     return (
       <div className='listingSection__wrap'>
         <div>
-          <h2 className='text-2xl font-semibold'>
-            <i className='fa-solid fa-list-ol text-green-600'></i> {t('Travel Plan')}
-          </h2>
+          <h2 className='text-2xl font-semibold'>Travel Plan </h2>
           {/* <span className='block mt-2 text-neutral-500 dark:text-neutral-400'>
             {` About the property's amenities and services`}
           </span> */}
@@ -226,6 +239,273 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
 
         </div>
 
+      </div>
+    )
+  }
+
+
+  const renderSection4 = () => {
+    return (
+      <div className='listingSection__wrap'>
+        {/* HEADING */}
+        <div>
+          <h2 className='text-2xl font-semibold'>Room Rates </h2>
+          <span className='block mt-2 text-neutral-500 dark:text-neutral-400'>
+            Prices may increase on weekends or holidays
+          </span>
+        </div>
+        <div className='w-14 border-b border-neutral-200 dark:border-neutral-700'></div>
+        {/* CONTENT */}
+        <div className='flow-root'>
+          <div className='text-sm sm:text-base text-neutral-6000 dark:text-neutral-300 -mb-4'>
+            <div className='p-4 bg-neutral-100 dark:bg-neutral-800 flex justify-between items-center space-x-4 rounded-lg'>
+              <span>Monday - Thursday</span>
+              <span>$199</span>
+            </div>
+            <div className='p-4  flex justify-between items-center space-x-4 rounded-lg'>
+              <span>Monday - Thursday</span>
+              <span>$199</span>
+            </div>
+            <div className='p-4 bg-neutral-100 dark:bg-neutral-800 flex justify-between items-center space-x-4 rounded-lg'>
+              <span>Friday - Sunday</span>
+              <span>$219</span>
+            </div>
+            <div className='p-4 flex justify-between items-center space-x-4 rounded-lg'>
+              <span>Rent by month</span>
+              <span>-8.34 %</span>
+            </div>
+            <div className='p-4 bg-neutral-100 dark:bg-neutral-800 flex justify-between items-center space-x-4 rounded-lg'>
+              <span>Minimum number of nights</span>
+              <span>1 night</span>
+            </div>
+            <div className='p-4 flex justify-between items-center space-x-4 rounded-lg'>
+              <span>Max number of nights</span>
+              <span>90 nights</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const renderSection5 = () => {
+    return (
+      <div className='listingSection__wrap'>
+        {/* HEADING */}
+        <h2 className='text-2xl font-semibold'>Host Information</h2>
+        <div className='w-14 border-b border-neutral-200 dark:border-neutral-700'></div>
+
+        {/* host */}
+        <div className='flex items-center space-x-4'>
+          <Avatar
+            hasChecked
+            hasCheckedClass='w-4 h-4 -top-0.5 right-0.5'
+            sizeClass='h-14 w-14'
+            radius='rounded-full'
+          />
+          <div>
+            <a className='block text-xl font-medium' href='##'>
+              Kevin Francis
+            </a>
+            <div className='mt-1.5 flex items-center text-sm text-neutral-500 dark:text-neutral-400'>
+              <StartRating />
+              <span className='mx-2'>·</span>
+              <span> 12 places</span>
+            </div>
+          </div>
+        </div>
+
+        {/* desc */}
+        <span className='block text-neutral-6000 dark:text-neutral-300'>
+          Providing lake views, The Symphony 9 Tam Coc in Ninh Binh provides
+          accommodation, an outdoor swimming pool, a bar, a shared lounge, a
+          garden and barbecue facilities...
+        </span>
+
+        {/* info */}
+        <div className='block text-neutral-500 dark:text-neutral-400 space-y-2.5'>
+          <div className='flex items-center space-x-3'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-6 w-6'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={1.5}
+                d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
+              />
+            </svg>
+            <span>Joined in March 2016</span>
+          </div>
+          <div className='flex items-center space-x-3'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-6 w-6'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={1.5}
+                d='M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z'
+              />
+            </svg>
+            <span>Response rate - 100%</span>
+          </div>
+          <div className='flex items-center space-x-3'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-6 w-6'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={1.5}
+                d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
+              />
+            </svg>
+
+            <span>Fast response - within a few hours</span>
+          </div>
+        </div>
+
+        {/* == */}
+        <div className='w-14 border-b border-neutral-200 dark:border-neutral-700'></div>
+        <div>
+          <ButtonSecondary href='/author'>See host profile</ButtonSecondary>
+        </div>
+      </div>
+    )
+  }
+
+  const renderReviews = () => {
+    return (
+      <div className='listingSection__wrap'>
+        {/* HEADING */}
+        <h2 className='text-2xl font-semibold'>Reviews (23 reviews)</h2>
+        <div className='w-14 border-b border-neutral-200 dark:border-neutral-700'></div>
+
+        {/* Content */}
+        <div className='space-y-5'>
+          <FiveStartIconForRate iconClass='w-6 h-6' className='space-x-0.5' />
+          <div className='relative'>
+            <Input
+              fontClass=''
+              sizeClass='h-16 px-4 py-3'
+              rounded='rounded-3xl'
+              placeholder='Share your thoughts ...'
+            />
+            <ButtonCircle
+              className='absolute right-2 top-1/2 transform -translate-y-1/2'
+              size=' w-12 h-12 '
+            >
+              <ArrowRightIcon className='w-5 h-5' />
+            </ButtonCircle>
+          </div>
+        </div>
+
+        {/* comment */}
+        <div className='divide-y divide-neutral-100 dark:divide-neutral-800'>
+          <CommentListing className='py-8' />
+          <CommentListing className='py-8' />
+          <CommentListing className='py-8' />
+          <CommentListing className='py-8' />
+          <div className='pt-8'>
+            <ButtonSecondary>View more 20 reviews</ButtonSecondary>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const renderSection7 = () => {
+    return (
+      <div className='listingSection__wrap'>
+        {/* HEADING */}
+        <div>
+          <h2 className='text-2xl font-semibold'>Location</h2>
+          <span className='block mt-2 text-neutral-500 dark:text-neutral-400'>
+            San Diego, CA, United States of America (SAN-San Diego Intl.)
+          </span>
+        </div>
+        <div className='w-14 border-b border-neutral-200 dark:border-neutral-700' />
+
+        {/* MAP */}
+        <div className='aspect-w-5 aspect-h-5 sm:aspect-h-3 ring-1 ring-black/10 rounded-xl z-0'>
+          <div className='rounded-xl overflow-hidden z-0'>
+            <iframe
+              width='100%'
+              height='100%'
+              loading='lazy'
+              allowFullScreen
+              referrerPolicy='no-referrer-when-downgrade'
+              src='https://www.google.com/maps/embed/v1/place?key=AIzaSyAGVJfZMAKYfZ71nzL_v5i3LjTTWnCYwTY&q=Eiffel+Tower,Paris+France'
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const renderSection8 = () => {
+    return (
+      <div className='listingSection__wrap'>
+        {/* HEADING */}
+        <h2 className='text-2xl font-semibold'>Things to know</h2>
+        <div className='w-14 border-b border-neutral-200 dark:border-neutral-700' />
+
+        {/* CONTENT */}
+        <div>
+          <h4 className='text-lg font-semibold'>Cancellation policy</h4>
+          <span className='block mt-3 text-neutral-500 dark:text-neutral-400'>
+            Refund 50% of the booking value when customers cancel the room
+            within 48 hours after successful booking and 14 days before the
+            check-in time. <br />
+            Then, cancel the room 14 days before the check-in time, get a 50%
+            refund of the total amount paid (minus the service fee).
+          </span>
+        </div>
+        <div className='w-14 border-b border-neutral-200 dark:border-neutral-700' />
+
+        {/* CONTENT */}
+        <div>
+          <h4 className='text-lg font-semibold'>Check-in time</h4>
+          <div className='mt-3 text-neutral-500 dark:text-neutral-400 max-w-md text-sm sm:text-base'>
+            <div className='flex space-x-10 justify-between p-3 bg-neutral-100 dark:bg-neutral-800 rounded-lg'>
+              <span>Check-in</span>
+              <span>08:00 am - 12:00 am</span>
+            </div>
+            <div className='flex space-x-10 justify-between p-3'>
+              <span>Check-out</span>
+              <span>02:00 pm - 04:00 pm</span>
+            </div>
+          </div>
+        </div>
+        <div className='w-14 border-b border-neutral-200 dark:border-neutral-700' />
+
+        {/* CONTENT */}
+        <div>
+          <h4 className='text-lg font-semibold'>Special Note</h4>
+          <div className='prose sm:prose'>
+            <ul className='mt-3 text-neutral-500 dark:text-neutral-400 space-y-2'>
+              <li>
+                Ban and I will work together to keep the landscape and
+                environment green and clean by not littering, not using
+                stimulants and respecting people around.
+              </li>
+              <li>Do not sing karaoke past 11:30</li>
+            </ul>
+          </div>
+        </div>
       </div>
     )
   }
@@ -281,7 +561,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
       // <div key={index} className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? 'hidden sm:block' : ''}`} >
       <div key={index} className={`relative rounded-[3px] overflow-hidden ${index >= 3 ? 'hidden sm:block' : ''}`} >
         <div className='aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5'>
-          {itemSrc &&
+          {item &&
             <Image
               fill
               // className={`object-cover rounded-md sm:rounded-xl`}
@@ -292,10 +572,10 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
 
             />
           }
-          {!itemSrc &&
+          {!item &&
             <div
               // className={`object-cover rounded-md sm:rounded-xl bg-slate-500 400px lazy-loading`}
-              className={`object-cover rounded-[3px] bg-slate-500 400px laz11y-load11ing`}
+              className={`object-cover rounded-[3px] bg-slate-500 400px lazy-loading`}
             >{` `}</div>
           }
         </div>
@@ -356,52 +636,6 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
     )
   }
 
-  const renderInclusionsExclusions = () => {
-
-    return (
-      <div className='listingSection__wrap'>
-        <div className='grid grid-cols-1 md:grid-cols-2 space-x-2'>
-          <div className='flex flex-col'>
-            <h2 className='text-2xl font-semibold'>
-              <i className='fa-solid fa-file-circle-plus text-blue-600'></i> {t('Inclusions')}
-            </h2>
-            <div className='w-full border-b border-neutral-200 dark:border-neutral-700'></div>
-            <div className='text-neutral-6000 dark:text-neutral-300'>
-
-              {item && item.inclusions && <>
-                <AliAbiMDXViewer markdown={item.inclusions} />
-              </>}
-
-            </div>
-          </div>
-          <div className='flex flex-col'>
-            <h2 className='text-2xl font-semibold'>
-              <i className='fa-solid fa-file-circle-minus text-red-600'></i> {t('Exclusions')}
-            </h2>
-            <div className='w-full border-b border-neutral-200 dark:border-neutral-700'></div>
-            <div className='text-neutral-6000 dark:text-neutral-300'>
-
-              {item && item.exclusions && <>
-                <AliAbiMDXViewer markdown={item.exclusions} />
-              </>}
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-    )
-  }
-
-  useEffect(() => {
-    if (!pullData) {
-      getItem(params.id)
-      setPullData(true)
-    }
-  }, [t, token])
-
-
-
   return (
     <div className='container nc-ListingStayDetailPage mb-20'>
       {/*  HEADER */}
@@ -413,7 +647,12 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
           {renderSection1()}
           {renderDescription()}
           {renderTravelPlan()}
-          {renderInclusionsExclusions()}
+          {/* {renderSection4()} */}
+          {/* <SectionDateRange /> */}
+          {/* {renderSection5()}
+          {renderReviews()}
+          {renderSection7()}
+          {renderSection8()} */}
         </div>
 
         {/* SIDEBAR */}

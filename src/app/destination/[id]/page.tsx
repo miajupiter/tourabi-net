@@ -1,36 +1,75 @@
 "use client"
 
 import React, { FC, Fragment, useState, useEffect } from 'react'
-import Azerbaijan from './azerbaijan'
-import China from './china'
-import Kazakhstan from './kazakhstan'
 import DestinationGridBox from '../DestinationGridBox'
-
+import { useLogin } from '@/hooks/useLogin'
+import { StaticImageData } from 'next/image'
+import AliAbiMDXViewer from '@/components/Editor/AliAbiMDXEditor'
 export interface PageDestinationProps {
   params: { id: string }
 }
-const PageQwerty = ({ ...props }) => (
-  <div>
-    <img className='rounded-[4px]' src={`https://tourabi.s3.eu-central-1.amazonaws.com/destinations/${props.id}.jpg`} alt={`${props.id}`} />
-    <h2 className='text-4xl mt-10 mb-10 capitalize '>{props.title}</h2>
-    <div className='my-4'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab reiciendis eum deserunt sequi cum alias animi! Dolorum, corporis repellendus, perferendis laudantium in sunt aut maiores iste ab corrupti eos voluptatibus!</div>
-    <div className='my-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum expedita sit commodi rerum. Facilis blanditiis necessitatibus beatae esse explicabo, repudiandae at a, atque eum delectus, quidem culpa similique modi ad.</div>
-    <div className='my-4'>Non, tempore. Fuga veniam odio hic explicabo cum? Dicta culpa nihil, non qui repellendus dolorum mollitia soluta excepturi iure atque odit ipsum.</div>
-  </div>
-)
+
+
+export interface DestinationItemType {
+  id: string
+  title: string
+  country: string
+  description: string
+
+  images?: []
+
+}
 
 
 const PageDestination: FC<PageDestinationProps> = ({ params }: { params: { id: string } }) => {
-  window.scrollTo(0, 0)
+  const { token } = useLogin()
+  const [pullData, setPullData] = useState(false)
+  const [item, setItem] = useState<DestinationItemType>()
+
+  const getItem = (id: string) => {
+    fetch(`${process.env.NEXT_PUBLIC_API_URI}/destinations/${id}`, {
+      method: 'GET', headers: { 'Content-Type': 'application/json', token }
+    })
+      .then(ret => ret.json())
+      .then(result => {
+        if (result.success) {
+          setItem(result.data)
+        } else {
+          alert(result.error)
+        }
+      })
+      .catch(err => {
+        console.log('getItem err:', err)
+      })
+  }
+  useEffect(() => {
+    if (!pullData) {
+      setPullData(true)
+      window.scrollTo(0, 0)
+      getItem(params.id)
+    }
+
+  }, [])
+
 
   return (
     <div className={`container my-20`}>
+      {item &&
+        <div>
+          <div className='grid grid-cols-3 space-x-4'>
+            {item.images && item.images.map((itemImg: any, index: number) =>
+              <div key={index}>
+                <img className='rounded-[4px]' src={itemImg.image} alt={`${item.title}`} />
+              </div>
+            )}
 
-      {params.id == 'azerbaijan' && <Azerbaijan />}
-      {params.id == 'china' && <China />}
-      {params.id == 'kazakhstan' && <Kazakhstan />}
-      {!['azerbaijan', 'china', 'kazakhstan'].includes(params.id) && <PageQwerty title={params.id} id={params.id} />}
-
+          </div>
+          <h2 className='text-4xl mt-10 mb-10 capitalize '>{item.title}</h2>
+          <h2 className='text-2xl mt-10 mb-10 '>{item.country || ''}</h2>
+          <div className='w-[50%] border-b border-neutral-200 dark:border-neutral-700'></div>
+          <AliAbiMDXViewer markdown={item.description || ''} />
+        </div>
+      }
       <div className='mt-20 mb-10'>
         <DestinationGridBox headingCenter={true} />
       </div>

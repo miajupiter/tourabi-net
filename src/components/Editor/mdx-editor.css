@@ -1,0 +1,82 @@
+/* .mdxeditor h1 {
+  font-size: xx-large;
+}
+
+.mdxeditor h2 {
+  font-size: x-large;
+}
+
+.mdxeditor h3 {
+  font-size: large;
+} */
+
+.mdxeditor {
+  min-width: 100%;
+}
+.mdxeditor .mdxeditor-toolbar {
+  background: transparent;
+  border:thin solid cornflowerblue;
+  border-radius: 5px;
+}
+/* .mdxeditor .mdxeditor-rich-text-editor, */
+.mdxeditor .mdxeditor-root-contenteditable {
+  border-top:none;
+  border-left:thin solid cornflowerblue;
+  border-right:thin solid cornflowerblue;
+  border-bottom:thin solid cornflowerblue;
+  border-radius: 5px;
+}
+
+.mdxeditor.mdxviewer .mdxeditor-root-contenteditable {
+  border:none;
+}
+
+/* .prose :where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  color: var(--tw-prose-headings);
+  font-weight: 800;
+  font-size: 2.25em;
+  margin-top: 0;
+  margin-bottom: 0.8888889em;
+  line-height: 1.1111111;
+} */
+
+.prose :where(h2):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  /* color: var(--tw-prose-headings); */
+  /* font-weight: 700; */
+  /* font-size: 1.5em; */
+  margin-top: 0.3em;  /* 2em */
+  margin-bottom: 0.6em; /* 1em */
+  /* line-height: 1.3333333; */
+}
+
+.prose :where(h3):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  /* color: var(--tw-prose-headings); */
+  /* font-weight: 600; */
+  /* font-size: 1.25em; */
+  margin-top: 0.2em; /* 1.6em */
+  margin-bottom: 0.4em; /* 0.6em */
+  /* line-height: 1.6; */
+}
+
+.prose :where(h4):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  /* color: var(--tw-prose-headings); */
+  /* font-weight: 600; */
+  margin-top: 0.15em; /* 1.5em */
+  margin-bottom: 0.3em; /* 0.5em */
+  /* line-height: 1.5; */
+}
+
+/*
+.mdxeditor .mdxeditor-root-contenteditable a{
+  color:blue;
+}
+
+.mdxeditor .mdxeditor-root-contenteditable a:hover{
+  color:rgba(0, 0, 255, 0.534);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.mdxeditor .mdxeditor-root-contenteditable p::before{
+  white-space:pre-line ;
+} */

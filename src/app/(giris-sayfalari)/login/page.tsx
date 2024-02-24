@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, FC, FormEvent, FormEventHandler, useState } from 'react'
+import React, { useEffect, FC, FormEvent, FormEventHandler, useState, ChangeEvent } from 'react'
 
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import Image from 'next/image'
@@ -15,6 +15,7 @@ import Logo from '@/shared/Logo'
 import { useSearchParams } from 'next/navigation'
 import { getCsrfToken } from 'next-auth/react'
 import { getURL } from 'next/dist/shared/lib/utils'
+import { useLogin } from '@/hooks/useLogin'
 // import { signIn, signOut, useSession } from "next-auth/react"
 
 // import {authOptions} from '@/app/api/auth/[...nextauth]'
@@ -31,6 +32,7 @@ export interface PageLoginProps {
 
 const PageLogin: FC<PageLoginProps> = ({ }) => {
   const { t } = useLanguage()
+  const { loginUser } = useLogin()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -38,34 +40,31 @@ const PageLogin: FC<PageLoginProps> = ({ }) => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
+    loginUser(email, password, '/')
+    // fetch(`${process.env.NEXT_PUBLIC_API_URI}/auth/login`, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ email: email, password: password })
+    // }).then(ret => ret.json())
+    //   .then(result => {
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URI}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, password: password })
-    }).then(ret => ret.json())
-      .then(result => {
-
-        if (result.success) {
-          localStorage.setItem('token', result.data.token)
-          localStorage.setItem('user', JSON.stringify(result.data.user))
-          location.href = '/'
-        } else {
-          setError(result.error)
-        }
-      })
-      .catch((err: any) => {
-        console.log('err:', err)
-      })
+    //     if (result.success) {
+    //       localStorage.setItem('token', result.data.token)
+    //       localStorage.setItem('user', JSON.stringify(result.data.user))
+    //       location.href = '/'
+    //     } else {
+    //       setError(result.error)
+    //     }
+    //   })
+    //   .catch((err: any) => {
+    //     console.log('err:', err)
+    //   })
   }
+
   useEffect(() => {
-    // const dd = new URL(getURL())
-    // setError(dd.searchParams.get('error'))
-    // getCsrfToken().then(setCsrfToken)
-    //   .catch(console.error)
-    // localStorage.removeItem('token')
-    // localStorage.removeItem('user')
-  }, [t])
+
+  }, [t,email,password])
+
   return (
     <div className={`nc-PageLogin`}>
       <div className="relative container-fluid p-0 m-0 ">
@@ -95,13 +94,13 @@ const PageLogin: FC<PageLoginProps> = ({ }) => {
               // defaultValue={'alitek@gmail.com'}
               name='email'
               id="email"
-              onChange={(e: any) => setEmail(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             />
             <InputWithLabel className='my-4' type='password' label={t('password')} required
               // defaultValue={'atabar18'}
               name='password'
               id='password'
-              onChange={(e: any) => setPassword(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             />
             <div className='flex justify-end'>
               <Link href='/login' className='text-sm underline font-medium'>

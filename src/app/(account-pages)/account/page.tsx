@@ -131,6 +131,7 @@ const AccountPage = () => {
   }
 
   useEffect(() => {
+
     // getToken().then(token => {
     //   console.log('token:',token)
     //   setSessionToken(token)
@@ -138,6 +139,14 @@ const AccountPage = () => {
     // }).catch(err => console.log(err))
     getMyProfile()
   }, [token])
+  
+  useEffect(() => {
+   console.log('useeffect 2')
+  }, [])
+
+  useEffect(() => {
+    console.log('useeffect 3')
+  }, [])
 
   return (
     <>

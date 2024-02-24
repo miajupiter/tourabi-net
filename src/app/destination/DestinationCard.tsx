@@ -9,6 +9,7 @@ export interface DestinationCardProps {
   className?: string
   id: string
   title: string
+  country:string
   imageSrc?: string
   key?: string
 }
@@ -17,6 +18,7 @@ const DestinationCard: FC<DestinationCardProps> = ({
   className = "",
   id,
   title,
+  country,
   imageSrc,
   key
 }) => {
@@ -27,11 +29,7 @@ const DestinationCard: FC<DestinationCardProps> = ({
         href={`/destination/${id}`}
         className={`nc-CardCategory6 relative  flex w-full group rounded-[4px] z-0 overflow-hidden ${className}`}
       >
-        {/* <Badge
-        className="absolute right-2 top-2"
-        color="gray"
-        name={convertNumbThousand(216)}
-      /> */}
+        
         <div className="aspect-w-16 aspect-h-10 sm:aspect-h-12 xl:aspect-h-9 w-full h-0"></div>
 
         <Image
@@ -43,9 +41,9 @@ const DestinationCard: FC<DestinationCardProps> = ({
         />
         <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 text-white">
           <span className="absolute inset-0 bg-gradient-to-t from-black/60"></span>
-          <h2 className={`relative text-lg lg:text-xl font-semibold`}>{title}</h2>
+          <h2 className={`relative text-lg lg:text-xl font-semibold uppercase`}>{title}</h2>
           <span className={`relative block mt-1.5 text-sm text-neutral-100`}>
-            fititit
+            {country}
           </span>
         </div>
 

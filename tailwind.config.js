@@ -1,18 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 
-const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 // Custom color with css variable color in __theme_color.scss
 function customColors(cssVar) {
   return ({ opacityVariable, opacityValue }) => {
     if (opacityValue !== undefined) {
-      return `rgba(var(${cssVar}), ${opacityValue})`;
+      return `rgba(var(${cssVar}), ${opacityValue})`
     }
     if (opacityVariable !== undefined) {
-      return `rgba(var(${cssVar}), var(${opacityVariable}, 1))`;
+      return `rgba(var(${cssVar}), var(${opacityVariable}, 1))`
     }
-    return `rgb(var(${cssVar}))`;
-  };
+    return `rgb(var(${cssVar}))`
+  }
 }
 
 module.exports = {
@@ -80,4 +80,4 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/aspect-ratio"),
   ],
-};
+}
