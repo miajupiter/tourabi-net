@@ -42,11 +42,11 @@ const LoginBackground: FC<LoginBackgroundProps> = ({ className = "" }) => {
 
 
   return (
-      <div className="relative h-[100vh] w-full p-0 m-0">
+      <div className="relative h-[100vh] ms-auto w-full ">
         <Image
           fill
 
-          className="absolute inset-0 object-cover top-0"
+          className="absolute inset-0 object-cover top-0 start-0 end-0 bottom-0"
           src={SLIDE_IMAGES[slideIndex]}
           alt="hero"
           // width={900}

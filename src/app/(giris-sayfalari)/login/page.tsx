@@ -1,38 +1,32 @@
 "use client"
-import React, { useEffect, FC, FormEvent, FormEventHandler, useState, ChangeEvent } from 'react'
-
-import ButtonPrimary from '@/shared/ButtonPrimary'
+import React, { useEffect, FC, FormEvent, FormEventHandler, useState } from 'react'
+import Link from "next/link"
 import Image from 'next/image'
-import Link from 'next/link'
-import { useLanguage } from '@/hooks/i18n'
-// import { useLogin, LoginProps } from '@/yeni_auth'
-import SelectLanguage from '../SelectLanguage'
-import InputWithLabel from '@/shared/InputWithLabel'
-import SectionHero3 from '@/app/SectionHero3'
-import LoginBackground from '../LoginBackground'
 import Logo from '@/shared/Logo'
-// import { useRouter } from 'next/router'
-import { useSearchParams } from 'next/navigation'
-import { getCsrfToken } from 'next-auth/react'
-import { getURL } from 'next/dist/shared/lib/utils'
+import LoginBackground from '../LoginBackground'
+// import SecurityAbi from '@/images/security-abi.png'
+import { useLanguage } from '@/hooks/i18n'
 import { useLogin } from '@/hooks/useLogin'
-// import { signIn, signOut, useSession } from "next-auth/react"
+import ButtonPrimary from '@/shared/ButtonPrimary'
+import Head from 'next/head'
+import SelectLanguage from '../SelectLanguage'
+import DarkModeSwitcher from '@/shared/DarkModeSwitcher'
+import InputWithLabel from '@/shared/InputWithLabel'
+// import InputWithLabel from '@/components/InputWithLabel'
+// export const metadata: Metadata = {
+//   title: "Login | TourAbi Admin Panel",
+//   description: "This is Login Page for TourAbi Admin Panel",
+//   // icons: [{
+//   //   url: "/favicon.ico",
+//   //   rel:"icon",
+//   //   type: "image/x-icon",
+//   //   sizes: "48x48",
+//   // }]
+// }
 
-// import {authOptions} from '@/app/api/auth/[...nextauth]'
-export interface LoginProps {
-  email?: string
-  password?: string
-
-}
-
-export interface PageLoginProps {
-
-}
-
-
-const PageLogin: FC<PageLoginProps> = ({ }) => {
-  const { t } = useLanguage()
+const LogInPage: FC = () => {
   const { loginUser } = useLogin()
+  const { t } = useLanguage()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -41,93 +35,91 @@ const PageLogin: FC<PageLoginProps> = ({ }) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     loginUser(email, password, '/')
-    // fetch(`${process.env.NEXT_PUBLIC_API_URI}/auth/login`, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ email: email, password: password })
-    // }).then(ret => ret.json())
-    //   .then(result => {
-
-    //     if (result.success) {
-    //       localStorage.setItem('token', result.data.token)
-    //       localStorage.setItem('user', JSON.stringify(result.data.user))
-    //       location.href = '/'
-    //     } else {
-    //       setError(result.error)
-    //     }
-    //   })
-    //   .catch((err: any) => {
-    //     console.log('err:', err)
-    //   })
   }
 
   useEffect(() => {
 
-  }, [t,email,password])
-
+  }, [t, email, password])
   return (
-    <div className={`nc-PageLogin`}>
-      <div className="relative container-fluid p-0 m-0 ">
-        <LoginBackground className="relative" />
-        <div className='absolute top-3 start-5'>
-          <Logo width={150} />
-        </div>
-        <div className='absolute top-5 end-5'>
-          <SelectLanguage className='bg-transparent' />
-        </div>
-        <div className='absolute top-[20vh] start-0 px-5 w-[100%] md:w-[400px] md:top-[30vh] md:start-10'>
-          <form className="relative bg-white dark:bg-neutral-900 w-full flex flex-col rounded-[8px] border border-neutral-200 dark:border-neutral-700 space-y-3 p-4 md:p-6"
-            onSubmit={handleSubmit}
-          // action={`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/callback/credentials`}
-          // method='POST'
-          >
-            {/* <input type="hidden" name="csrfToken" id="csrfToken" value={`${csrfToken}`} /> */}
-            <h2 className=' flex items-center text-3xl leading-[115%] md:text-4xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100'>
-              {t('login')}
-            </h2>
-            {error &&
-              <div className='flex w-full text-red-700 font-bold'>
-                {error}
-              </div>
-            }
-            <InputWithLabel className='my-4' type='email' label={t('email_address')} required
-              // defaultValue={'alitek@gmail.com'}
-              name='email'
-              id="email"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-            />
-            <InputWithLabel className='my-4' type='password' label={t('password')} required
-              // defaultValue={'atabar18'}
-              name='password'
-              id='password'
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-            />
-            <div className='flex justify-end'>
-              <Link href='/login' className='text-sm underline font-medium'>
-                {t('forgot_password?')}
-              </Link>
-            </div>
+    <>
+      <Head>
+        <title>{`${t('Login page')} | TourAbi`}</title>
+        <meta name="description" content="This is Login Page for TourAbi Admin Panel" />
+      </Head>
+      <LoginBackground className='relative'/>
 
-            <ButtonPrimary type='submit'>{t('continue')}</ButtonPrimary>
-            <span className='block text-center text-neutral-700 dark:text-neutral-300'>
-              {t('new_user?')} {` `}
-              <Link href='/signup' className='font-semibold underline'>
-                {t('create_an_account')}
-              </Link>
-            </span>
-          </form>
-        </div>
-        <div className='absolute bottom-2 w-full '>
-          <div className='flex justify-center space-x-3 text-slate-100'>
-            <a href='#'>Tour Abi</a>
-            <a href='#'>About</a>
-            <a href='#'>Contact</a>
-            <a href='#'>Help</a>
+      {/* Login Form  */}
+      <div className='absolute top-[20vh] start-0 px-5 w-[100%] md:w-[600px] md:top-[30vh] md:start-10'>
+        <div className="rounded-[8px] bg-slate-100 dark:bg-neutral-900 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 ">
+            {/* Security Abi */}
+            <div className="hidden md:block p-6">
+              <img className='aspect-ratio h-full w-full' src="/img/security-abi.png" alt="security abi" />
+            </div>
+            {/* Security Abi */}
+
+            {/* Form Input Elements */}
+            <div className="">
+              <div className="w-full p-4">
+                <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+                  {t('Login')}
+                </h2>
+
+                <form onSubmit={handleSubmit}>
+                  <div className='grid grid-cols-1 gap-4 space-y-1'>
+                    <InputWithLabel
+                      type="email"
+                      label={t('Email')}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <InputWithLabel
+                      type="password"
+                      label={t('Password')}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+
+                    <div className='flex justify-end'>
+                      <Link href='/forgotPassword' className='text-sm underline font-medium'>
+                        {t('Forgot password?')}
+                      </Link>
+                    </div>
+                    <ButtonPrimary type="submit"
+                      className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90">
+                      {t('Login')}
+                    </ButtonPrimary>
+
+                    <div className='block text-center text-neutral-700 dark:text-neutral-300'>
+                      {t('New user?')} {` `}
+                      <Link href='/signup' className='font-semibold underline'>
+                        {t('Create an account')}
+                      </Link>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            {/* Form Input Elements */}
           </div>
         </div>
       </div>
-    </div>
+      {/* Login Form  */}
+
+      {/* login footer */}
+      <div className='absolute bottom-2 w-full '>
+        <div className='flex justify-center space-x-3 text-slate-900 dark:text-slate-100 font-medium'>
+          <a href='#'>{t('TourAbi')}</a>
+          <a href='#'>{t('About')}</a>
+          <a href='#'>{t('Contact')}</a>
+          <a href='#'>{t('Help')}</a>
+        </div>
+      </div>
+      {/*# login footer */}
+
+
+    </>
   )
 }
 
-export default PageLogin
+export default LogInPage
+
+

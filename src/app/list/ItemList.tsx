@@ -33,7 +33,7 @@ const ItemList = ({ }: ItemListProps) => {
           setDocs(result.data.docs as TourDataType[])
         } else {
           setPageCount(1)
-          setTotalDocs(0)
+          // setTotalDocs(0)
           setDocs([])
         }
       }).catch(console.error)

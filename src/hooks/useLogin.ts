@@ -13,7 +13,7 @@ const { useGlobalState } = createGlobalState(initialState)
 export const useLogin = () => {
   const { t } = useLanguage()
   const [token, setToken] = useLocalStorage('token', '')
-  const [user, setUser] = useLocalStorage('user', '')
+  const [user, setUser] = useLocalStorage<any>('user', undefined)
   const [deviceId, setDeviceId] = useLocalStorage('deviceId', uuid())
   const [isLoggedIn, setIsLoggedIn] = useGlobalState("isLoggedIn")
 
@@ -31,7 +31,7 @@ export const useLogin = () => {
     fetch(`${process.env.NEXT_PUBLIC_API_URI}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, password: password, deviceId: deviceId })
+      body: JSON.stringify({ email: email, password: password, deviceId: localStorage.getItem('deviceId') || deviceId || '' })
     })
       .then(ret => ret.json())
       .then(result => {
