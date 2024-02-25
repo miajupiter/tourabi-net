@@ -10,6 +10,6 @@ services:
     environment:
       NODE_ENV: production
       HTTP_PORT: 3001
-      API_URI: https://api.tourabi.net/api/v1
+    # API_URI: https://api.tourabi.net/api/v1
 
 # volumes:
