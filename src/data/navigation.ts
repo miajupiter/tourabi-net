@@ -174,88 +174,12 @@ export const NAVIGATION_DEMO: NavItemType[] = [
   },
   {
     id: ncNanoId(),
-    href: "/list",
+    href: "/tours",
     name: "Tours",
-    // type: "dropdown",
-    // children: [
-    //   {
-    //     id: ncNanoId(),
-    //     href: "/listing-stay",
-    //     name: "Stay listings",
-    //     type: "dropdown",
-    //     children: [
-    //       { id: ncNanoId(), href: "/listing-stay", name: "Stay page" },
-    //       {
-    //         id: ncNanoId(),
-    //         href: "/listing-stay-map",
-    //         name: "Stay page (map)",
-    //       },
-    //       { id: ncNanoId(), href: "/listing-stay-detail", name: "Stay Detail" },
-    //     ],
-    //   },
-    //   {
-    //     id: ncNanoId(),
-    //     href: "/listing-experiences",
-    //     name: "Experiences listings",
-    //     type: "dropdown",
-    //     children: [
-    //       {
-    //         id: ncNanoId(),
-    //         href: "/listing-experiences",
-    //         name: "Experiences page",
-    //       },
-    //       {
-    //         id: ncNanoId(),
-    //         href: "/listing-experiences-map",
-    //         name: "Experiences page (map)",
-    //       },
-    //       {
-    //         id: ncNanoId(),
-    //         href: "/listing-experiences-detail",
-    //         name: "Experiences Detail",
-    //       },
-    //     ],
-    //   },
-    //   {
-    //     id: ncNanoId(),
-    //     href: "/listing-car",
-    //     name: "Cars listings",
-    //     type: "dropdown",
-    //     children: [
-    //       { id: ncNanoId(), href: "/listing-car", name: "Cars page" },
-    //       { id: ncNanoId(), href: "/listing-car-map", name: "Cars page (map)" },
-    //       { id: ncNanoId(), href: "/listing-car-detail", name: "Car Detail" },
-    //     ],
-    //   },
-    //   {
-    //     id: ncNanoId(),
-    //     href: "/listing-real-estate",
-    //     name: "Real Estate Listings",
-    //     type: "dropdown",
-    //     children: [
-    //       {
-    //         id: ncNanoId(),
-    //         href: "/listing-real-estate",
-    //         name: "Real Estate Listings",
-    //       },
-    //       {
-    //         id: ncNanoId(),
-    //         href: "/listing-real-estate-map",
-    //         name: "Real Estate Maps",
-    //       },
-    //     ],
-    //   },
-    //   //
-    //   {
-    //     id: ncNanoId(),
-    //     href: "/listing-flights",
-    //     name: "Flights listings",
-    //   },
-    // ],
   },
   {
     id: ncNanoId(),
-    href: "/destination",
+    href: "/destinations",
     name: "Destinations",
     // type: "dropdown",
     // children: templatesChildrenMenus,

@@ -94,12 +94,12 @@ const TourCard: FC<TourCardProps> = ({
           ratioClass="aspect-w-12 aspect-h-11"
           galleryImgs={images}
           imageClass="rounded-[4px]"
-          href={`/list/${id}`}
+          href={`/tours/${id}`}
         />
         {/* <BtnLikeIcon isLiked={like} className="absolute right-3 top-3 z-[1]" />
         {saleOff && <SaleOffBadge className="absolute left-3 top-3" />} */}
       </div>
-      <Link href={`/list/${id}`}>{renderContent()}</Link>
+      <Link href={`/tours/${id}`}>{renderContent()}</Link>
     </div>
   )
 }

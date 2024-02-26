@@ -27,7 +27,7 @@ export default function GallerySlider({
   imageClass = "",
   uniqueID = "uniqueID",
   galleryClass = "rounded-[4px]",
-  href = "/list",
+  href = "/tours",
   navigation = true,
 }: GallerySliderProps) {
   const [loaded, setLoaded] = useState(false);

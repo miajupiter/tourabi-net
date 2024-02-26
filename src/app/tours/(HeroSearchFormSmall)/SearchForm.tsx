@@ -24,7 +24,7 @@ const SearchForm: FC<SearchFormProps> = ({ defaultFieldFocus }) => {
         <GuestsInput
           className="flex-1"
           autoFocus={defaultFieldFocus === "guests"}
-          submitLink="/list"
+          submitLink="/tours"
         />
       </form>
     )

@@ -125,7 +125,7 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
                     </Link>
                   </div>
                   <div className='text-sm mx-3'>
-                    <Link href="/list">
+                    <Link href="/tours">
                       <i className='fa-solid fa-search text-4xl'></i><br />
                       <span className=''>Search</span>
                     </Link>

@@ -32,7 +32,7 @@ const widgetMenus: WidgetFooterMenu[] = [
     title: "Explore",
     menus: [
       { href: "/destination", label: "Destinations" },
-      { href: "/list", label: "Tours" },
+      { href: "/tours", label: "Tours" },
       // { href: "#", label: "Design systems" },
       // { href: "#", label: "Pricing" },
       // { href: "#", label: "Security" },

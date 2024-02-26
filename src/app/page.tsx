@@ -1,61 +1,132 @@
-import React from "react"
-import SectionSubscribe2 from "@/components/SectionSubscribe2"
+"use client"
+
+import React, { FC, useEffect, useState } from "react"
 import BackgroundSection from "@/components/BackgroundSection"
 import BgGlassmorphism from "@/components/BgGlassmorphism"
-import { TaxonomyType } from "@/data/types"
-import SectionGridAuthorBox from "@/components/SectionGridAuthorBox"
-import SectionGridCategoryBox from "@/app/SectionGridCategoryBox"
+// import { TaxonomyType } from "@/data/types"
 // import SectionHero3 from "@/app/(server-components)/SectionHero3"
 import CardCategory6 from "@/components/CardCategory6"
 import SectionGridFeaturePlaces from "@/components/SectionGridFeaturePlaces"
-// import SectionHero from './(server-components)/SectionHero'
-import SearchForm from './list/SearchForm'
-import DestinationGridBox from './destination/DestinationGridBox'
+import SearchForm from './tours/SearchForm'
+import DestinationGridBox from './destinations/DestinationGridBox'
 import SectionHero3 from './SectionHero3'
+import Image from 'next/image'
+import Link from 'next/link'
+import convertNumbThousand from '@/utils/convertNumbThousand'
+import { useLogin } from '@/hooks/useLogin'
+import { useLanguage } from '@/hooks/i18n'
+import { v4 } from 'uuid'
+import Heading from '@/shared/Heading'
 
-const DEMO_CATS_2: TaxonomyType[] = [
-  {
-    id: "1",
-    href: "/list",
-    name: "Georgia Tours",
-    taxonomy: "category",
-    count: 188288,
-    thumbnail: "https://tourabi.s3.eu-central-1.amazonaws.com/tour-images001/georgia-tours-georgia-tour-3-tbilisi3.jpg",
-  },
-  {
-    id: "222",
-    href: "/list",
-    name: "Kazakhstan Weekend Tours Kolsay Lakes",
-    taxonomy: "category",
-    count: 188288,
-    thumbnail: 'https://tourabi.s3.eu-central-1.amazonaws.com/tour-images001/kazakhstan-tours-weekend-tour-1-kolsay-lakes.jpg',
-  },
-  {
-    id: "3",
-    href: "/list",
-    name: "Sevanavank - Caucasus Group Tour",
-    taxonomy: "category",
-    count: 188288,
-    thumbnail: 'https://tourabi.s3.eu-central-1.amazonaws.com/tour-images001/tours-caucasus-group-tour-sevanavank4.jpg',
-  },
-  {
-    id: "4",
-    href: "/list",
-    name: "Uzbekistan-Tajikistan Tour",
-    taxonomy: "category",
-    count: 188288,
-    thumbnail: 'https://tourabi.s3.eu-central-1.amazonaws.com/tour-images001/uzbekistan-tours-uzbekistan-tajikistan-tour-1-bukhara2.jpg',
-  },
-  {
-    id: "5",
-    href: "/list",
-    name: "Silk Road Group Tour",
-    taxonomy: "category",
-    count: 188288,
-    thumbnail: 'https://tourabi.s3.eu-central-1.amazonaws.com/tour-images001/tours-silk-road-group-tour-ararat1.jpg'
-  },
-]
 
+export interface ShowcaseItemProps {
+  _id?: string
+  title?: string
+  duration?: number
+  places?: string
+  href?: string
+  imageSrc?: string
+  width?: number
+  height?: number
+}
+
+
+const TourShowcase = () => {
+  const { t } = useLanguage()
+  const { token } = useLogin()
+  const [pullData, setPullData] = useState(false)
+  const [showcaseTours, setShowcaseTours] = useState<ShowcaseItemProps[]>()
+
+  const ShowcaseItem: FC<ShowcaseItemProps> = ({ title, places, duration, href = "/", imageSrc, width, height }) => {
+
+    return (
+      <Link href={href} className={`nc-CardCategory6 relative flex w-full group rounded-[4px] z-0 overflow-hidden`}>
+        <div className="aspect-w-16 aspect-h-10 sm:aspect-h-12 xl:aspect-h-9 w-full h-0"></div>
+        <Image
+          fill
+          alt=""
+          src={imageSrc || ""}
+          className="aspect-ratio object-cover rounded-[4px] group-hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 100%) 100vw, 100%"
+
+        />
+        <div className="absolute bottom-0 inset-x-0 p-4 sm:p-6 text-white">
+          <span className="absolute inset-0 bg-gradient-to-t from-black/60"></span>
+          <h2 className={`relative text-lg lg:text-xl font-semibold`}>{title}</h2>
+          <p className={`mt-1.5 text-sm text-neutral-200 truncate`}>
+            {places}
+          </p>
+          <span className={`relative block mt-1.5 text-sm text-neutral-100`}>
+            {/* {convertNumbThousand(14562.36)} qwerty  */}
+            {duration} {t('Days')}
+          </span>
+        </div>
+      </Link>
+
+    )
+  }
+  const getShowcaseTours = () => {
+
+    fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours/showcase`,
+      { method: 'GET', headers: { 'Content-Type': 'application/json', token } })
+      .then(ret => ret.json())
+      .then(result => {
+        if (result.success) {
+          const dd = (result.data || []).map((tour: any, index: number) => {
+            return {
+              _id: tour._id,
+              imageSrc: tour.image.src,
+              title: tour.title,
+              places: tour.places,
+              duration: tour.duration,
+              href: `/tours/${tour._id}`
+            }
+          })
+          setShowcaseTours(dd)
+        } else {
+          alert(result.error)
+        }
+      })
+      .catch((err) => {
+        console.log('err:', err)
+        alert(err.message || err)
+      })
+  }
+
+  useEffect(() => {
+    if (!pullData) {
+      setPullData(true)
+      getShowcaseTours()
+    }
+  }, [t, token])
+
+  return (<>
+   
+    <div className="relative uppercase">
+      <div className="text-center w-full max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-semibold">{t('Showcase')}</h2>
+      </div>
+    </div>
+    <div className="grid grid-cols-12 gap-6">
+      {showcaseTours && <>
+        <div className="col-span-12 sm:col-span-6 lg:col-span-4 flex">
+          {showcaseTours.length > 0 && <ShowcaseItem {...showcaseTours[0]} />}
+          {/* <CardCategory6 taxonomy={DEMO_CATS_2[0]} /> */}
+        </div>
+        <div className="col-span-12 sm:col-span-6 lg:col-span-4 grid grid-rows-2 gap-6">
+          {showcaseTours.length > 1 && <ShowcaseItem {...showcaseTours[1]} />}
+          {showcaseTours.length > 2 && <ShowcaseItem {...showcaseTours[2]} />}
+          {/* <CardCategory6 taxonomy={DEMO_CATS_2[3]} />
+          <CardCategory6 taxonomy={DEMO_CATS_2[1]} /> */}
+        </div>
+        <div className="col-span-12 sm:col-span-6 lg:col-span-4 flex">
+          {showcaseTours.length > 3 && <ShowcaseItem {...showcaseTours[3]} />}
+          {/* <CardCategory6 taxonomy={DEMO_CATS_2[4]} /> */}
+        </div>
+      </>}
+    </div>
+  </>)
+}
 function PageHome3() {
 
   return (
@@ -84,22 +155,8 @@ function PageHome3() {
             <SearchForm />
           </div>
       </div> */}
-      <div className="container relative space-y-24 mb-24 ">
-        {/* SECTION 1 */}
-        <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-12 sm:col-span-6 lg:col-span-4 flex">
-            <CardCategory6 taxonomy={DEMO_CATS_2[0]} />
-          </div>
-          <div className="col-span-12 sm:col-span-6 lg:col-span-4 grid grid-rows-2 gap-6">
-            <CardCategory6 taxonomy={DEMO_CATS_2[3]} />
-            <CardCategory6 taxonomy={DEMO_CATS_2[1]} />
-          </div>
-          <div className="col-span-12 sm:col-span-6 lg:col-span-4 flex">
-            <CardCategory6 taxonomy={DEMO_CATS_2[4]} />
-          </div>
-        </div>
-
-        {/* SECTION */}
+      <div className="container relative space-y-10 mb-12 ">
+        <TourShowcase />
         <DestinationGridBox />
 
         {/* SECTION */}

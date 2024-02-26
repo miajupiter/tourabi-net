@@ -9,7 +9,7 @@ import React, { FC } from 'react'
 // import TourCard from './TourCard'
 import BackgroundSection from "@/components/BackgroundSection"
 import ItemList from './ItemList'
-import DestinationGridBox from '../destination/DestinationGridBox'
+import DestinationGridBox from '../destinations/DestinationGridBox'
 
 // import SearchForm from './SearchForm'
 

@@ -54,10 +54,10 @@ const DestinationGridBox: React.FC<DestinationGridBoxProps> = ({
       >
         {t('Destinations')}
       </Heading>
-      <div className="grid grid-cols-12 gap-6">
+      <div className="grid grid-cols-12 gap-y-2 gap-x-4">
         {list && list.map((item: any, index) => (
           <div key={index} className="col-span-12 sm:col-span-6 md:col-span-4 gap-6">
-            <DestinationCard title={item.title} country={item.country || ''} imageSrc={(item.images || []).length > 0 ? item.images[0].image || '' : ''} id={item._id} />
+            <DestinationCard title={item.title} country={item.country || ''} imageSrc={(item.images || []).length > 0 ? item.images[0].src || '' : ''} id={item._id} />
           </div>
         ))}
       </div>

@@ -5,7 +5,6 @@ import { Popover, Transition } from '@headlessui/react'
 import NcInputNumber from '@/components/NcInputNumber'
 import { FC } from 'react'
 import ClearDataButton from './ClearDataButton'
-// import ButtonSubmit from './ButtonSubmit'
 import { PathName } from '@/routers/types'
 import { UserPlusIcon } from '@heroicons/react/24/outline'
 import { GuestsObject } from './type'
@@ -13,8 +12,6 @@ import { GuestsObject } from './type'
 export interface GuestsInputProps {
   fieldClassName?: string
   className?: string
-  // buttonSubmitHref?: PathName
-  // hasButtonSubmit?: boolean
   adults?:number
   childeren?:number
   baby?:number
@@ -23,8 +20,7 @@ export interface GuestsInputProps {
 const GuestsInput: FC<GuestsInputProps> = ({
   fieldClassName = '[ nc-hero-field-padding ]',
   className = '[ nc-flex-1 ]',
-  // buttonSubmitHref = '/list',
-  // hasButtonSubmit = true,
+ 
   adults=1,
   childeren=0,
   baby=0,

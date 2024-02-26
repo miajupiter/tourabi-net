@@ -1,103 +1,51 @@
-import { CustomLink } from "@/data/types"
-import React, { FC } from "react"
-import twFocusClass from "@/utils/twFocusClass"
-import Link from "next/link"
-import { Route } from "@/routers/types"
+"use client"
 
-// const DEMO_PAGINATION: CustomLink[] = [
-//   {
-//     label: "1",
-//     href: "#",
-//   },
-//   {
-//     label: "2",
-//     href: "#",
-//   },
-//   {
-//     label: "3",
-//     href: "#",
-//   },
-//   {
-//     label: "4",
-//     href: "#",
-//   },
-// ]
+import Link from 'next/link'
+import React, { FC, useEffect, useState } from "react"
 
 export interface PaginationProps {
   className?: string
-  pageNo?: number
-  pageSize?: number
-  pageCount?: number
-  totalDocs?: number
-  urlPath?: string
+  pageNo: number
 
-  buttonClick?: Function | any
+  pageCount: number
+
+  onPageClick?: Function
 }
 
-const Pagination: FC<PaginationProps> = ({ className = "", urlPath = "/list", pageNo = 1, pageSize = 8, pageCount = 1, totalDocs = 0, buttonClick=null }) => {
-
-  // const butonTikla = () => {
-  //   buttonClick(pageNo)
-  // }
-
-  const renderItem = (pag: CustomLink, isActive: boolean, key: any,) => {
-
-    if (isActive) {
-      // RETURN ACTIVE PAGINATION
-      return (
-        <span
-          key={key}
-          className={`inline-flex w-11 h-11 items-center justify-center rounded-full bg-primary-6000 text-white ${twFocusClass()}`}
-        >
-          {pag.label}
-        </span>
-      )
-    }
-
-    // RETURN UNACTIVE PAGINATION
-    return (
-      <a
-        key={key}
-        className={`inline-flex w-11 h-11 items-center justify-center rounded-full bg-white hover:bg-neutral-100 border border-neutral-200 text-neutral-6000 dark:text-neutral-400 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700 ${twFocusClass()}`}
-        href={pag.href as Route}
-        // onClick={butonTikla}
-      >
-        {pag.label}
-      </a>
-      // <Link
-      //   key={key}
-      //   className={`inline-flex w-11 h-11 items-center justify-center rounded-full bg-white hover:bg-neutral-100 border border-neutral-200 text-neutral-6000 dark:text-neutral-400 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700 ${twFocusClass()}`}
-      //   href={pag.href as Route}
-      //   replace={true}
-      // >
-      //   {pag.label}
-      // </Link>
-    )
-  }
-  // const [pageButtons,setPageButtons]=useState<CustomLink[]>([])
-
-  const calculateButtons = (urlPath = '', pageCount: number, pageSize: number): CustomLink[] => {
-    var buttonList: CustomLink[] = []
-    var i = 0
-    while (i < pageCount) {
-      const btn: CustomLink = {
-        href: `${urlPath}?page=${i + 1}&pageSize=${pageSize}`,
-        label: (i + 1).toString(),
-        targetBlank: false
-      }
-      buttonList.push(btn)
-      i++
-    }
-    return buttonList
-  }
-
-  const pageButtons: CustomLink[] = calculateButtons(urlPath, pageCount, pageSize)
+const Pagination: FC<PaginationProps> = ({
+  className = "",
+  pageNo,
+  pageCount,
+  onPageClick
+}) => {
+  const buttonList = Array.from(Array(pageCount).keys())
+  
 
   return (
-    <nav
-      className={`nc-Pagination inline-flex space-x-1 text-base font-medium ${className}`}
-    >
-      {pageButtons.map((btn, index) => renderItem(btn, (index + 1) === pageNo, index))}
+    <nav className={`inline-flex space-x-1 text-base font-medium`}>
+      {buttonList.map((no, index) => {
+        no = no + 1
+        if (no == pageNo) {
+          return <span
+            key={index}
+            className={`inline-flex w-11 h-11 items-center justify-center rounded-full bg-blue-600 text-neutral-100 dark:text-neutral-100`}
+          >
+            {no}
+          </span>
+        } else {
+          return <Link
+            href="#"
+            key={index}
+            className={`inline-flex w-11 h-11 items-center justify-center rounded-full bg-neutral-100 hover:bg-neutral-300 border border-neutral-900 text-neutral-600 dark:text-neutral-400 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700`}
+            onClick={(e) => {
+              e.preventDefault()
+              if (onPageClick != undefined) {
+                onPageClick(no)
+              }
+            }}
+          >{no}</Link>
+        }
+      })}
     </nav>
   )
 }

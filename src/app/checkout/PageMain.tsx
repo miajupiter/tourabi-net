@@ -15,7 +15,7 @@ import ModalSelectDate from "@/components/ModalSelectDate"
 import converSelectedDateToString from "@/utils/converSelectedDateToString"
 import ModalSelectGuests from "@/components/ModalSelectGuests"
 import Image from "next/image"
-import { GuestsObject } from "../list/type"
+import { GuestsObject } from "../tours/type"
 
 export interface CheckOutPagePageMainProps {
   className?: string
