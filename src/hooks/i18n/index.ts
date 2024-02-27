@@ -10,7 +10,7 @@ import __fa from './__fa.json'
 import __fr from './__fr.json'
 import __it from './__it.json'
 import __jp from './__jp.json'
-import __kr from './__kr.json'
+import __ko from './__ko.json'
 import __nl from './__nl.json'
 import __pl from './__pl.json'
 import __pt from './__pt.json'
@@ -31,13 +31,14 @@ export const LANG_LISTS: any = {
   fr: __fr,
   it: __it,
   jp: __jp,
-  kr: __kr,
+  ko: __ko,
   nl: __nl,
   pl: __pl,
   pt: __pt,
   ro: __ro,
   ru: __ru,
   tr: __tr,
+  zh: __zh,
 }
 
 const initialState = { lang: 'en' }
