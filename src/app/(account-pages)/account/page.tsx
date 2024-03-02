@@ -353,7 +353,7 @@ const AccountPage = () => {
 
 
             {/* Payment Info */}
-            <FormCard title={t('Payment info')} id='account-payment-info' defaultOpen={false}
+            {/* <FormCard title={t('Payment info')} id='account-payment-info' defaultOpen={false}
               bodyClassName='grid grid-cols-1 md:grid-cols-4 gap-4 space-y-3'
             >
               <div className='col-span-4'>
@@ -378,7 +378,7 @@ const AccountPage = () => {
                   />
                 </div>
               </div>
-              
+
               <FormCard id='account-payment-creditcard'
                 className='col-span-4'
                 title={t('Credit card')}
@@ -454,7 +454,7 @@ const AccountPage = () => {
                   setMe({ ...me, paymentInfo: me.paymentInfo })
                 }}
               />
-            </FormCard>
+            </FormCard> */}
             {/* /end Company informations */}
             <div className="pt-2">
               <ButtonPrimary
