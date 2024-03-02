@@ -69,11 +69,13 @@ export default function RootLayout({
 
   return (
     <html lang='en'>
-      {/* <Head>
-            <title>{`TourAbi`}</title>
-            <meta name="description" content="This is Login Page for TourAbi Admin Panel" />
-          </Head> */}
-      <body  suppressHydrationWarning={true} suppressContentEditableWarning={true} 
+      <head>
+        <title>TourAbi</title>
+        <meta name="description" content="This is Login Page for TourAbi Admin Panel" />
+        <link  rel="icon" href="/favicon.ico"  />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
+      <body suppressHydrationWarning={true} suppressContentEditableWarning={true}
         className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'>
         <ClientCommons />
         {isLoggedIn &&
