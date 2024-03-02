@@ -1,8 +1,8 @@
 "use client"
 
 import "@fortawesome/fontawesome-free/css/all.min.css"
-import { Poppins } from 'next/font/google'
-import SiteHeader from './tours/SiteHeader'
+// import { Poppins } from 'next/font/google'
+import SiteHeader from './(Header)/SiteHeader'
 import ClientCommons from './ClientCommons'
 import '@/styles/globals.css'
 // import '@/styles/fonts/line-awesome-1.3.0/css/line-awesome.css'
@@ -14,15 +14,15 @@ import { Viewport } from 'next'
 // import { auth } from "@/auth"
 // import { SessionProvider } from "next-auth/react"
 // import type { Session } from "next-auth"
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useLogin } from '@/hooks/useLogin'
 import Head from 'next/head'
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
-})
+// const poppins = Poppins({
+//   subsets: ['latin'],
+//   display: 'swap',
+//   weight: ['300', '400', '500', '600', '700'],
+// })
 
 
 export const viewport: Viewport = {
@@ -68,15 +68,14 @@ export default function RootLayout({
   const { isLoggedIn } = useLogin()
 
   return (
-
-    <html lang='en' className={`${poppins.className}`}>
-      <Head>
-        <title>{`TourAbi`}</title>
-        <meta name="description" content="This is Login Page for TourAbi Admin Panel" />
-      </Head>
-      <body className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'>
+    <html lang='en'>
+      {/* <Head>
+            <title>{`TourAbi`}</title>
+            <meta name="description" content="This is Login Page for TourAbi Admin Panel" />
+          </Head> */}
+      <body  suppressHydrationWarning={true} suppressContentEditableWarning={true} 
+        className='bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200'>
         <ClientCommons />
-
         {isLoggedIn &&
           <>
             <SiteHeader />
@@ -92,5 +91,6 @@ export default function RootLayout({
         }
       </body>
     </html>
+
   )
 }

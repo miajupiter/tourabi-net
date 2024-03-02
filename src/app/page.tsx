@@ -35,14 +35,14 @@ const TourShowcase = () => {
   const { t } = useLanguage()
   const { token } = useLogin()
   const [pullData, setPullData] = useState(false)
-  const [showcaseTours, setShowcaseTours] = useState<ShowcaseItemProps[]>()
+  const [showcaseTours, setShowcaseTours] = useState<ShowcaseItemProps[]>([])
 
   const ShowcaseItem: FC<ShowcaseItemProps> = ({ title, places, duration, href = "/", imageSrc, width, height }) => {
-
     return (
       <Link href={href} className={`nc-CardCategory6 relative flex w-full group rounded-[4px] z-0 overflow-hidden`}>
         <div className="aspect-w-16 aspect-h-10 sm:aspect-h-12 xl:aspect-h-9 w-full h-0"></div>
         <Image
+          priority
           fill
           alt=""
           src={imageSrc || ""}
@@ -65,32 +65,27 @@ const TourShowcase = () => {
 
     )
   }
-  const getShowcaseTours = () => {
-
-    fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours/showcase`,
+  const getShowcaseTours = async () => {
+    const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours/showcase`,
       { method: 'GET', headers: { 'Content-Type': 'application/json', token } })
-      .then(ret => ret.json())
-      .then(result => {
-        if (result.success) {
-          const dd = (result.data || []).map((tour: any, index: number) => {
-            return {
-              _id: tour._id,
-              imageSrc: tour.image.src,
-              title: tour.title,
-              places: tour.places,
-              duration: tour.duration,
-              href: `/tours/${tour._id}`
-            }
-          })
-          setShowcaseTours(dd)
-        } else {
-          alert(result.error)
-        }
-      })
-      .catch((err) => {
-        console.log('err:', err)
-        alert(err.message || err)
-      })
+    if (ret.ok) {
+      const result = await ret.json()
+      if (result.success) {
+        const dd = (result.data || []).map((tour: any, index: number) => {
+          return {
+            _id: tour._id,
+            imageSrc: tour.image.src,
+            title: tour.title,
+            places: tour.places,
+            duration: tour.duration,
+            href: `/tours/${tour._id}`
+          }
+        })
+        setShowcaseTours(dd)
+      } else {
+        alert(result.error)
+      }
+    }
   }
 
   useEffect(() => {
@@ -98,10 +93,10 @@ const TourShowcase = () => {
       setPullData(true)
       getShowcaseTours()
     }
-  }, [t, token])
+  }, [])
 
   return (<>
-   
+
     <div className="relative uppercase">
       <div className="text-center w-full max-w-2xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-semibold">{t('Showcase')}</h2>
@@ -134,41 +129,20 @@ function PageHome3() {
 
       <BgGlassmorphism />
 
-      {/* SECTION HERO */}
-      {/* <div className="container-fluid p-0 h-50 w-full">
-        <div className='absolute w-full h-full'>
-          <img src="https://tourabi.s3.eu-central-1.amazonaws.com/destinations/silk-road.jpg" alt="alt" width={1920} height={1080} />
-        </div>
-      </div> */}
       <div className="container-fluid px-0 mb-12 ">
         <SectionHero3 className="" />
       </div>
       {/* SECTION HERO */}
       <div className="hidden md:flex justify-center container relative space-y-24 mb-12 lg:space-y-28 md:mb-18">
         <div className={`nc-HeroSearchForm w-full lg:w-[900px] self-center py-5 lg:py-0`}    >
-
           <SearchForm />
         </div>
       </div>
-      {/* <div className="container hidden md:block relative space-y-24 mb-24 lg:space-y-28 lg:mb-28">
-        <div className={`nc-HeroSearchForm w-full py-5 lg:py-0 mt-10`}    >
-            <SearchForm />
-          </div>
-      </div> */}
+
       <div className="container relative space-y-10 mb-12 ">
         <TourShowcase />
         <DestinationGridBox />
 
-        {/* SECTION */}
-        {/* <div className="relative py-16">
-          <BackgroundSection /> */}
-        {/* <SectionGridAuthorBox boxCard="box2" /> */}
-        {/* </div> */}
-
-        {/* <SectionGridFeaturePlaces /> */}
-
-        {/* SECTION */}
-        {/* <SectionSubscribe2 /> */}
       </div>
     </main>
   )

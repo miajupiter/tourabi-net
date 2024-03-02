@@ -52,27 +52,21 @@ export default function AvatarDropdown({ className = "" }: Props) {
                 <Popover.Panel className="absolute z-10 w-screen max-w-[260px] px-4 top-full -right-10 sm:right-0 sm:px-0">
                   <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                     <div className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
-                      <div className="flex items-center space-x-3">
-                        {/* <Avatar sizeClass="w-12 h-12" userName='ali tek' /> */}
-                        <img className='inset-0 w-12 h-12 object-cover rounded-full' src={user && user.image || ''} alt="tourabi" />
-                        <div className="flex-grow">
-                          <h4 className="font-semibold">{user.name || ''}</h4>
-                          <p className="text-xs mt-0.5">{user.email || ''}</p>
-                        </div>
-                      </div>
 
-                      <div className="w-full border-b border-neutral-200 dark:border-neutral-700" />
+
+                      {/* <div className="w-full border-b border-neutral-200 dark:border-neutral-700" /> */}
 
                       <Link
                         href={"/account"}
                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                         onClick={() => close()}
                       >
-                        <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
-                          <i className="fa-solid fa-user"></i>
-                        </div>
-                        <div className="ml-4">
-                          <p className="text-sm font-medium ">{t('My Account')}</p>
+                        <div className="flex items-center space-x-3">
+                          <img className='inset-0 w-12 h-12 object-cover rounded-full' src={user && user.image || ''} alt="tourabi" />
+                          <div className="flex-grow">
+                            <h4 className="font-semibold">{user.name || ''}</h4>
+                            <p className="text-xs mt-0.5">{user.email || ''}</p>
+                          </div>
                         </div>
                       </Link>
 

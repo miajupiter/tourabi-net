@@ -8,7 +8,7 @@ import ClearDataButton from "./ClearDataButton"
 import ButtonSubmit from "./ButtonSubmit"
 import { PathName } from "@/routers/types"
 import { UserPlusIcon } from "@heroicons/react/24/outline"
-import { GuestsObject } from "../type"
+import { GuestsObject } from "../tours/type"
 
 export interface GuestsInputProps {
   fieldClassName?: string

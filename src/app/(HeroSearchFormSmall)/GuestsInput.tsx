@@ -7,7 +7,7 @@ import ButtonSubmit from "./ButtonSubmit"
 import useOutsideAlerter from "@/hooks/useOutsideAlerter"
 import { PathName } from "@/routers/types"
 import NcInputNumber from "@/components/NcInputNumber"
-import { GuestsObject } from "../type"
+import { GuestsObject } from "../tours/type"
 
 export interface GuestsInputProps {
   className?: string

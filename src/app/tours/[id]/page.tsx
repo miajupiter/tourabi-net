@@ -62,39 +62,35 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
   const [item, setItem] = useState<TourItemType>()
   const [pullData, setPullData] = useState(false)
 
-  const getItem = (itemId: string) => {
-
-    fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours/${itemId}`, { headers: { 'token': token } })
-      .then(ret => ret.json())
-      .then(result => {
-        if (result.success && result.data) {
-          var res = result.data as TourItemType
-          var tour = {
-            id: res.id,
-            title: res.title,
-            description: res.description,
-            duration: res.duration,
-            places: res.places,
-            currency: res.currency,
-            price: res.price,
-            singleSupplement: res.singleSupplement,
-            priceTable: res.priceTable,
-            travelPlan: res.travelPlan,
-            inclusions: res.inclusions,
-            exclusions: res.exclusions,
-            images: res.images,
-          } as TourItemType
-          setItem(tour)
-        } else if (result.error) {
-          alert(result.error)
-        }
-      }).catch(err => {
-        alert(err.message || err || 'error')
-      })
-
-
+  // const getItem = (itemId: string) => {
+  //   fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours/${itemId}`, { headers: { 'token': token } })
+  //     .then(ret => ret.json())
+  //     .then(result => {
+  //       if (result.success) {
+  //         setItem(result.data)
+  //       } else if (result.error) {
+  //         alert(result.error)
+  //       }
+  //     }).catch(err => {
+  //       alert(err.message || err || 'error')
+  //     })
+  // }
+  const getItem = async (itemId: string) => {
+    const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours/${itemId}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', 'token': token }
+    })
+    if (ret.ok) {
+      const result = await ret.json()
+      if (result.success) {
+        setItem(result.data)
+      } else if (result.error) {
+        alert(result.error)
+      }
+    }else{
+      console.log('ret.statusText:',ret.statusText)
+    }
   }
-
 
 
   const renderSection1 = () => {
@@ -283,6 +279,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
         <div className='aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5'>
           {itemSrc &&
             <Image
+              priority
               fill
               // className={`object-cover rounded-md sm:rounded-xl`}
               className={`object-cover rounded-[3px]`}
@@ -316,6 +313,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
           >
             {item && item.images.length >= 1 &&
               <Image
+                priority
                 fill
                 className={`object-cover rounded-[3px]`}
                 // src={PHOTOS[0]}
@@ -398,7 +396,7 @@ const PageDetail: FC<PageDetailProps> = ({ params }: { params: { id: string } })
       getItem(params.id)
       setPullData(true)
     }
-  }, [t, token])
+  }, [])
 
 
 

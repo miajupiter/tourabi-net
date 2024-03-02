@@ -3,13 +3,21 @@
 
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    // typedRoutes: true,
-  },
+  basePath: "",
   output: "standalone",
   poweredByHeader: false,
+  cleanDistDir: true,
+  crossOrigin: 'anonymous',
+  compress: false,
+  pageExtensions:['ts','tsx','jsx','mdx'],
   images: {
     remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "eu2.contabostorage.com",
+        port: "",
+        pathname: "/**",
+      },
       {
         protocol: "https",
         hostname: "tourabi.s3.eu-central-1.amazonaws.com",
@@ -48,7 +56,7 @@ const nextConfig = {
       },
     ],
   },
-  pageExtensions:['ts','tsx','jsx','md','mdx']
+  
 }
 const withPWA = require("next-pwa")({
   dest: "public", // Destination directory for the PWA files
@@ -60,3 +68,4 @@ const withPWA = require("next-pwa")({
 })
 
 module.exports = withPWA(nextConfig)
+// module.exports = nextConfig

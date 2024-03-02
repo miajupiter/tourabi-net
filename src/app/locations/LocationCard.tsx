@@ -4,19 +4,20 @@ import convertNumbThousand from "@/utils/convertNumbThousand"
 import Link from "next/link"
 import Image from "next/image"
 
-export interface DestinationCardProps {
+export interface LocationCardProps {
   className?: string
-  id: string
+  _id: string
   title: string
+  destination: string
   country: string
   imageSrc?: string
   width?: number
   height?: number
 }
 
-const DestinationCard: FC<DestinationCardProps> = ({
+const LocationCard: FC<LocationCardProps> = ({
   className = "",
-  id,
+  _id,
   title,
   country,
   imageSrc,
@@ -26,7 +27,7 @@ const DestinationCard: FC<DestinationCardProps> = ({
 
   return (
     <Link
-      href={`/destinations/${id}`}
+      href={`/locations/${_id}`}
       className={`nc-CardCategory6 relative  flex w-full group rounded-[4px] z-0 overflow-hidden ${className}`}
     >
 
@@ -54,5 +55,5 @@ const DestinationCard: FC<DestinationCardProps> = ({
   )
 }
 
-export default DestinationCard
+export default LocationCard
 

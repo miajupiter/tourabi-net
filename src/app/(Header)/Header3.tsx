@@ -12,11 +12,12 @@ import MenuBar from "@/shared/MenuBar"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-import { SearchFormFields } from "../type"
+import { SearchFormFields } from "../tours/type"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import HeroSearchFormSmall from '../(HeroSearchFormSmall)/HeroSearchFormSmall'
 import HeroSearchForm2Mobile from '../(HeroSearchForm2Mobile)/HeroSearchForm2Mobile'
 import IconMapEdit from '@/images/TdesignMapEdit.svg'
+import { useLanguage } from '@/hooks/i18n'
 interface Header3Props {
   className?: string
 }
@@ -27,6 +28,7 @@ if (typeof window !== "undefined") {
 }
 
 const Header3: FC<Header3Props> = ({ className = "" }) => {
+  const {t}=useLanguage()
   const headerInnerRef = useRef<HTMLDivElement>(null)
 
   const [showHeroSearch, setShowHeroSearch] = useState<SearchFormFields | null>()
@@ -58,24 +60,6 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
     WIN_PREV_POSITION = currentScrollPos
   }
 
-  // const renderHeroSearch = () => {
-  //   return (
-  //     <div
-  //       className={`absolute inset-x-0 top-0 transition-all will-change-[transform,opacity] ${showHeroSearch
-  //         ? "visible"
-  //         : "-translate-x-0 -translate-y-[90px] scale-x-[0.395] scale-y-[0.6] opacity-0 invisible pointer-events-none"
-  //         }`}
-  //     >
-  //       <div className={`w-full max-w-4xl mx-auto pb-6`}>
-  //         <HeroSearchFormSmall
-  //           defaultFieldFocus={showHeroSearch || undefined}
-
-  //         />
-  //       </div>
-  //     </div>
-  //   )
-  // }
-
 
   useEffect(() => {
     setShowHeroSearch(null)
@@ -92,9 +76,7 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
 
   return (
     <>
-      {/* <div
-        className={`nc-Header nc-Header-3 fixed z-40 top-0 inset-0 bg-black/30 dark:bg-black/50 transition-opacity will-change-[opacity]`}
-      ></div> */}
+     
       <header ref={headerInnerRef} className={`sticky top-0 z-40 bg-white dark:bg-neutral-900 ${className}`}>
         <div className='flex h-8 bg-[#0090d7]'></div>
         <div
@@ -113,15 +95,22 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
               <div className=" flex space-x-1 justify-end ">
                 <div className='hidden md:flex items-center text-center'>
                   <div className='mx-3 text-sm'>
-                    <Link href="/destination" >
-                      <i className='fa-solid fa-map text-4xl' ></i><br />
+                    <Link href="/destinations" >
+                      <i className='fa-solid fa-map-location-dot text-4xl' ></i><br />
                       <span className=''>Destinations</span>
+                    </Link>
+                  </div>
+                  <div className='mx-3 text-sm'>
+                    <Link href="/locations" >
+                      <i className='fa-solid fa-mountain-city text-4xl' ></i><br />
+                      <span className=''>Locations</span>
                     </Link>
                   </div>
                   <div className='text-sm mx-3'>
                     <Link href="https://wa.me/994506807191" target='_blank' >
                       <i className='fa-brands fa-whatsapp text-4xl'></i><br />
-                      <span className=''>{'+994 50 680 71 91'}</span>
+                      {/* <span className=''>{'+994 50 680 71 91'}</span> */}
+                      <span className=''>{t('Support')}</span>
                     </Link>
                   </div>
                   <div className='text-sm mx-3'>

@@ -141,23 +141,3 @@ export interface CarDataType {
     lng: number
   }
 }
-
-export interface TourDataType {
-  id: string | number
-  title: string
-  desc: string
-  description: string
-  duration: number
-  places: string
-  inclusions: string
-  exclutions: string
-  images: []
-  travelPlan: []
-  priceTable: []
-
-  currency: string
-  singleSupplement: number
-
-  featuredImage: string
-  price: number | 0
-}

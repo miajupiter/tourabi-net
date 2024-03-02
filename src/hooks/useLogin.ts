@@ -42,12 +42,6 @@ export const useLogin = () => {
           localStorage.setItem('user', JSON.stringify(result.data.user))
           setToken(result.data.token)
           setUser(result.data.user)
-          // if (result.data.user) {
-          //   setIsLoggedIn(true)
-          // } else {
-          //   setIsLoggedIn(false)
-          // }
-
           if (redirectTo) {
             if (window != undefined) {
               window.location.href = redirectTo
@@ -73,7 +67,7 @@ export const useLogin = () => {
       setIsLoggedIn(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [t, token, user, deviceId, isLoggedIn])
+  }, [token])
 
 
   return {

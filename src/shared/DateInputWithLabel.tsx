@@ -1,18 +1,21 @@
 import React, { InputHTMLAttributes, useState } from "react"
-import { Select } from './Select'
-export interface SelectProps extends InputHTMLAttributes<HTMLSelectElement> {
+import DateInput from './DateInput'
+import Input from './Input'
+export interface DateInputProps extends InputHTMLAttributes<HTMLInputElement> {
+
   label?: string
   className?: string
-  selectClassName?: string
+  inputClassName?: string
   labelClassName?: string
+
 }
 
-export const SelectWithLabel: React.FC<SelectProps> = ({
+export const DateInputWithLabel: React.FC<DateInputProps> = ({
   className = "",
-  selectClassName = "",
+  inputClassName = "",
   labelClassName = "",
+  type = "text",
   label = "label",
-  children,
   ...args
 }) => {
 
@@ -21,15 +24,14 @@ export const SelectWithLabel: React.FC<SelectProps> = ({
       <label className={`mb-1 ms-2 block text-sm font-medium text-black dark:text-white ${labelClassName}`}>
         {label}
       </label>
-      <Select
-        className={`${selectClassName}`}
+      <Input type={'date'}
+        className={`py-2 ${inputClassName}`}
+        placeholder={label}
         {...args}
-      >
-        {children}
-      </Select>
+      />
     </div>
   )
 }
 
 
-export default SelectWithLabel
+export default DateInputWithLabel

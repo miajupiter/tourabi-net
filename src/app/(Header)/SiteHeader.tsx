@@ -1,7 +1,7 @@
 'use client'
 
 import React, { Fragment, useEffect, useRef, useState } from 'react'
-import Header3 from './(Header)/Header3'
+import Header3 from './Header3'
 
 const SiteHeader = () => {
 

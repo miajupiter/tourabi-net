@@ -3,12 +3,13 @@
 import React, { FC } from "react"
 import GallerySlider from "@/components/GallerySlider"
 // import { DEMO_STAY_LISTINGS } from "@/data/listings"
-import { TourDataType } from "@/data/types"
+import { TourDataType} from './page'
 // import StartRating from "@/components/StartRating"
 // import BtnLikeIcon from "@/components/BtnLikeIcon"
 // import SaleOffBadge from "@/components/SaleOffBadge"
 // import Badge from "@/shared/Badge"
 import Link from "next/link"
+import { v4 } from 'uuid'
 export interface TourCardProps {
   className?: string
   data?: TourDataType
@@ -22,7 +23,7 @@ const TourCard: FC<TourCardProps> = ({
   className = "",
   data,
 }) => {
-  const { id, title, desc, images, places, featuredImage, price, currency, duration } = data as TourDataType
+  const { _id, title, description, images, places, price, priceWithoutDiscount, currency, duration, singleSupplement } = data as TourDataType
 
 
   const renderContent = () => {
@@ -90,16 +91,16 @@ const TourCard: FC<TourCardProps> = ({
     <div className={`nc-StayCard2 group relative ${className}`}>
       <div className="relative w-full">
         <GallerySlider
-          uniqueID={`StayCard2_${id}`}
+          uniqueID={`StayCard2_${v4()}`}
           ratioClass="aspect-w-12 aspect-h-11"
           galleryImgs={images}
           imageClass="rounded-[4px]"
-          href={`/tours/${id}`}
+          href={`/tours/${_id}`}
         />
         {/* <BtnLikeIcon isLiked={like} className="absolute right-3 top-3 z-[1]" />
         {saleOff && <SaleOffBadge className="absolute left-3 top-3" />} */}
       </div>
-      <Link href={`/tours/${id}`}>{renderContent()}</Link>
+      <Link href={`/tours/${_id}`}>{renderContent()}</Link>
     </div>
   )
 }

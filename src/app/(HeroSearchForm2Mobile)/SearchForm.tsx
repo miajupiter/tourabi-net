@@ -2,7 +2,7 @@
 
 import converSelectedDateToString from "@/utils/converSelectedDateToString"
 import React, { useState } from "react"
-import { GuestsObject } from "../type"
+import { GuestsObject } from "../tours/type"
 import GuestsInput from "./GuestsInput"
 import DestinationInput from "./DestinationInput"
 import DatesRangeInput from "./DatesRangeInput"

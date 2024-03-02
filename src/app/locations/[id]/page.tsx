@@ -1,18 +1,19 @@
 "use client"
 
 import React, { FC, Fragment, useState, useEffect } from 'react'
-import DestinationGridBox from '../DestinationGridBox'
+import LocationGridBox from '../LocationGridBox'
 import { useLogin } from '@/hooks/useLogin'
 import { StaticImageData } from 'next/image'
 import AliAbiMDXViewer from '@/components/Editor/AliAbiMDXEditor'
-export interface PageDestinationProps {
+export interface PageLocationProps {
   params: { id: string }
 }
 
 
-export interface DestinationItemType {
+export interface LocationItemType {
   _id: string
   title: string
+  destination: string
   country: string
   description: string
 
@@ -21,13 +22,13 @@ export interface DestinationItemType {
 }
 
 
-const PageDestination: FC<PageDestinationProps> = ({ params }: { params: { id: string } }) => {
+const PageLocation: FC<PageLocationProps> = ({ params }: { params: { id: string } }) => {
   const { token } = useLogin()
   const [pullData, setPullData] = useState(false)
-  const [item, setItem] = useState<DestinationItemType>()
+  const [item, setItem] = useState<LocationItemType>()
 
   // const getItem = (id: string) => {
-  //   fetch(`${process.env.NEXT_PUBLIC_API_URI}/destinations/${id}`, {
+  //   fetch(`${process.env.NEXT_PUBLIC_API_URI}/locations/${id}`, {
   //     method: 'GET', headers: { 'Content-Type': 'application/json', token }
   //   })
   //     .then(ret => ret.json())
@@ -44,7 +45,7 @@ const PageDestination: FC<PageDestinationProps> = ({ params }: { params: { id: s
   // }
   const getItem = async (id: string) => {
     try {
-      const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/destinations/${id}`, {
+      const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/locations/${id}`, {
         method: 'GET', headers: { 'Content-Type': 'application/json', token: token }
       })
       const result = await ret.json()
@@ -86,11 +87,11 @@ const PageDestination: FC<PageDestinationProps> = ({ params }: { params: { id: s
       </>
       }
       <div className='mt-20 mb-10'>
-        {/* <DestinationGridBox headingCenter={true} /> */}
-        {DestinationGridBox({ headingCenter: true })}
+        {/* <LocationGridBox headingCenter={true} /> */}
+        {LocationGridBox({ headingCenter: true })}
       </div>
     </div>
   )
 }
 
-export default PageDestination
+export default PageLocation

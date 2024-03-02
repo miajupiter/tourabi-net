@@ -1,7 +1,11 @@
-import React from "react";
-import ButtonPrimary from "@/shared/ButtonPrimary";
+"use client"
+
+import React, { useState } from "react"
+import ButtonPrimary from "@/shared/ButtonPrimary"
+import InvoicePage from './Invoice'
 
 const AccountBilling = () => {
+  const [show, setShow] = useState(false)
   return (
     <div className="space-y-6 sm:space-y-8">
       {/* HEADING */}
@@ -22,11 +26,32 @@ const AccountBilling = () => {
           payout method. Learn more
         </span>
         <div className="pt-10">
-          <ButtonPrimary>Add payout mothod</ButtonPrimary>
+          <ButtonPrimary onClick={() => setShow(!show)}>Show Invoice</ButtonPrimary>
         </div>
+        {show && <div>
+          {/* <InvoicePage invoiceNo='939044' invoiceDate='2024-03-04'  currency='USD' subTotal={900} taxTotal={180} 
+          totalAmount={1080} /> */}
+          {InvoicePage({
+            invoiceNo: '939044', invoiceDate: '2024-03-04',
+            currency: 'USD', subTotal: 900, taxTotal: 180, 
+            totalAmount: 1080,
+            vendor:{
+              name:'TourAbi Digital Tourism Services A.G.',
+              addressText:"Defrr 24. Koln Germany",
+              taxNumber:"847546001",
+              taxOffice:"Schgoff"
+            },
+            customer:{
+              name:'Cem 2 Alione Tour and Organisation Company',
+              addressText:"2001/1 St. 2/2 Miarkoru Torbali Izmir",
+              taxNumber:"833024432",
+              taxOffice:"Torbali"
+            }
+          })}
+        </div>}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AccountBilling;
+export default AccountBilling

@@ -11,14 +11,27 @@ import BackgroundSection from "@/components/BackgroundSection"
 import ItemList from './ItemList'
 import DestinationGridBox from '../destinations/DestinationGridBox'
 
-// import SearchForm from './SearchForm'
 
+export interface TourDataType {
+  _id: string
+  title: string
 
-// export function generateViewport({}) {
-//   return {
-//     themeColor: 'black',
-//   }
-// }
+  description: string
+  duration: number
+  places: string
+  inclusions: string
+  exclutions: string
+  images: []
+  travelPlan: []
+  priceTable: []
+
+  currency: string
+  singleSupplement: number
+
+  price: number
+  priceWithoutDiscount: number
+}
+
 
 export interface PageListProps {}
 

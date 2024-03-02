@@ -3,14 +3,21 @@
 import { ClockIcon, MapPinIcon } from "@heroicons/react/24/outline"
 import React, { useState, useRef, useEffect, FC } from "react"
 import ClearDataButton from "./ClearDataButton"
-import { DESTINATION_LIST, DestinationType} from '@/data/destinations'
+//  import { DESTINATION_LIST, DestinationType} from '@/data/destinations'
 
+export interface DestinationType {
+  _id: string
+  title: string
+}
 export interface DestinationInputProps {
   placeHolder?: string
   desc?: string
   className?: string
   divHideVerticalLineClass?: string
-  autoFocus?: boolean
+  autoFocus?: boolean,
+  destinationList?: DestinationType[]
+
+  onChange?: (_id: string, title: string) => void
 }
 
 const DestinationInput: FC<DestinationInputProps> = ({
@@ -19,11 +26,15 @@ const DestinationInput: FC<DestinationInputProps> = ({
   desc = "What kind of tour do you want?",
   className = "nc-flex-1.5",
   divHideVerticalLineClass = "left-10 -right-0.5",
+  destinationList,
+  onChange
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const [value, setValue] = useState("")
+  const [_id, set_id] = useState("")
+  const [title, setTitle] = useState("")
+  const [textFilter, setTextFilter] = useState("")
   const [showPopover, setShowPopover] = useState(autoFocus)
 
   useEffect(() => {
@@ -57,9 +68,12 @@ const DestinationInput: FC<DestinationInputProps> = ({
     setShowPopover(false)
   }
 
-  const handleSelectLocation = (item: string) => {
-    setValue(item)
+  const handleSelectLocation = (_id: string, title: string) => {
+    set_id(_id)
+    setTitle(title)
+    setTextFilter('')
     setShowPopover(false)
+    if (onChange != undefined) onChange(_id, title)
   }
 
   const renderRecentSearches = () => {
@@ -69,16 +83,16 @@ const DestinationInput: FC<DestinationInputProps> = ({
           Recent searches
         </h3>
         <div className="mt-2">
-          {DESTINATION_LIST.map((item) => (
+          {destinationList && destinationList.filter(e=>e.title.toLocaleLowerCase().startsWith(textFilter.toLocaleLowerCase())).map((item, index) => (
             <span
-              onClick={() => handleSelectLocation(item.title)}
-              key={item.id}
+              onClick={() => handleSelectLocation(item._id, item.title)}
+              key={index}
               className="flex px-4 sm:px-8 items-center space-x-3 sm:space-x-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer"
             >
               <span className="block text-neutral-400">
                 <ClockIcon className="h-4 sm:h-6 w-4 sm:w-6" />
               </span>
-              <span className=" block font-medium text-neutral-700 dark:text-neutral-200">
+              <span className="block font-medium text-neutral-700 dark:text-neutral-200">
                 {item.title}
               </span>
             </span>
@@ -91,10 +105,10 @@ const DestinationInput: FC<DestinationInputProps> = ({
   const renderSearchValue = () => {
     return (
       <>
-        {DESTINATION_LIST.map((item) => (
+        {destinationList && destinationList.map((item, index) => (
           <span
-            onClick={() => handleSelectLocation(item.title)}
-            key={item.id}
+            onClick={() => handleSelectLocation(item._id, item.title)}
+            key={index}
             className="flex px-4 sm:px-8 items-center space-x-3 sm:space-x-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer"
           >
             <span className="block text-neutral-400">
@@ -123,20 +137,25 @@ const DestinationInput: FC<DestinationInputProps> = ({
           <input
             className={`block w-full bg-transparent border-none focus:ring-0 p-0 focus:outline-none focus:placeholder-neutral-300 xl:text-lg font-semibold placeholder-neutral-800 dark:placeholder-neutral-200 truncate`}
             placeholder={placeHolder}
-            value={value}
+            value={title || textFilter}
             autoFocus={showPopover}
             onChange={(e) => {
-              setValue(e.currentTarget.value)
+              console.log('DestinationInput e.target.value:', e.target.value)
+              console.log('DestinationInput e.currentTarget.value:', e.currentTarget.value)
+              setTextFilter(e.target.value)
             }}
             ref={inputRef}
           />
           <span className="block mt-0.5 text-sm text-neutral-400 font-light ">
-            <span className="line-clamp-1">{!!value ? placeHolder : desc}</span>
+            <span className="line-clamp-1">{!!_id ? placeHolder : desc}</span>
           </span>
-          {value && showPopover && (
+          {_id && showPopover && (
             <ClearDataButton
               onClick={() => {
-                setValue("")
+                set_id("")
+                setTitle("")
+                setTextFilter("")
+                if (onChange != undefined) onChange(_id, title)
               }}
             />
           )}
@@ -151,7 +170,7 @@ const DestinationInput: FC<DestinationInputProps> = ({
 
       {showPopover && (
         <div className="absolute left-0 z-40 w-full min-w-[300px] sm:min-w-[500px] bg-white dark:bg-neutral-800 top-full mt-3 py-3 sm:py-6 rounded-3xl shadow-xl max-h-96 overflow-y-auto">
-          {value ? renderSearchValue() : renderRecentSearches()}
+          {_id ? renderSearchValue() : renderRecentSearches()}
         </div>
       )}
     </div>

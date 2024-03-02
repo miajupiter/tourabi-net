@@ -1,7 +1,7 @@
 "use client"
 
 import React, { FC, useEffect, useState } from "react"
-import { SearchFormFields } from "../type"
+import { SearchFormFields } from "../tours/type"
 import SearchForm from "./SearchForm"
 
 export interface HeroSearchFormSmallProps {

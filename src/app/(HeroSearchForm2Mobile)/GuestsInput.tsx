@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import NcInputNumber from "@/components/NcInputNumber";
 import { FC } from "react";
-import { GuestsObject } from "../type";
+import { GuestsObject } from "../tours/type";
 
 export interface GuestsInputProps {
   defaultValue?: GuestsObject;

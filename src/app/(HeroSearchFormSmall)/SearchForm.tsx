@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import LocationInput from "./LocationInput"
 import GuestsInput from "./GuestsInput"
 import DatesRangeInput from "./DatesRangeInput"
-import { SearchFormFields } from "../type"
+import { SearchFormFields } from "../tours/type"
 
 export interface SearchFormProps {
   defaultFieldFocus?: SearchFormFields
