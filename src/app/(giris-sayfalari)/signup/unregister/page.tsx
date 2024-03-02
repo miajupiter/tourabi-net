@@ -7,7 +7,7 @@ import ButtonPrimary from '@/shared/ButtonPrimary'
 // import dynamic from 'next/dynamic'
 import Logo from '@/shared/Logo'
 import { useLanguage } from '@/hooks/i18n'
-import SelectLanguage from '../SelectLanguage'
+import SelectLanguage from '../../SelectLanguage'
 import Input from "@/shared/Input"
 import Select from "@/shared/Select"
 // import { MapPinIcon } from '@heroicons/react/24/solid'
