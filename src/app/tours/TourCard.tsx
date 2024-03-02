@@ -3,13 +3,14 @@
 import React, { FC } from "react"
 import GallerySlider from "@/components/GallerySlider"
 // import { DEMO_STAY_LISTINGS } from "@/data/listings"
-import { TourDataType} from './page'
+import { TourDataType } from './page'
 // import StartRating from "@/components/StartRating"
 // import BtnLikeIcon from "@/components/BtnLikeIcon"
 // import SaleOffBadge from "@/components/SaleOffBadge"
 // import Badge from "@/shared/Badge"
 import Link from "next/link"
 import { v4 } from 'uuid'
+import convertNumbThousand from '@/utils/convertNumbThousand'
 export interface TourCardProps {
   className?: string
   data?: TourDataType
@@ -23,16 +24,50 @@ const TourCard: FC<TourCardProps> = ({
   className = "",
   data,
 }) => {
-  const { _id, title, description, images, places, price, priceWithoutDiscount, currency, duration, singleSupplement } = data as TourDataType
+  if(data){
+    if(data.price==undefined || data.price==null) data.price=0
+    if(data.priceWithoutDiscount==undefined || data.priceWithoutDiscount==null) data.priceWithoutDiscount=0
+  }
 
+  const { _id, title, description, images, places, price, priceWithoutDiscount, currency, duration, singleSupplement } = data as TourDataType
+  
 
   const renderContent = () => {
     return (
       <div className={size === "default" ? "mt-3 space-y-3" : "mt-2 space-y-2"}>
         <div className="space-y-2">
-          <span className="text-sm font-bold text-neutral-500 dark:text-neutral-400">
-            {duration} days
-          </span>
+          <div className='flex justify-between'>
+            <div className="text-lg font-bold text-neutral-500 dark:text-neutral-400">
+              {duration} days
+            </div>
+            <div>
+              {price > 0 && priceWithoutDiscount>price  && <>
+                <span className="text-base opacity-60 line-through mx-3">
+                  {currency == 'USD' && <>
+                    US ${convertNumbThousand(priceWithoutDiscount)}
+                  </>}
+                  {currency != 'USD' && <>
+                    {convertNumbThousand(priceWithoutDiscount)}<span className='text-base opacity-75'>{currency}</span>
+                  </>}
+                </span>
+              </>}
+              <span className="text-lg font-semibold bg-indigo-700 text-white py-1 px-2 rounded-md">
+                {price > 0 && <>
+                  {currency == 'USD' && <>
+                    US ${convertNumbThousand(price)}
+                  </>}
+
+                  {currency != 'USD' && <>
+                    {convertNumbThousand(price)}<span className='text-base opacity-75'>{currency}</span>
+                  </>}
+                </>}
+                {price <= 0 && <>
+                 US $ <i className="fa-solid fa-phone"></i> ??
+                </>}
+              </span>
+            </div>
+          </div>
+
           <div className="flex items-center space-x-2">
 
             <h2
@@ -70,13 +105,13 @@ const TourCard: FC<TourCardProps> = ({
         </div>
         <div className="w-14 border-b border-neutral-100 dark:border-neutral-800"></div>
         <div className="flex justify-between items-center">
-          <span className="text-base font-semibold">
+          {/* <span className="text-base font-semibold">
             {(price|| 0)>0 && (<>
             {price}
             {` `}
             <small className='opacity-50'>{currency}</small>
             </>)}
-          </span>
+          </span> */}
           {/* {!!reviewStart && (
             <StartRating reviewCount={reviewCount} point={reviewStart} />
           )} */}
@@ -85,7 +120,7 @@ const TourCard: FC<TourCardProps> = ({
     )
   }
 
- 
+
 
   return (
     <div className={`nc-StayCard2 group relative ${className}`}>

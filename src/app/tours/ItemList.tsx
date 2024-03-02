@@ -2,14 +2,11 @@
 
 import React, { FC, useEffect, useState } from 'react'
 import { useLogin } from '@/hooks/useLogin'
-
-
-
 import TourCard from './TourCard'
-
 import SearchForm from './SearchForm'
 import Pagination from '@/shared/Pagination'
-import { TourDataType } from './page';
+import { TourDataType } from './page'
+import { getItem, searchList } from '@/utils/apiHelper/fetch'
 export interface ItemListProps { }
 
 const ItemList: FC<ItemListProps> = ({ }) => {
@@ -52,34 +49,41 @@ const ItemList: FC<ItemListProps> = ({ }) => {
   //     console.log('ret.statusText:', ret.statusText)
   //   }
   // }
-  const getList = async (sayfaNo: number, loc?:string) => {
+  const getList = async (sayfaNo: number, loc?: string) => {
     setPageNo(sayfaNo)
-    let filter:any={}
-    if(loc){
+    let filter: any = {}
+    if (loc) {
       setLocation(loc)
-      filter.places ={
-        $regex:loc,$options:'is'
+      filter.places = {
+        $regex: loc, $options: 'is'
       }
     }
-    fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours?page=${sayfaNo}`, {
-      method: 'SEARCH',
-      headers: { 'Content-Type': 'application/json', token: token },
-      body: JSON.stringify({filter:filter})
-    })
-    .then(ret=>ret.json())
-    .then(result=>{
-      if (result.success) {
-        setPageCount(result.data.pageCount as number)
-        setTotalDocs(result.data.totalDocs as number)
-        setDocs(result.data.docs as TourDataType[])
-      } else {
-        setPageCount(1)
-        setTotalDocs(0)
-        setDocs([])
-        alert(result.error)
-      }
-    })
-    .catch(console.log)
+    searchList(`/tours?page=${sayfaNo}`, token, { filter: filter })
+      .then((data) => {
+        setPageCount(data.pageCount)
+        setTotalDocs(data.totalDocs)
+        setDocs(data.docs)
+      })
+      .catch(err => alert(err))
+    // fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours?page=${sayfaNo}`, {
+    //   method: 'SEARCH',
+    //   headers: { 'Content-Type': 'application/json', token: token },
+    //   body: JSON.stringify({filter:filter})
+    // })
+    // .then(ret=>ret.json())
+    // .then(result=>{
+    //   if (result.success) {
+    //     setPageCount(result.data.pageCount as number)
+    //     setTotalDocs(result.data.totalDocs as number)
+    //     setDocs(result.data.docs as TourDataType[])
+    //   } else {
+    //     setPageCount(1)
+    //     setTotalDocs(0)
+    //     setDocs([])
+    //     alert(result.error)
+    //   }
+    // })
+    // .catch(console.log)
   }
 
   useEffect(() => {
@@ -97,9 +101,9 @@ const ItemList: FC<ItemListProps> = ({ }) => {
     >
       <div className="hidden md:flex justify-center container relative space-y-24 mb-12 lg:space-y-28 md:mb-18">
         <div className={`nc-HeroSearchForm w-full lg:w-[900px] self-center py-5 lg:py-0 mt-10`}    >
-          <SearchForm onSearch={async(destinationId,destinationTitle,dateFilter)=>{
+          <SearchForm onSearch={async (destinationId, destinationTitle, dateFilter) => {
             setLocation(destinationTitle)
-            getList(1,destinationTitle)
+            getList(1, destinationTitle)
           }} />
         </div>
       </div>
@@ -107,13 +111,13 @@ const ItemList: FC<ItemListProps> = ({ }) => {
         {docs && <>
           <div className='grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3'>
             {docs.map((tour: TourDataType, index: number) => <div key={index}>
-              <TourCard key={index} data={tour} />
+              <TourCard key={index} data={tour } />
             </div>
             )}
           </div>
           <div className='flex mt-4 justify-center items-center'>
             <Pagination pageNo={pageNo} pageCount={pageCount}
-              onPageClick={(no: number) => getList(no,location)}
+              onPageClick={(no: number) => getList(no, location)}
             />
           </div>
         </>}

@@ -94,6 +94,12 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
             <div className=" md:flex relative z-10 flex-1 h-24 justify-end text-neutral-700 dark:text-neutral-100">
               <div className=" flex space-x-1 justify-end ">
                 <div className='hidden md:flex items-center text-center'>
+                  <div className='text-sm mx-3'>
+                    <Link href="/tours">
+                      <i className='fa-solid fa-search text-4xl'></i><br />
+                      <span className=''>{t('Tours')}</span>
+                    </Link>
+                  </div>
                   <div className='mx-3 text-sm'>
                     <Link href="/destinations" >
                       <i className='fa-solid fa-map-location-dot text-4xl' ></i><br />
@@ -113,12 +119,7 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
                       <span className=''>{t('Support')}</span>
                     </Link>
                   </div>
-                  <div className='text-sm mx-3'>
-                    <Link href="/tours">
-                      <i className='fa-solid fa-search text-4xl'></i><br />
-                      <span className=''>Search</span>
-                    </Link>
-                  </div>
+                  
                   <div className='text-4xl mx-3'>
                     <NotifyDropdown />
                   </div>
