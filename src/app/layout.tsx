@@ -71,8 +71,8 @@ export default function RootLayout({
     <html lang='en'>
       <head>
         <title>TourAbi</title>
-        <meta name="description" content="This is Login Page for TourAbi Admin Panel" />
-        <link  rel="icon" href="/favicon.ico"  />
+        <meta name="description" content="TourAbi is the world's best digital tourism platform" />
+        <link  rel="icon" href="/favicon.ico"/>
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body suppressHydrationWarning={true} suppressContentEditableWarning={true}
