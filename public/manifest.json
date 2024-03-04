@@ -1,12 +1,12 @@
 {
     "theme_color": "#F9A11B",
-    "background_color": "#101033",
+    "background_color": "#6495ed",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "TourAbi Tour Portal",
+    "name": "TourAbi: A Digital Toursim Portal",
     "short_name": "TourAbi",
-    "description": "The world's best tour portal",
+    "description": "TourAbi is an online tourism portal that transforms your travel experiences. Bringing travel enthusiasts and adventurers together with its innovative approach, TourAbi enables unforgettable adventures around the world. TourAbi is a first-class travel companion for anyone who loves to travel.\n\nWith TourAbi, you can access the world's most unique destinations with just a click. You can find comprehensive and reliable travel information, the best hotel and accommodation options, tips on local restaurants and attractions, recommendations, and more. Additionally, with personalized travel planning tools, you can create your own unique travel route and open the doors to your dream vacation.",
     "icons": [
       {
         "src": "/img/icons/icon-192x192.png",
@@ -44,7 +44,7 @@
           }
       ],
     "splash_pages": null,
-    "id": "/",
+    "id": "/?homescreen=1",
     "dir": "auto",
     "lang": "en",
     "display_override": [

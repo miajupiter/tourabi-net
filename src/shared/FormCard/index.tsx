@@ -10,8 +10,9 @@ export enum FormCardType {
   DEFAULT,
   STATIC,
 }
-interface FormCardProps {
 
+
+interface FormCardProps {
   id: string
   title: string
   icon?: any
@@ -26,50 +27,50 @@ interface FormCardProps {
   cardType?: FormCardType
 }
 
-const getFormCardState=(id:string,defaultValue:boolean)=>{
-  let obj:any={}
-  try{
-    obj=JSON.parse(localStorage.getItem('formCard-expanded') || '{}')
-  }catch{}
-  if(obj[id]!=undefined){
+const getFormCardState = (id: string, defaultValue: boolean) => {
+  if (typeof window == "undefined") return defaultValue
+  let obj: any = {}
+  try {
+    obj = JSON.parse(localStorage.getItem('formCard-expanded') || '{}')
+  } catch { }
+  if (obj[id] != undefined) {
     return obj[id]
-  }else{
+  } else {
     return defaultValue
   }
 }
 
-const setFormCardState=(id:string,isOpen:boolean) =>{
-  let obj:any={}
-  try{
-    obj=JSON.parse(localStorage.getItem('formCard-expanded') || '{}')
-  }catch{}
-  obj[id]=isOpen
-  localStorage.setItem('formCard-expanded',JSON.stringify(obj))
+const setFormCardState = (id: string, isOpen: boolean) => {
+  if (typeof window != 'undefined') {
+    let obj: any = {}
+    try {
+      obj = JSON.parse(localStorage.getItem('formCard-expanded') || '{}')
+    } catch { }
+    obj[id] = isOpen
+    localStorage.setItem('formCard-expanded', JSON.stringify(obj))
+  }
 }
 
-const FormCard = ({ id, title, icon, defaultOpen = true,
-  className,
-  headerClassName,
-  bodyClassName,
-  cardType = FormCardType.DEFAULT,
-  children }: FormCardProps) => {
+const FormCard = ({ id, title, icon, defaultOpen = true, className,
+  headerClassName, bodyClassName, cardType = FormCardType.DEFAULT, children }: FormCardProps) => {
+
   // const pathname = usePathname()
 
 
-  const [formCardExpanded, setFormCardExpanded] = useState(getFormCardState(id,defaultOpen))
+  const [formCardExpanded, setFormCardExpanded] = useState(getFormCardState(id, defaultOpen))
 
   return (
     <FormCardGroup activeCondition={formCardExpanded} id={id}>
       {(handleClick, open) => {
-        setFormCardState(id,open)
+        setFormCardState(id, open)
         return (
           <React.Fragment>
             <div className={`rounded-[4px] text-slate-900 dark:text-slate-100 border  border-stroke border-opacity-50 shadow dark:border-strokedark
-             bg-white dark:bg-slate-900 ${className}`}>
+             bg-white dark:bg-slate-900  ${className}`}>
               {cardType === FormCardType.DEFAULT && <>
                 <Link href="#"
                   className={`group relative flex items-center justify-between gap-2.5 rounded-sm px-4 py-2 font-bold
-                  border-b border-stroke border-opacity-15 dark:border-opacity-15  hover:bg-slate-200
+                  border-b border-stroke border-opacity-15 dark:border-opacity-15  hover:bg-[#F2F2F2]
                 dark:hover:bg-[rgba(56,48,163,0.37)] ${headerClassName}`}
                   onClick={(e) => {
                     e.preventDefault()
@@ -89,7 +90,7 @@ const FormCard = ({ id, title, icon, defaultOpen = true,
                   {icon && <>{icon}</>} <span>{title}</span>
                 </div>
               </>}
-              <div className={` ${cardType === FormCardType.DEFAULT && !open && "hidden"} p-4 ${bodyClassName}`}>
+              <div className={` ${cardType === FormCardType.DEFAULT && !open && "hidden"} p-4 transition-transform duration-150 ease-in-out ${bodyClassName} `}>
                 {children}
               </div>
             </div>

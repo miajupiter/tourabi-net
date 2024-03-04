@@ -66,7 +66,7 @@ const TourShowcase = () => {
     )
   }
   const getShowcaseTours = async () => {
-    const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours/showcase`,
+    const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/haham/tours/showcase`,
       { method: 'GET', headers: { 'Content-Type': 'application/json', token } })
     if (ret.ok) {
       const result = await ret.json()

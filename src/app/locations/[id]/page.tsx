@@ -27,25 +27,9 @@ const PageLocation: FC<PageLocationProps> = ({ params }: { params: { id: string 
   const [pullData, setPullData] = useState(false)
   const [item, setItem] = useState<LocationItemType>()
 
-  // const getItem = (id: string) => {
-  //   fetch(`${process.env.NEXT_PUBLIC_API_URI}/locations/${id}`, {
-  //     method: 'GET', headers: { 'Content-Type': 'application/json', token }
-  //   })
-  //     .then(ret => ret.json())
-  //     .then(result => {
-  //       if (result.success) {
-  //         setItem(result.data)
-  //       } else {
-  //         alert(result.error)
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.log('getItem err:', err)
-  //     })
-  // }
   const getItem = async (id: string) => {
     try {
-      const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/locations/${id}`, {
+      const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/haham/locations/${id}`, {
         method: 'GET', headers: { 'Content-Type': 'application/json', token: token }
       })
       const result = await ret.json()

@@ -19,7 +19,7 @@ const SearchForm: FC<SearchFormProps> = ({ onSearch }) => {
   const [destinationTitle, setDestinationTitle] = useState('')
 
   const getDestinations = async () => {
-    const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/destinations`, {
+    const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/haham/destinations`, {
       method: 'SEARCH',
       headers: { 'Content-Type': 'application/json', token: token },
       body: JSON.stringify({ limit: 100, select: '_id title' })

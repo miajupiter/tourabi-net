@@ -23,25 +23,9 @@ const DestinationGridBox: React.FC<DestinationGridBoxProps> = ({
   const [list, setList] = useState([])
   const [pullData, setPullData] = useState(false)
 
-  // const getList = () => {
-  //   fetch(`${process.env.NEXT_PUBLIC_API_URI}/destinations?pageSize=100`, {
-  //     method: 'GET', headers: { 'Content-Type': 'application/json', token }
-  //   })
-  //     .then(ret => ret.json())
-  //     .then(result => {
-  //       if (result.success) {
-  //         setList(result.data.docs)
-  //       } else {
-  //         alert(result.error)
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log('getList err', err)
-  //     })
-  // }
   const getList = async () => {
 
-    const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/destinations?pageSize=100`, {
+    const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/haham/destinations?pageSize=100`, {
       method: 'GET', headers: { 'Content-Type': 'application/json', token }
     })
 

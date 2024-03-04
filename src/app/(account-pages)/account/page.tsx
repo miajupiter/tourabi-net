@@ -109,7 +109,7 @@ const AccountPage = () => {
       if (uploadResponse.ok) {
         if (me) {
           me.image = `${url}/${fields.key}`
-          putItem('/me?partial=true', token, { image: me.image })
+          putItem('/haham/me?partial=true', token, { image: me.image })
             .then(result => setMe({ ...me, ...result }))
             .catch(err => alert(err))
         }
@@ -125,7 +125,7 @@ const AccountPage = () => {
   useEffect(() => {
     if (!pullData) {
       setPullData(true)
-      getItem('/me', token)
+      getItem('/haham/me', token)
         .then(data => setMe(data))
         .catch(err => console.log('getMyProfile err:', err))
 
@@ -459,7 +459,7 @@ const AccountPage = () => {
             <div className="pt-2">
               <ButtonPrimary
                 onClick={() => {
-                  putItem('/me', token, me)
+                  putItem('/haham/me', token, me)
                     .then(() => location.reload())
                     .catch(err => alert(err))
                 }}>

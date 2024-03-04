@@ -12,11 +12,11 @@ const FormCardGroup = ({
   activeCondition,
   id,
 }: FormCardGroupProps) => {
-  
+
   const [open, setOpen] = useState<boolean>(activeCondition)
 
   const handleClick = () => {
-  
+
     setOpen(!open)
 
   }

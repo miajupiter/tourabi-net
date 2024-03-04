@@ -20,35 +20,6 @@ const ItemList: FC<ItemListProps> = ({ }) => {
 
   const [location, setLocation] = useState('')
 
-  // const getList = async (sayfaNo: number) => {
-  //   setPageNo(sayfaNo)
-  //   let filter:any={}
-  //   if(place){
-  //     filter.places ={
-  //       $regex:place,$options:'is'
-  //     }
-  //   }
-  //   const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours?page=${sayfaNo}`, {
-  //     method: 'SEARCH',
-  //     headers: { 'Content-Type': 'application/json', token: token },
-  //     body: JSON.stringify({filter:filter})
-  //   })
-  //   if (ret.ok) {
-  //     const result = await ret.json()
-  //     if (result.success) {
-  //       setPageCount(result.data.pageCount as number)
-  //       setTotalDocs(result.data.totalDocs as number)
-  //       setDocs(result.data.docs as TourDataType[])
-  //     } else {
-  //       setPageCount(1)
-  //       setTotalDocs(0)
-  //       setDocs([])
-  //       alert(result.error)
-  //     }
-  //   } else {
-  //     console.log('ret.statusText:', ret.statusText)
-  //   }
-  // }
   const getList = async (sayfaNo: number, loc?: string) => {
     setPageNo(sayfaNo)
     let filter: any = {}
@@ -58,32 +29,13 @@ const ItemList: FC<ItemListProps> = ({ }) => {
         $regex: loc, $options: 'is'
       }
     }
-    searchList(`/tours?page=${sayfaNo}`, token, { filter: filter })
+    searchList(`/haham/tours?page=${sayfaNo}`, token, { filter: filter })
       .then((data) => {
         setPageCount(data.pageCount)
         setTotalDocs(data.totalDocs)
         setDocs(data.docs)
       })
       .catch(err => alert(err))
-    // fetch(`${process.env.NEXT_PUBLIC_API_URI}/tours?page=${sayfaNo}`, {
-    //   method: 'SEARCH',
-    //   headers: { 'Content-Type': 'application/json', token: token },
-    //   body: JSON.stringify({filter:filter})
-    // })
-    // .then(ret=>ret.json())
-    // .then(result=>{
-    //   if (result.success) {
-    //     setPageCount(result.data.pageCount as number)
-    //     setTotalDocs(result.data.totalDocs as number)
-    //     setDocs(result.data.docs as TourDataType[])
-    //   } else {
-    //     setPageCount(1)
-    //     setTotalDocs(0)
-    //     setDocs([])
-    //     alert(result.error)
-    //   }
-    // })
-    // .catch(console.log)
   }
 
   useEffect(() => {

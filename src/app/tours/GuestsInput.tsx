@@ -12,18 +12,20 @@ import { GuestsObject } from './type'
 export interface GuestsInputProps {
   fieldClassName?: string
   className?: string
-  adults?:number
-  childeren?:number
-  baby?:number
+  adults?: number
+  childeren?: number
+  baby?: number,
+  onChange?:(ad:number,ch:number,ba:number)=>void
 }
 
 const GuestsInput: FC<GuestsInputProps> = ({
   fieldClassName = '[ nc-hero-field-padding ]',
   className = '[ nc-flex-1 ]',
- 
-  adults=1,
-  childeren=0,
-  baby=0,
+
+  adults = 1,
+  childeren = 0,
+  baby = 0,
+  onChange
 }) => {
   const [guestAdultsInputValue, setGuestAdultsInputValue] = useState(adults)
   const [guestChildrenInputValue, setGuestChildrenInputValue] = useState(childeren)
@@ -46,6 +48,9 @@ const GuestsInput: FC<GuestsInputProps> = ({
     if (type === 'guestBaby') {
       setGuestBabyInputValue(value)
       newValue.guestBaby = value
+    }
+    if(onChange){
+      onChange(guestAdultsInputValue,guestChildrenInputValue, guestBabyInputValue )
     }
   }
 
@@ -71,9 +76,9 @@ const GuestsInput: FC<GuestsInputProps> = ({
                   {totalGuests || ''} Guests
                 </span>
                 <span className='block mt-1 text-sm text-neutral-400 leading-none font-light'>
-                  {guestAdultsInputValue>0 && `${guestAdultsInputValue} Adults `}
-                  {guestChildrenInputValue>0 && `${guestChildrenInputValue} Children `}
-                  {guestBabyInputValue>0 && `${guestBabyInputValue} Baby`}
+                  {guestAdultsInputValue > 0 && `${guestAdultsInputValue} Adults `}
+                  {guestChildrenInputValue > 0 && `${guestChildrenInputValue} Children `}
+                  {guestBabyInputValue > 0 && `${guestBabyInputValue} Baby`}
                   {/* {totalGuests ? 'Guests' : 'Add guests'} */}
                 </span>
               </div>
@@ -89,7 +94,7 @@ const GuestsInput: FC<GuestsInputProps> = ({
               )}
             </Popover.Button>
 
-           
+
             {/* {hasButtonSubmit && (
               <div className='pr-2 xl:pr-4'>
                 <ButtonSubmit href={buttonSubmitHref} />

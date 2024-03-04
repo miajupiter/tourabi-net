@@ -28,7 +28,7 @@ if (typeof window !== "undefined") {
 }
 
 const Header3: FC<Header3Props> = ({ className = "" }) => {
-  const {t}=useLanguage()
+  const { t } = useLanguage()
   const headerInnerRef = useRef<HTMLDivElement>(null)
 
   const [showHeroSearch, setShowHeroSearch] = useState<SearchFormFields | null>()
@@ -76,7 +76,7 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
 
   return (
     <>
-     
+
       <header ref={headerInnerRef} className={`sticky top-0 z-40 bg-white dark:bg-neutral-900 ${className}`}>
         <div className='flex h-8 bg-[#0090d7]'></div>
         <div
@@ -119,7 +119,7 @@ const Header3: FC<Header3Props> = ({ className = "" }) => {
                       <span className=''>{t('Support')}</span>
                     </Link>
                   </div>
-                  
+
                   <div className='text-4xl mx-3'>
                     <NotifyDropdown />
                   </div>

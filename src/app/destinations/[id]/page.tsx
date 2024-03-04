@@ -26,25 +26,9 @@ const PageDestination: FC<PageDestinationProps> = ({ params }: { params: { id: s
   const [pullData, setPullData] = useState(false)
   const [item, setItem] = useState<DestinationItemType>()
 
-  // const getItem = (id: string) => {
-  //   fetch(`${process.env.NEXT_PUBLIC_API_URI}/destinations/${id}`, {
-  //     method: 'GET', headers: { 'Content-Type': 'application/json', token }
-  //   })
-  //     .then(ret => ret.json())
-  //     .then(result => {
-  //       if (result.success) {
-  //         setItem(result.data)
-  //       } else {
-  //         alert(result.error)
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.log('getItem err:', err)
-  //     })
-  // }
   const getItem = async (id: string) => {
     try {
-      const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/destinations/${id}`, {
+      const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/haham/destinations/${id}`, {
         method: 'GET', headers: { 'Content-Type': 'application/json', token: token }
       })
       const result = await ret.json()

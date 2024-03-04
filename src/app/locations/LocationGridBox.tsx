@@ -24,39 +24,6 @@ const LocationGridBox: React.FC<LocationGridBoxProps> = ({
   const [list, setList] = useState([])
   const [pullData, setPullData] = useState(false)
 
-  // const getList = () => {
-  //   fetch(`${process.env.NEXT_PUBLIC_API_URI}/locations?pageSize=100`, {
-  //     method: 'GET', headers: { 'Content-Type': 'application/json', token }
-  //   })
-  //     .then(ret => ret.json())
-  //     .then(result => {
-  //       if (result.success) {
-  //         setList(result.data.docs)
-  //       } else {
-  //         alert(result.error)
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log('getList err', err)
-  //     })
-  // }
-  // const getList = async () => {
-
-  //   const ret = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/locations?pageSize=100`, {
-  //     method: 'GET', headers: { 'Content-Type': 'application/json', token }
-  //   })
-
-  //   if (ret.ok) {
-  //     const result = await ret.json()
-  //     if (result.success) {
-  //       setList(result.data.docs)
-  //     } else {
-  //       alert(result.error)
-  //     }
-  //   } else {
-  //     console.log('ret.statusText:', ret.statusText)
-  //   }
-  // }
 
   useEffect(() => {
     if (!pullData) {
